@@ -281,6 +281,8 @@ def fetch(ctx) -> SourceResult:
                        "caveat": "Parsed from the daily update notes on the page. A few notes give no date or "
                                  "repeat a day, so weekly figures may differ slightly from the official totals."})
     res.extras["daily"] = daily
+    res.extras["nations"] = nation_totals
+    res.extras["period"] = (p_start, p_end)
     res.notes.append("%d daily notes parsed since %s, adding up to %d new cases" % (
         len(daily), ctx.window_start.isoformat(), parsed_since_start))
     hl = {"id": "govuk-bt-total", "label": "Bluetongue cases (premises) confirmed in the UK this season",

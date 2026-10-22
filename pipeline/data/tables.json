@@ -1,0 +1,1289 @@
+{
+ "generated_at": "2026-10-22T22:59:37Z",
+ "window": {
+  "weeks": [
+   "2026-W32",
+   "2026-W33",
+   "2026-W34",
+   "2026-W35",
+   "2026-W36",
+   "2026-W37",
+   "2026-W38",
+   "2026-W39",
+   "2026-W40",
+   "2026-W41",
+   "2026-W42",
+   "2026-W43"
+  ],
+  "week_starts": [
+   "2026-08-03",
+   "2026-08-10",
+   "2026-08-17",
+   "2026-08-24",
+   "2026-08-31",
+   "2026-09-07",
+   "2026-09-14",
+   "2026-09-21",
+   "2026-09-28",
+   "2026-10-05",
+   "2026-10-12",
+   "2026-10-19"
+  ],
+  "end": "2026-10-22"
+ },
+ "by_category": {
+  "bird-flu": {
+   "label": "HPAI (bird flu)",
+   "rows": [
+    {
+     "iso3": "AUS",
+     "country": "Australia",
+     "wild": 326,
+     "domestic": 0,
+     "other": 0,
+     "mammals": 0,
+     "total": 326
+    },
+    {
+     "iso3": "USA",
+     "country": "United States",
+     "wild": 0,
+     "domestic": 29,
+     "other": 1,
+     "mammals": 12,
+     "total": 42
+    },
+    {
+     "iso3": "NOR",
+     "country": "Norway",
+     "wild": 23,
+     "domestic": 0,
+     "other": 0,
+     "mammals": 1,
+     "total": 24
+    },
+    {
+     "iso3": "CAN",
+     "country": "Canada",
+     "wild": 1,
+     "domestic": 15,
+     "other": 0,
+     "mammals": 0,
+     "total": 16
+    },
+    {
+     "iso3": "PER",
+     "country": "Peru",
+     "wild": 1,
+     "domestic": 13,
+     "other": 0,
+     "mammals": 0,
+     "total": 14
+    },
+    {
+     "iso3": "VNM",
+     "country": "Vietnam",
+     "wild": 0,
+     "domestic": 14,
+     "other": 0,
+     "mammals": 0,
+     "total": 14
+    },
+    {
+     "iso3": "GBR",
+     "country": "United Kingdom",
+     "wild": 5,
+     "domestic": 2,
+     "other": 4,
+     "mammals": 0,
+     "total": 11
+    },
+    {
+     "iso3": "ISL",
+     "country": "Iceland",
+     "wild": 10,
+     "domestic": 0,
+     "other": 0,
+     "mammals": 0,
+     "total": 10
+    },
+    {
+     "iso3": "DNK",
+     "country": "Denmark",
+     "wild": 6,
+     "domestic": 1,
+     "other": 2,
+     "mammals": 0,
+     "total": 9
+    },
+    {
+     "iso3": "NLD",
+     "country": "Netherlands",
+     "wild": 7,
+     "domestic": 0,
+     "other": 0,
+     "mammals": 0,
+     "total": 7
+    },
+    {
+     "iso3": "BGR",
+     "country": "Bulgaria",
+     "wild": 0,
+     "domestic": 5,
+     "other": 0,
+     "mammals": 0,
+     "total": 5
+    },
+    {
+     "iso3": "SWE",
+     "country": "Sweden",
+     "wild": 3,
+     "domestic": 1,
+     "other": 0,
+     "mammals": 1,
+     "total": 5
+    },
+    {
+     "iso3": "BEL",
+     "country": "Belgium",
+     "wild": 4,
+     "domestic": 0,
+     "other": 0,
+     "mammals": 0,
+     "total": 4
+    },
+    {
+     "iso3": "CHL",
+     "country": "Chile",
+     "wild": 0,
+     "domestic": 4,
+     "other": 0,
+     "mammals": 0,
+     "total": 4
+    },
+    {
+     "iso3": "LVA",
+     "country": "Latvia",
+     "wild": 4,
+     "domestic": 0,
+     "other": 0,
+     "mammals": 0,
+     "total": 4
+    },
+    {
+     "iso3": "CHN",
+     "country": "China",
+     "wild": 0,
+     "domestic": 0,
+     "other": 3,
+     "mammals": 0,
+     "total": 3
+    },
+    {
+     "iso3": "FRA",
+     "country": "France",
+     "wild": 0,
+     "domestic": 3,
+     "other": 0,
+     "mammals": 0,
+     "total": 3
+    },
+    {
+     "iso3": "TWN",
+     "country": "Taiwan",
+     "wild": 0,
+     "domestic": 3,
+     "other": 0,
+     "mammals": 0,
+     "total": 3
+    },
+    {
+     "iso3": "BRA",
+     "country": "Brazil",
+     "wild": 1,
+     "domestic": 1,
+     "other": 0,
+     "mammals": 0,
+     "total": 2
+    },
+    {
+     "iso3": "KHM",
+     "country": "Cambodia",
+     "wild": 0,
+     "domestic": 1,
+     "other": 1,
+     "mammals": 0,
+     "total": 2
+    },
+    {
+     "iso3": "DEU",
+     "country": "Germany",
+     "wild": 2,
+     "domestic": 0,
+     "other": 0,
+     "mammals": 0,
+     "total": 2
+    },
+    {
+     "iso3": "NZL",
+     "country": "New Zealand",
+     "wild": 2,
+     "domestic": 0,
+     "other": 0,
+     "mammals": 0,
+     "total": 2
+    },
+    {
+     "iso3": "PRI",
+     "country": "Puerto Rico",
+     "wild": 0,
+     "domestic": 2,
+     "other": 0,
+     "mammals": 0,
+     "total": 2
+    },
+    {
+     "iso3": "URY",
+     "country": "Uruguay",
+     "wild": 0,
+     "domestic": 2,
+     "other": 0,
+     "mammals": 0,
+     "total": 2
+    },
+    {
+     "iso3": "ALB",
+     "country": "Albania",
+     "wild": 0,
+     "domestic": 1,
+     "other": 0,
+     "mammals": 0,
+     "total": 1
+    },
+    {
+     "iso3": "ARG",
+     "country": "Argentina",
+     "wild": 0,
+     "domestic": 1,
+     "other": 0,
+     "mammals": 0,
+     "total": 1
+    },
+    {
+     "iso3": "BGD",
+     "country": "Bangladesh",
+     "wild": 0,
+     "domestic": 0,
+     "other": 1,
+     "mammals": 0,
+     "total": 1
+    },
+    {
+     "iso3": "CYP",
+     "country": "Cyprus",
+     "wild": 1,
+     "domestic": 0,
+     "other": 0,
+     "mammals": 0,
+     "total": 1
+    },
+    {
+     "iso3": "FIN",
+     "country": "Finland",
+     "wild": 0,
+     "domestic": 0,
+     "other": 0,
+     "mammals": 1,
+     "total": 1
+    },
+    {
+     "iso3": "IND",
+     "country": "India",
+     "wild": 0,
+     "domestic": 1,
+     "other": 0,
+     "mammals": 0,
+     "total": 1
+    },
+    {
+     "iso3": "IDN",
+     "country": "Indonesia",
+     "wild": 0,
+     "domestic": 1,
+     "other": 0,
+     "mammals": 0,
+     "total": 1
+    },
+    {
+     "iso3": "ITA",
+     "country": "Italy",
+     "wild": 1,
+     "domestic": 0,
+     "other": 0,
+     "mammals": 0,
+     "total": 1
+    },
+    {
+     "iso3": "PRT",
+     "country": "Portugal",
+     "wild": 1,
+     "domestic": 0,
+     "other": 0,
+     "mammals": 0,
+     "total": 1
+    },
+    {
+     "iso3": "SRB",
+     "country": "Serbia",
+     "wild": 1,
+     "domestic": 0,
+     "other": 0,
+     "mammals": 0,
+     "total": 1
+    },
+    {
+     "iso3": "KOR",
+     "country": "South Korea",
+     "wild": 1,
+     "domestic": 0,
+     "other": 0,
+     "mammals": 0,
+     "total": 1
+    },
+    {
+     "iso3": "SUR",
+     "country": "Suriname",
+     "wild": 0,
+     "domestic": 1,
+     "other": 0,
+     "mammals": 0,
+     "total": 1
+    }
+   ],
+   "sources": [
+    "EU ADIS",
+    "FAO EMPRES-i",
+    "GOV.UK",
+    "WOAH WAHIS"
+   ],
+   "other_total": 12,
+   "mammals_total": 15
+  },
+  "bluetongue": {
+   "label": "Bluetongue",
+   "rows": [
+    {
+     "iso3": "GBR",
+     "country": "United Kingdom",
+     "wild": 0,
+     "domestic": 3442,
+     "other": 0,
+     "mammals": 0,
+     "total": 3442
+    },
+    {
+     "iso3": "IRL",
+     "country": "Ireland",
+     "wild": 0,
+     "domestic": 48,
+     "other": 0,
+     "mammals": 0,
+     "total": 48
+    },
+    {
+     "iso3": "CYP",
+     "country": "Cyprus",
+     "wild": 0,
+     "domestic": 5,
+     "other": 0,
+     "mammals": 0,
+     "total": 5
+    },
+    {
+     "iso3": "LTU",
+     "country": "Lithuania",
+     "wild": 0,
+     "domestic": 4,
+     "other": 0,
+     "mammals": 0,
+     "total": 4
+    },
+    {
+     "iso3": "ITA",
+     "country": "Italy",
+     "wild": 0,
+     "domestic": 3,
+     "other": 0,
+     "mammals": 0,
+     "total": 3
+    },
+    {
+     "iso3": "GRC",
+     "country": "Greece",
+     "wild": 0,
+     "domestic": 2,
+     "other": 0,
+     "mammals": 0,
+     "total": 2
+    },
+    {
+     "iso3": "ESP",
+     "country": "Spain",
+     "wild": 0,
+     "domestic": 2,
+     "other": 0,
+     "mammals": 0,
+     "total": 2
+    },
+    {
+     "iso3": "SVK",
+     "country": "Slovakia",
+     "wild": 0,
+     "domestic": 1,
+     "other": 0,
+     "mammals": 0,
+     "total": 1
+    }
+   ],
+   "sources": [
+    "DAFM",
+    "EU ADIS",
+    "GOV.UK",
+    "WOAH WAHIS"
+   ],
+   "other_total": 0,
+   "mammals_total": 0
+  },
+  "asf": {
+   "label": "African swine fever",
+   "rows": [
+    {
+     "iso3": "POL",
+     "country": "Poland",
+     "wild": 198,
+     "domestic": 7,
+     "other": 0,
+     "mammals": 0,
+     "total": 205
+    },
+    {
+     "iso3": "LVA",
+     "country": "Latvia",
+     "wild": 152,
+     "domestic": 0,
+     "other": 0,
+     "mammals": 0,
+     "total": 152
+    },
+    {
+     "iso3": "SRB",
+     "country": "Serbia",
+     "wild": 0,
+     "domestic": 142,
+     "other": 0,
+     "mammals": 0,
+     "total": 142
+    },
+    {
+     "iso3": "ROU",
+     "country": "Romania",
+     "wild": 9,
+     "domestic": 119,
+     "other": 1,
+     "mammals": 0,
+     "total": 129
+    },
+    {
+     "iso3": "ITA",
+     "country": "Italy",
+     "wild": 97,
+     "domestic": 0,
+     "other": 0,
+     "mammals": 0,
+     "total": 97
+    },
+    {
+     "iso3": "BGR",
+     "country": "Bulgaria",
+     "wild": 79,
+     "domestic": 1,
+     "other": 0,
+     "mammals": 0,
+     "total": 80
+    },
+    {
+     "iso3": "HUN",
+     "country": "Hungary",
+     "wild": 67,
+     "domestic": 5,
+     "other": 0,
+     "mammals": 0,
+     "total": 72
+    },
+    {
+     "iso3": "FIN",
+     "country": "Finland",
+     "wild": 68,
+     "domestic": 0,
+     "other": 0,
+     "mammals": 0,
+     "total": 68
+    },
+    {
+     "iso3": "VNM",
+     "country": "Vietnam",
+     "wild": 0,
+     "domestic": 66,
+     "other": 0,
+     "mammals": 0,
+     "total": 66
+    },
+    {
+     "iso3": "DEU",
+     "country": "Germany",
+     "wild": 61,
+     "domestic": 0,
+     "other": 0,
+     "mammals": 0,
+     "total": 61
+    },
+    {
+     "iso3": "PHL",
+     "country": "Philippines",
+     "wild": 0,
+     "domestic": 48,
+     "other": 0,
+     "mammals": 0,
+     "total": 48
+    },
+    {
+     "iso3": "LAO",
+     "country": "Laos",
+     "wild": 1,
+     "domestic": 34,
+     "other": 0,
+     "mammals": 0,
+     "total": 35
+    },
+    {
+     "iso3": "MDA",
+     "country": "Moldova",
+     "wild": 0,
+     "domestic": 15,
+     "other": 0,
+     "mammals": 0,
+     "total": 15
+    },
+    {
+     "iso3": "EST",
+     "country": "Estonia",
+     "wild": 14,
+     "domestic": 0,
+     "other": 0,
+     "mammals": 0,
+     "total": 14
+    },
+    {
+     "iso3": "LTU",
+     "country": "Lithuania",
+     "wild": 14,
+     "domestic": 0,
+     "other": 0,
+     "mammals": 0,
+     "total": 14
+    },
+    {
+     "iso3": "HRV",
+     "country": "Croatia",
+     "wild": 11,
+     "domestic": 1,
+     "other": 0,
+     "mammals": 0,
+     "total": 12
+    },
+    {
+     "iso3": "ZAF",
+     "country": "South Africa",
+     "wild": 0,
+     "domestic": 8,
+     "other": 0,
+     "mammals": 0,
+     "total": 8
+    },
+    {
+     "iso3": "ESP",
+     "country": "Spain",
+     "wild": 8,
+     "domestic": 0,
+     "other": 0,
+     "mammals": 0,
+     "total": 8
+    },
+    {
+     "iso3": "BIH",
+     "country": "Bosnia and Herzegovina",
+     "wild": 2,
+     "domestic": 2,
+     "other": 0,
+     "mammals": 0,
+     "total": 4
+    },
+    {
+     "iso3": "UKR",
+     "country": "Ukraine",
+     "wild": 0,
+     "domestic": 2,
+     "other": 0,
+     "mammals": 0,
+     "total": 2
+    },
+    {
+     "iso3": "IND",
+     "country": "India",
+     "wild": 0,
+     "domestic": 1,
+     "other": 0,
+     "mammals": 0,
+     "total": 1
+    },
+    {
+     "iso3": "KOR",
+     "country": "South Korea",
+     "wild": 1,
+     "domestic": 0,
+     "other": 0,
+     "mammals": 0,
+     "total": 1
+    },
+    {
+     "iso3": "TWN",
+     "country": "Taiwan",
+     "wild": 0,
+     "domestic": 1,
+     "other": 0,
+     "mammals": 0,
+     "total": 1
+    },
+    {
+     "iso3": "THA",
+     "country": "Thailand",
+     "wild": 0,
+     "domestic": 1,
+     "other": 0,
+     "mammals": 0,
+     "total": 1
+    }
+   ],
+   "sources": [
+    "EU ADIS",
+    "FAO EMPRES-i",
+    "Ruokavirasto",
+    "WOAH WAHIS"
+   ],
+   "other_total": 1,
+   "mammals_total": 0
+  },
+  "fmd": {
+   "label": "Foot-and-mouth disease",
+   "rows": [
+    {
+     "iso3": "ZAF",
+     "country": "South Africa",
+     "wild": 2,
+     "domestic": 87,
+     "other": 0,
+     "mammals": 0,
+     "total": 89
+    },
+    {
+     "iso3": "GRC",
+     "country": "Greece",
+     "wild": 0,
+     "domestic": 40,
+     "other": 0,
+     "mammals": 0,
+     "total": 40
+    },
+    {
+     "iso3": "NAM",
+     "country": "Namibia",
+     "wild": 0,
+     "domestic": 18,
+     "other": 0,
+     "mammals": 0,
+     "total": 18
+    },
+    {
+     "iso3": "BWA",
+     "country": "Botswana",
+     "wild": 0,
+     "domestic": 16,
+     "other": 0,
+     "mammals": 0,
+     "total": 16
+    },
+    {
+     "iso3": "LSO",
+     "country": "Lesotho",
+     "wild": 0,
+     "domestic": 6,
+     "other": 0,
+     "mammals": 0,
+     "total": 6
+    },
+    {
+     "iso3": "MYS",
+     "country": "Malaysia",
+     "wild": 0,
+     "domestic": 4,
+     "other": 0,
+     "mammals": 0,
+     "total": 4
+    },
+    {
+     "iso3": "KOR",
+     "country": "South Korea",
+     "wild": 0,
+     "domestic": 4,
+     "other": 0,
+     "mammals": 0,
+     "total": 4
+    },
+    {
+     "iso3": "LBY",
+     "country": "Libya",
+     "wild": 0,
+     "domestic": 3,
+     "other": 0,
+     "mammals": 0,
+     "total": 3
+    },
+    {
+     "iso3": "CHN",
+     "country": "China",
+     "wild": 0,
+     "domestic": 2,
+     "other": 0,
+     "mammals": 0,
+     "total": 2
+    },
+    {
+     "iso3": "CYP",
+     "country": "Cyprus",
+     "wild": 0,
+     "domestic": 2,
+     "other": 0,
+     "mammals": 0,
+     "total": 2
+    },
+    {
+     "iso3": "MNG",
+     "country": "Mongolia",
+     "wild": 0,
+     "domestic": 2,
+     "other": 0,
+     "mammals": 0,
+     "total": 2
+    },
+    {
+     "iso3": "TUR",
+     "country": "Türkiye",
+     "wild": 0,
+     "domestic": 2,
+     "other": 0,
+     "mammals": 0,
+     "total": 2
+    }
+   ],
+   "sources": [
+    "FAO EMPRES-i",
+    "WOAH WAHIS"
+   ],
+   "other_total": 0,
+   "mammals_total": 0
+  },
+  "sheep-goat-pox": {
+   "label": "Sheep and goat pox",
+   "rows": [
+    {
+     "iso3": "GRC",
+     "country": "Greece",
+     "wild": 0,
+     "domestic": 53,
+     "other": 0,
+     "mammals": 0,
+     "total": 53
+    },
+    {
+     "iso3": "ROU",
+     "country": "Romania",
+     "wild": 0,
+     "domestic": 52,
+     "other": 0,
+     "mammals": 0,
+     "total": 52
+    },
+    {
+     "iso3": "BGR",
+     "country": "Bulgaria",
+     "wild": 0,
+     "domestic": 46,
+     "other": 0,
+     "mammals": 0,
+     "total": 46
+    },
+    {
+     "iso3": "MKD",
+     "country": "North Macedonia",
+     "wild": 0,
+     "domestic": 21,
+     "other": 0,
+     "mammals": 0,
+     "total": 21
+    },
+    {
+     "iso3": "ALB",
+     "country": "Albania",
+     "wild": 0,
+     "domestic": 3,
+     "other": 0,
+     "mammals": 0,
+     "total": 3
+    }
+   ],
+   "sources": [
+    "EU ADIS",
+    "WOAH WAHIS"
+   ],
+   "other_total": 0,
+   "mammals_total": 0
+  },
+  "lsd": {
+   "label": "Lumpy skin disease",
+   "rows": [
+    {
+     "iso3": "KOR",
+     "country": "South Korea",
+     "wild": 0,
+     "domestic": 79,
+     "other": 0,
+     "mammals": 0,
+     "total": 79
+    },
+    {
+     "iso3": "ISR",
+     "country": "Israel",
+     "wild": 0,
+     "domestic": 5,
+     "other": 0,
+     "mammals": 0,
+     "total": 5
+    },
+    {
+     "iso3": "RUS",
+     "country": "Russia",
+     "wild": 0,
+     "domestic": 3,
+     "other": 0,
+     "mammals": 0,
+     "total": 3
+    },
+    {
+     "iso3": "MYS",
+     "country": "Malaysia",
+     "wild": 0,
+     "domestic": 1,
+     "other": 0,
+     "mammals": 0,
+     "total": 1
+    }
+   ],
+   "sources": [
+    "WOAH WAHIS"
+   ],
+   "other_total": 0,
+   "mammals_total": 0
+  },
+  "newcastle-disease": {
+   "label": "Newcastle disease",
+   "rows": [
+    {
+     "iso3": "HUN",
+     "country": "Hungary",
+     "wild": 0,
+     "domestic": 9,
+     "other": 0,
+     "mammals": 0,
+     "total": 9
+    },
+    {
+     "iso3": "ESP",
+     "country": "Spain",
+     "wild": 0,
+     "domestic": 8,
+     "other": 0,
+     "mammals": 0,
+     "total": 8
+    },
+    {
+     "iso3": "POL",
+     "country": "Poland",
+     "wild": 0,
+     "domestic": 3,
+     "other": 0,
+     "mammals": 0,
+     "total": 3
+    },
+    {
+     "iso3": "BRA",
+     "country": "Brazil",
+     "wild": 0,
+     "domestic": 1,
+     "other": 0,
+     "mammals": 0,
+     "total": 1
+    },
+    {
+     "iso3": "MYS",
+     "country": "Malaysia",
+     "wild": 0,
+     "domestic": 1,
+     "other": 0,
+     "mammals": 0,
+     "total": 1
+    }
+   ],
+   "sources": [
+    "WOAH WAHIS"
+   ],
+   "other_total": 0,
+   "mammals_total": 0
+  },
+  "other": {
+   "label": "Other exotic diseases",
+   "rows": [
+    {
+     "iso3": "ROU",
+     "country": "Romania",
+     "wild": 5,
+     "domestic": 40,
+     "other": 1,
+     "mammals": 0,
+     "total": 46
+    },
+    {
+     "iso3": "TUR",
+     "country": "Türkiye",
+     "wild": 0,
+     "domestic": 35,
+     "other": 0,
+     "mammals": 0,
+     "total": 35
+    },
+    {
+     "iso3": "MDA",
+     "country": "Moldova",
+     "wild": 9,
+     "domestic": 19,
+     "other": 1,
+     "mammals": 0,
+     "total": 29
+    },
+    {
+     "iso3": "ARM",
+     "country": "Armenia",
+     "wild": 0,
+     "domestic": 6,
+     "other": 0,
+     "mammals": 0,
+     "total": 6
+    },
+    {
+     "iso3": "HUN",
+     "country": "Hungary",
+     "wild": 4,
+     "domestic": 0,
+     "other": 0,
+     "mammals": 0,
+     "total": 4
+    },
+    {
+     "iso3": "MYS",
+     "country": "Malaysia",
+     "wild": 0,
+     "domestic": 4,
+     "other": 0,
+     "mammals": 0,
+     "total": 4
+    },
+    {
+     "iso3": "JPN",
+     "country": "Japan",
+     "wild": 0,
+     "domestic": 3,
+     "other": 0,
+     "mammals": 0,
+     "total": 3
+    },
+    {
+     "iso3": "BGD",
+     "country": "Bangladesh",
+     "wild": 1,
+     "domestic": 0,
+     "other": 0,
+     "mammals": 0,
+     "total": 1
+    },
+    {
+     "iso3": "BTN",
+     "country": "Bhutan",
+     "wild": 0,
+     "domestic": 1,
+     "other": 0,
+     "mammals": 0,
+     "total": 1
+    },
+    {
+     "iso3": "PLW",
+     "country": "Palau",
+     "wild": 0,
+     "domestic": 1,
+     "other": 0,
+     "mammals": 0,
+     "total": 1
+    },
+    {
+     "iso3": "ESP",
+     "country": "Spain",
+     "wild": 0,
+     "domestic": 1,
+     "other": 0,
+     "mammals": 0,
+     "total": 1
+    }
+   ],
+   "sources": [
+    "EU ADIS",
+    "FAO EMPRES-i",
+    "WOAH WAHIS"
+   ],
+   "other_total": 2,
+   "mammals_total": 0
+  }
+ },
+ "note": "Counts are outbreaks or cases as each source counts them, after removing records already drawn from another source. 'other' holds records that cover both kept and wild animals or do not say. 'mammals' holds HPAI records in mammals only.",
+ "asf_adis_week": {
+  "period": [
+   "2026-10-15",
+   "2026-10-21"
+  ],
+  "source_updated": "2026-10-22",
+  "source_url": "https://webgate.ec.europa.eu/tracesnt/adis/public/notification/outbreaks-weekly-report",
+  "status": "live",
+  "rows": [
+   {
+    "iso3": "BGR",
+    "country": "Bulgaria",
+    "wild": 61,
+    "domestic": 0,
+    "total": 61
+   },
+   {
+    "iso3": "POL",
+    "country": "Poland",
+    "wild": 16,
+    "domestic": 0,
+    "total": 16
+   },
+   {
+    "iso3": "FIN",
+    "country": "Finland",
+    "wild": 15,
+    "domestic": 0,
+    "total": 15
+   },
+   {
+    "iso3": "DEU",
+    "country": "Germany",
+    "wild": 8,
+    "domestic": 0,
+    "total": 8
+   },
+   {
+    "iso3": "HUN",
+    "country": "Hungary",
+    "wild": 7,
+    "domestic": 0,
+    "total": 7
+   },
+   {
+    "iso3": "LVA",
+    "country": "Latvia",
+    "wild": 6,
+    "domestic": 0,
+    "total": 6
+   },
+   {
+    "iso3": "ITA",
+    "country": "Italy",
+    "wild": 3,
+    "domestic": 0,
+    "total": 3
+   },
+   {
+    "iso3": "ROU",
+    "country": "Romania",
+    "wild": 0,
+    "domestic": 3,
+    "total": 3
+   },
+   {
+    "iso3": "HRV",
+    "country": "Croatia",
+    "wild": 2,
+    "domestic": 0,
+    "total": 2
+   },
+   {
+    "iso3": "EST",
+    "country": "Estonia",
+    "wild": 2,
+    "domestic": 0,
+    "total": 2
+   },
+   {
+    "iso3": "MDA",
+    "country": "Moldova",
+    "wild": 0,
+    "domestic": 2,
+    "total": 2
+   },
+   {
+    "iso3": "ESP",
+    "country": "Spain",
+    "wild": 1,
+    "domestic": 0,
+    "total": 1
+   }
+  ]
+ },
+ "bluetongue_gb": {
+  "period": [
+   "2026-07-10",
+   "2026-10-21"
+  ],
+  "source_updated": "2026-10-22T17:44:50+01:00",
+  "source_url": "https://www.gov.uk/guidance/bluetongue-latest-situation",
+  "status": "live",
+  "rows": [
+   {
+    "nation": "England",
+    "cases": 2895
+   },
+   {
+    "nation": "Wales",
+    "cases": 492
+   },
+   {
+    "nation": "Scotland",
+    "cases": 54
+   },
+   {
+    "nation": "Northern Ireland",
+    "cases": 0
+   }
+  ]
+ },
+ "bluetongue_ie": {
+  "as_at": "2026-10-21",
+  "source_updated": "2026-10-21",
+  "source_url": "https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/publications/bluetongue-virus/",
+  "status": "fallback",
+  "rows": [
+   {
+    "county": "Wexford",
+    "cattle": 16,
+    "sheep": 1,
+    "total": 17
+   },
+   {
+    "county": "Waterford",
+    "cattle": 7,
+    "sheep": 0,
+    "total": 7
+   },
+   {
+    "county": "Kildare",
+    "cattle": 5,
+    "sheep": 1,
+    "total": 6
+   },
+   {
+    "county": "Wicklow",
+    "cattle": 4,
+    "sheep": 1,
+    "total": 5
+   },
+   {
+    "county": "Cork",
+    "cattle": 4,
+    "sheep": 0,
+    "total": 4
+   },
+   {
+    "county": "Dublin",
+    "cattle": 1,
+    "sheep": 0,
+    "total": 1
+   },
+   {
+    "county": "Kilkenny",
+    "cattle": 1,
+    "sheep": 0,
+    "total": 1
+   },
+   {
+    "county": "Longford",
+    "cattle": 1,
+    "sheep": 0,
+    "total": 1
+   },
+   {
+    "county": "Louth",
+    "cattle": 1,
+    "sheep": 0,
+    "total": 1
+   },
+   {
+    "county": "Meath",
+    "cattle": 1,
+    "sheep": 0,
+    "total": 1
+   },
+   {
+    "county": "Monaghan",
+    "cattle": 1,
+    "sheep": 0,
+    "total": 1
+   },
+   {
+    "county": "Roscommon",
+    "cattle": 1,
+    "sheep": 0,
+    "total": 1
+   },
+   {
+    "county": "Tipperary",
+    "cattle": 1,
+    "sheep": 0,
+    "total": 1
+   },
+   {
+    "county": "Westmeath",
+    "cattle": 1,
+    "sheep": 0,
+    "total": 1
+   }
+  ]
+ }
+}

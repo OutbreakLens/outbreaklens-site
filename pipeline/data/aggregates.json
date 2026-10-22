@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-22T20:30:18Z",
+ "generated_at": "2026-10-22T22:59:37Z",
  "window": {
   "start": "2026-08-03",
   "end": "2026-10-22",
@@ -36,7 +36,7 @@
  },
  "categories": {
   "bird-flu": {
-   "label": "Bird flu",
+   "label": "HPAI (bird flu)",
    "scope": "Avian influenza in poultry, captive birds, wild birds and mammals",
    "series_id": "wahis-outbreaks",
    "source": "WOAH WAHIS",
@@ -46,7 +46,7 @@
    "geography": "world",
    "date_basis": "outbreak start date",
    "source_updated": "2026-10-22T14:38:15.933+00:00",
-   "fetched_at": "2026-10-22T20:30:18Z",
+   "fetched_at": "2026-10-22T22:59:37Z",
    "caveat": "Recent weeks fill in as countries report. An event's outbreaks are counted once, from its latest report.",
    "total": [
     9,
@@ -102,7 +102,7 @@
    "geography": "Great Britain",
    "date_basis": "date of confirmation given in the GOV.UK update note",
    "source_updated": "2026-10-22T17:44:50+01:00",
-   "fetched_at": "2026-10-22T20:30:39Z",
+   "fetched_at": "2026-10-22T22:59:57Z",
    "caveat": "Parsed from the daily update notes on the page. A few notes give no date or repeat a day, so weekly figures may differ slightly from the official totals.",
    "total": [
     181,
@@ -181,7 +181,7 @@
    "geography": "world",
    "date_basis": "outbreak start date",
    "source_updated": "2026-10-22T14:38:15.933+00:00",
-   "fetched_at": "2026-10-22T20:30:18Z",
+   "fetched_at": "2026-10-22T22:59:37Z",
    "caveat": "Recent weeks fill in as countries report. An event's outbreaks are counted once, from its latest report.",
    "total": [
     216,
@@ -237,7 +237,7 @@
    "geography": "world",
    "date_basis": "outbreak start date",
    "source_updated": "2026-10-22T14:38:15.933+00:00",
-   "fetched_at": "2026-10-22T20:30:18Z",
+   "fetched_at": "2026-10-22T22:59:37Z",
    "caveat": "Recent weeks fill in as countries report. An event's outbreaks are counted once, from its latest report.",
    "total": [
     29,
@@ -293,7 +293,7 @@
    "geography": "world",
    "date_basis": "outbreak start date",
    "source_updated": "2026-10-22T14:38:15.933+00:00",
-   "fetched_at": "2026-10-22T20:30:18Z",
+   "fetched_at": "2026-10-22T22:59:37Z",
    "caveat": "Recent weeks fill in as countries report. An event's outbreaks are counted once, from its latest report.",
    "total": [
     21,
@@ -349,7 +349,7 @@
    "geography": "world",
    "date_basis": "outbreak start date",
    "source_updated": "2026-10-22T14:38:15.933+00:00",
-   "fetched_at": "2026-10-22T20:30:18Z",
+   "fetched_at": "2026-10-22T22:59:37Z",
    "caveat": "Recent weeks fill in as countries report. An event's outbreaks are counted once, from its latest report.",
    "total": [
     2,
@@ -400,7 +400,7 @@
    "geography": "world",
    "date_basis": "outbreak start date",
    "source_updated": "2026-10-22T14:38:15.933+00:00",
-   "fetched_at": "2026-10-22T20:30:18Z",
+   "fetched_at": "2026-10-22T22:59:37Z",
    "caveat": "Recent weeks fill in as countries report. An event's outbreaks are counted once, from its latest report.",
    "total": [
     1,
@@ -456,7 +456,7 @@
    "geography": "world",
    "date_basis": "outbreak start date",
    "source_updated": "2026-10-22T14:38:15.933+00:00",
-   "fetched_at": "2026-10-22T20:30:18Z",
+   "fetched_at": "2026-10-22T22:59:37Z",
    "caveat": "Recent weeks fill in as countries report. An event's outbreaks are counted once, from its latest report.",
    "total": [
     12,
@@ -511,7 +511,7 @@
    "unit": "outbreaks",
    "date_basis": "outbreak start date",
    "geography": "world",
-   "fetched_at": "2026-10-22T20:30:18Z",
+   "fetched_at": "2026-10-22T22:59:37Z",
    "source_updated": "2026-10-22T14:38:15.933+00:00",
    "weeks": [
     "2026-W32",
@@ -1929,7 +1929,7 @@
    "metric": "New bluetongue cases (premises) confirmed each week in Great Britain",
    "date_basis": "date of confirmation given in the GOV.UK update note",
    "geography": "Great Britain",
-   "fetched_at": "2026-10-22T20:30:39Z",
+   "fetched_at": "2026-10-22T22:59:57Z",
    "source_updated": "2026-10-22T17:44:50+01:00",
    "weeks": [
     "2026-W32",
@@ -2030,10 +2030,10 @@
    "source": "GOV.UK (Defra and APHA)",
    "source_url": "https://www.gov.uk/guidance/bird-flu-avian-influenza-latest-situation-in-england",
    "unit": "cases",
-   "metric": "Bird flu cases confirmed in the UK each week (listed on the GOV.UK page)",
+   "metric": "HPAI (bird flu) cases confirmed in the UK each week (listed on the GOV.UK page)",
    "date_basis": "date of confirmation",
    "geography": "United Kingdom",
-   "fetched_at": "2026-10-22T20:30:39Z",
+   "fetched_at": "2026-10-22T22:59:58Z",
    "source_updated": "2026-10-21T12:04:01+01:00",
    "weeks": [
     "2026-W32",
@@ -2093,7 +2093,7 @@
    "metric": "Outbreaks in the ADIS weekly report, by reporting week (Thursday to Wednesday)",
    "date_basis": "ADIS reporting week",
    "geography": "ADIS reporting countries",
-   "fetched_at": "2026-10-22T20:30:39Z",
+   "fetched_at": "2026-10-22T22:59:59Z",
    "source_updated": "2026-10-22",
    "periods": [
     {
@@ -2176,7 +2176,7 @@
    "unit": "events",
    "date_basis": "observation date",
    "geography": "world",
-   "fetched_at": "2026-10-22T20:30:42Z",
+   "fetched_at": "2026-10-22T23:00:01Z",
    "source_updated": "2026-10-22",
    "weeks": [
     "2026-W32",
@@ -3720,7 +3720,7 @@
    "metric": "Wild boar confirmed with ASF in Finland each week",
    "date_basis": "date of confirmation",
    "geography": "Finland",
-   "fetched_at": "2026-10-22T20:30:46Z",
+   "fetched_at": "2026-10-22T23:00:08Z",
    "source_updated": "2026-10-22",
    "weeks": [
     "2026-W32",

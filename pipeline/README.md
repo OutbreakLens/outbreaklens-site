@@ -50,7 +50,8 @@ series and headline figures the source publishes. One failing source never stops
 | `dictionary.csv` | what each column means |
 | `aggregates.json` | weekly counts by category and country for the last 12 weeks, kept separate for each source |
 | `latest.json` | headline numbers, each with source, date and link, plus each source's status |
-| `map.geojson` | map points at country, region or county centres, with counts by ISO week |
+| `map.geojson` | map points at country, region or county centres, with counts by ISO week and the population type (domestic, wild, mixed or blank) |
+| `tables.json` | country tables for the Numbers page (wild and domestic counts over the 12 weeks, the latest ADIS week for ASF, national bluetongue tables), built from the same de-duplicated records as the map |
 | `run_status.json` | what each source returned, links added, validation issues |
 
 ## Rules built in

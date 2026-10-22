@@ -84,6 +84,12 @@ def _place(iso3, outbreak):
     return p or geo.country_level(iso3)
 
 
+# Outbreak unit types that say whether kept or wild animals were affected. Used only for events whose
+# species include both; "Village", "Other" and "Not applicable" stay unattributed.
+UNIT_POP = {"farm": "domestic", "backyard": "domestic", "slaughterhouse": "domestic", "livestock market": "domestic",
+            "zoo": "domestic", "apiary": "domestic", "village": "domestic", "forest": "wild", "natural park": "wild", "body of water": "wild"}
+
+
 def _pop(quant, disease):
     flags = {q.get("isWild") for q in quant if q.get("isWild") is not None}
     if flags == {True}:
@@ -157,10 +163,15 @@ def fetch(ctx) -> "SourceResult":
         outbreaks = (rep or {}).get("outbreaks") or []
         quant = ((rep or {}).get("quantitativeData") or {}).get("totals") or []
         places = []
+        event_pop = _pop(quant, disease_full)
         for ob in outbreaks:
             pl = _place(iso3, ob)
             d = iso_date(ob.get("startDate")) or iso_date(reported)
-            places.append((pl, d))
+            if event_pop in ("wild", "domestic"):
+                opop = event_pop
+            else:   # both kinds in the event: use the outbreak's unit type where it says
+                opop = UNIT_POP.get((ob.get("epiUnitType") or "").strip().lower(), "mixed" if event_pop == "mixed" else "")
+            places.append((pl, d, opop))
             if d >= start:
                 weekly[(cat, iso3)][iso_week(d)] += 1
             if ob.get("latitude") is not None and ob.get("longitude") is not None:
@@ -170,22 +181,22 @@ def fetch(ctx) -> "SourceResult":
                                "ref": (ob.get("nationalReference") or "").strip()})
         # one map unit per region and week, counting outbreaks that started in the window
         units = collections.defaultdict(lambda: {"count": 0, "date": ""})
-        for pl, d in places:
+        for pl, d, opop in places:
             if d and d >= start:
-                k = (pl["admin1"], pl["admin2"], pl["level"], pl["lat"], pl["lon"], iso_week(d))
+                k = (pl["admin1"], pl["admin2"], pl["level"], pl["lat"], pl["lon"], iso_week(d), opop)
                 units[k]["count"] += 1
                 units[k]["date"] = max(units[k]["date"], d)
-        for (a1, a2, lvl, la, lo, wk), u in units.items():
+        for (a1, a2, lvl, la, lo, wk, opop), u in units.items():
             map_units.append({"event_id": "wahis-%s" % eid, "category": cat, "country_iso3": iso3, "admin1": a1,
                               "admin2": a2, "place_level": lvl, "lat": la, "lon": lo, "week": wk, "date": u["date"],
-                              "count": u["count"], "unit": "outbreak"})
+                              "count": u["count"], "unit": "outbreak", "pop": opop})
         # the event row: one place if every outbreak is in the same region, otherwise the country
-        distinct = {(p["admin1"], p["admin2"], p["level"]) for p, _ in places}
+        distinct = {(p["admin1"], p["admin2"], p["level"]) for p, _, _ in places}
         if len(distinct) == 1:
             pl = places[0][0]
         else:
             pl = geo.country_level(iso3)
-        by_region = collections.Counter(p["admin2"] or p["admin1"] or "unplaced" for p, _ in places)
+        by_region = collections.Counter(p["admin2"] or p["admin1"] or "unplaced" for p, _, _ in places)
         published = sorted({(ob.get("adminDivision") or "").strip() for ob in outbreaks} - {""})
         pub = "; ".join(published[:12]) + ("; and %d more" % (len(published) - 12) if len(published) > 12 else "")
         cases = [q.get("cases") for q in quant if q.get("cases") is not None]
@@ -211,7 +222,7 @@ def fetch(ctx) -> "SourceResult":
             disease=categories.short_disease(disease_full), serotype_or_strain=sub,
             country_iso3=iso3, country_name=geo.country_name(iso3) if iso3 else (lr.get("country") or ""),
             admin1=pl["admin1"], admin2=pl["admin2"], place_as_published=pub, place_level=pl["level"],
-            lat=pl["lat"], lon=pl["lon"], species="; ".join(species), population_type=_pop(quant, disease_full),
+            lat=pl["lat"], lon=pl["lon"], species="; ".join(species), population_type=event_pop,
             date_start=iso_date(ev.get("startedOn") or lr.get("eventStartDate")), date_confirmed=iso_date(ev.get("confirmOn")),
             date_reported=iso_date(reported), outbreaks=len(outbreaks) if rep else "",
             cases=sum(cases) if cases else "", deaths=sum(deaths) if deaths else "",

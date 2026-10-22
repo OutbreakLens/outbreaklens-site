@@ -47,9 +47,10 @@ ASSETS = os.path.join(SITE, "assets")
 PIPE = os.path.join(ROOT, "pipeline", "outputs")
 BRAND_DIR = os.path.join(ROOT, "brand", "final")   # optional: final favicons and share image
 SHORTS_DIR = os.path.join(ROOT, "content", "shorts")   # cover.png for each short, in a folder named by its slug
-NAV = [("index.html","Home"),("weekly.html","Weekly"),("watch.html","Watch"),("map.html","Map"),
-       ("analytics.html","Numbers"),("data.html","Data"),("sources.html","Sources"),("about.html","About"),
-       ("subscribe.html","Subscribe")]
+NAV = [("index.html","Home"),("weekly.html","Weekly"),("watch.html","Watch"),("data.html","Data"),
+       ("sources.html","Sources"),("about.html","About"),("subscribe.html","Subscribe")]
+# Map, Numbers and Downloads sit under Data. Those three pages share this sub-navigation at the top.
+DATA_NAV = [("map.html", "Map"), ("analytics.html", "Numbers"), ("data.html", "Downloads")]
 TODAY = dt.date.today()
 YEAR = TODAY.year
 YOUTUBE = SOCIAL[0][1]
@@ -457,7 +458,15 @@ font-weight:600;border-left:4px solid transparent}
 .nav-mobile nav a:hover{background:rgba(250,247,241,.06)}
 .nav-mobile nav a[aria-current="page"]{border-left-color:var(--accent);background:rgba(250,247,241,.05)}
 @media(min-width:768px){.bar{min-height:68px}}
-@media(min-width:1024px){.nav-desktop{display:flex;align-items:center;gap:2px}.nav-mobile{display:none}}
+@media(min-width:768px){.nav-desktop{display:flex;align-items:center;gap:2px}.nav-mobile{display:none}}
+@media(min-width:768px) and (max-width:899px){.nav-desktop a{padding:10px 9px}.nav-desktop a.nav-cta{margin-left:6px;padding:10px 14px}}
+/* sub-navigation for the data pages */
+.subnav{background:var(--navy-deep);border-bottom:1px solid rgba(250,247,241,.08)}
+.subnav ul{display:flex;gap:0 26px;list-style:none;margin:0;padding:0}
+.subnav a{display:inline-flex;align-items:center;min-height:46px;padding-top:3px;border-bottom:3px solid transparent;
+color:var(--on-dark2);text-decoration:none;font-size:.9375rem;font-weight:600}
+.subnav a:hover{color:#fff}
+.subnav a[aria-current="page"]{color:#fff;border-bottom-color:var(--accent)}
 
 /* buttons */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 22px;
@@ -750,41 +759,66 @@ border-radius:999px;background:var(--card);font-size:.875rem;font-weight:600;col
 .time-row .slider{grid-column:1/-1}
 @media(min-width:900px){.time-row{grid-template-columns:11rem 11rem minmax(0,1fr);align-items:start;gap:20px}.time-row .slider{grid-column:auto}}
 .field{display:grid;gap:6px;min-width:0}
-.field select{font:inherit;font-size:.9375rem;font-weight:400;color:var(--ink);width:100%;min-height:44px;padding:8px 12px;
-border:1px solid #cfc8bb;border-radius:6px;background:#fff}
-.slider input[type=range]{width:100%;min-height:36px;margin:0;accent-color:var(--navy)}
+.field select{font:inherit;font-size:.9375rem;font-weight:400;color:var(--ink);width:100%;min-height:44px;padding:8px 36px 8px 12px;
+border:1px solid #cfc8bb;border-radius:6px;cursor:pointer;-webkit-appearance:none;-moz-appearance:none;appearance:none;
+background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%231F3864' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 13px center/12px 8px}
+.field select:hover{border-color:var(--navy2)}
+.field select::-ms-expand{display:none}
+.slider input[type=range]{-webkit-appearance:none;-moz-appearance:none;appearance:none;display:block;width:100%;height:36px;margin:0;
+padding:0;background:transparent;cursor:pointer}
+.slider input[type=range]:focus{outline:none}
+.slider input[type=range]::-webkit-slider-runnable-track{height:3px;border:0;border-radius:2px;background:var(--navy)}
+.slider input[type=range]::-moz-range-track{height:3px;border:0;border-radius:2px;background:var(--navy)}
+.slider input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;box-sizing:border-box;width:14px;height:22px;
+margin-top:-9.5px;border:1px solid var(--navy);border-radius:2px;background:linear-gradient(#eef0f2,#c3c8ce);
+box-shadow:0 1px 2px rgba(21,36,63,.28)}
+.slider input[type=range]::-moz-range-thumb{box-sizing:border-box;width:14px;height:22px;border:1px solid var(--navy);border-radius:2px;
+background:linear-gradient(#eef0f2,#c3c8ce);box-shadow:0 1px 2px rgba(21,36,63,.28)}
+.slider input[type=range]:hover::-webkit-slider-thumb{background:linear-gradient(#e4e7ea,#b1b7bf)}
+.slider input[type=range]:hover::-moz-range-thumb{background:linear-gradient(#e4e7ea,#b1b7bf)}
+.slider input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 2px #fff,0 0 0 5px var(--accent)}
+.slider input[type=range]:focus-visible::-moz-range-thumb{box-shadow:0 0 0 2px #fff,0 0 0 5px var(--accent)}
 .slider output{display:block;font-size:.875rem;font-weight:400;color:var(--ink2)}
 .map-summary{margin:0 0 10px;font-size:.9375rem;font-weight:400;color:var(--ink2)}
-.map-shell{position:relative;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#e3e9ec}
-.map-shell .leaflet-container{background:#e3e9ec}
+.map-shell{position:relative;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#f2f3f0}
 #map{height:64vh;min-height:360px;max-height:620px}
 @media(min-width:768px){#map{height:580px}}
-.map-shell noscript p{padding:24px}
-.map-shell .leaflet-container{font-family:var(--font);font-weight:400;font-size:.8125rem}
-.map-shell .leaflet-container a{color:var(--navy)}
-.map-shell .leaflet-control-attribution{font-size:11px}
-.pin-wrap{width:0!important;height:0!important;background:none;border:0}
-.pin{position:absolute;left:0;top:0;transform:translate(-50%,-50%);display:inline-flex;align-items:center;gap:4px;height:20px;
-padding:0 7px 0 5px;border-radius:999px;background:#fff;box-shadow:0 0 0 1px rgba(28,27,25,.16),0 1px 3px rgba(28,27,25,.28);
-font:600 11px/1 var(--font);letter-spacing:.02em;color:var(--ink);white-space:nowrap}
-.pin i,.key i{width:10px;height:10px;border-radius:50%;background:var(--c);flex:none}
-.cluster-wrap{background:none;border:0}
-.cluster{display:flex;align-items:center;justify-content:center;width:100%;height:100%;border-radius:50%;background:var(--navy);
-color:#fff;font:600 12px/1 var(--font);box-shadow:0 0 0 3px rgba(250,247,241,.92),0 1px 4px rgba(0,0,0,.3)}
-.map-shell .leaflet-popup-content{margin:14px 16px;font-size:.875rem;line-height:1.5;color:var(--ink)}
-.map-shell .leaflet-popup-content p{margin:0}
-.map-shell .leaflet-popup-content .pop-title{font-size:1rem;font-weight:600;color:var(--navy);margin:0 0 2px;line-height:1.3}
-.map-shell .leaflet-popup-content .pop-place{margin:0 0 10px;color:var(--ink2)}
-.map-shell .pop-n{display:block;font-size:1.5rem;font-weight:300;color:var(--navy);line-height:1.1;margin:0 0 2px}
-.map-shell .leaflet-popup-content .pop-meta{margin:8px 0 0;color:var(--muted);font-size:.8125rem;line-height:1.45}
-.map-shell .leaflet-popup-content .pop-links{margin:10px 0 0;padding:8px 0 0;border-top:1px solid var(--line);font-size:.8125rem}
-.key-list{display:flex;flex-wrap:wrap;gap:8px 16px;list-style:none;margin:14px 0 0;padding:0;font-size:.875rem;font-weight:400;color:var(--ink2)}
-.key-list li{display:inline-flex;align-items:center;gap:8px}
-.key{display:inline-flex;align-items:center;gap:4px;height:20px;padding:0 7px 0 5px;border-radius:999px;background:#fff;
-box-shadow:0 0 0 1px rgba(28,27,25,.16);font:600 11px/1 var(--font);letter-spacing:.02em;color:var(--ink)}
+.map-shell noscript p,.map-shell .map-off{margin:0;padding:24px}
+.map-shell .maplibregl-map{font-family:var(--font)}
+.map-shell .maplibregl-ctrl-attrib{font-size:11px;font-weight:400}
+.map-shell .maplibregl-ctrl-attrib a{color:var(--ink2)}
+.map-shell .maplibregl-popup-content{padding:14px 16px 12px;border-radius:8px;box-shadow:0 4px 18px rgba(21,36,63,.22);
+font-size:.875rem;line-height:1.5;font-weight:400;color:var(--ink)}
+.map-shell .maplibregl-popup-close-button{width:32px;height:32px;font-size:20px;line-height:1;color:var(--ink2);border-radius:0 8px 0 6px}
+.map-shell .maplibregl-popup-close-button:hover{background:#f1efe9}
+.map-shell .maplibregl-popup-close-button:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
+.pop .pop-title{display:flex;align-items:center;gap:8px;margin:0 26px 2px 0;font-size:1rem;font-weight:600;line-height:1.3;color:var(--navy)}
+.pop .pop-title svg{flex:none;width:18px;height:18px}
+.pop .pop-place{margin:0;color:var(--ink2)}
+.pop .pop-pop{margin:0 0 8px;color:var(--ink2)}
+.pop .pop-num{margin:0}
+.pop .pop-n{display:block;font-size:1.5rem;font-weight:300;line-height:1.1;color:var(--navy);margin:0 0 2px}
+.pop .pop-meta{margin:8px 0 0;font-size:.8125rem;line-height:1.45;color:var(--muted)}
+.pop .pop-links{margin:10px 0 0;padding:8px 0 0;border-top:1px solid var(--line);font-size:.8125rem}
+.pop a{color:var(--navy)}
+.pop-count{margin:0 26px 10px 0;font-size:.8125rem;font-weight:600;color:var(--muted)}
+.pop-list{max-height:min(320px,46vh);overflow:auto;margin:0 -16px;padding:0 16px}
+.pop-list .pop + .pop{margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.pop-list .pop .pop-title{margin-right:0}
+.legend{display:grid;gap:12px 20px;margin:16px 0 0;font-size:.875rem;font-weight:400;color:var(--ink2)}
+.legend-title{margin:0 0 6px;font-size:.8125rem;font-weight:600;color:var(--muted)}
+@media(min-width:768px){.legend{grid-template-columns:max-content minmax(0,1fr);gap:8px 24px;align-items:baseline}
+.legend > div{display:contents}.legend-title{margin:0}}
+.legend ul{display:flex;flex-wrap:wrap;gap:6px 18px;list-style:none;margin:0;padding:0}
+.legend li{display:inline-flex;align-items:center;gap:7px}
+.legend svg{width:18px;height:18px;flex:none}
+.sw{width:18px;height:8px;border-radius:4px;background:var(--c);flex:none}
 .key-cluster{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--navy);
-color:#fff;font:600 10px/1 var(--font)}
+color:#fff;font:600 10px/1 var(--font);box-shadow:0 0 0 2px #fff}
 .below-map{display:grid;gap:4px;margin:18px 0 0;max-width:52rem}
+.map-after .tbl-block{margin-top:18px}
+@media(min-width:1100px){.map-after{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px;align-items:start}
+.map-after .below-map{margin-top:28px}.map-after .tbl-block{margin-top:28px}}
 .below-map p{margin:0 0 6px}
 .updated{font-size:.875rem;font-weight:400;color:var(--ink2)}
 .src-block{max-width:52rem;margin:40px 0 0;padding-top:24px;border-top:1px solid var(--line)}
@@ -807,9 +841,6 @@ color:#fff;font:600 10px/1 var(--font)}
 @media(min-width:768px){.facts div{grid-template-columns:15rem minmax(0,1fr)}}
 .facts dt{font-weight:600;color:var(--navy);font-size:.9375rem}
 .facts dd{margin:0;color:var(--ink2);font-weight:400;font-size:.9375rem}
-.charts{display:grid;gap:16px;margin:18px 0 20px}
-@media(min-width:700px){.charts{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(min-width:1100px){.charts{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}}
 .chart-card{position:relative;display:flex;flex-direction:column;min-width:0;background:var(--card);border:1px solid var(--line);
 border-radius:var(--radius);padding:20px 18px 16px}
 .chart-card[hidden]{display:none}
@@ -822,9 +853,9 @@ border-radius:var(--radius);padding:20px 18px 16px}
 .chart text{font-family:var(--font)}
 .chart .tick,.chart .xl{font-size:11px;font-weight:400;fill:#6b7280;font-variant-numeric:tabular-nums}
 .chart .bar{fill:#6b7280}
-.chart .bar.now{fill:var(--accent)}
+.chart .bar.now{fill:var(--c,var(--accent))}
 .chart .bar.on{fill:#454c58}
-.chart .bar.now.on{fill:var(--accent-dark)}
+.chart .bar.now.on{fill:var(--c,var(--accent));stroke:var(--ink);stroke-width:1.2}
 .chart .val{font-size:12px;font-weight:600;fill:var(--ink)}
 .chart .hit{fill:transparent}
 .chart-top,.chart-src{margin:8px 0 0;font-size:.8125rem;line-height:1.45;font-weight:400;color:var(--ink2)}
@@ -845,6 +876,47 @@ padding:6px 10px;border-radius:6px;white-space:nowrap;transform:translate(-50%,c
 .chart-tip.show{opacity:1}
 .chart-tip strong{display:block;font-size:1rem;font-weight:600}
 .dl-cats{display:flex;flex-wrap:wrap;gap:4px 14px}
+.tbl-block{margin:28px 0 0;min-width:0;max-width:60rem}
+#tbl-csv-block{margin:44px 0 48px}
+.tbl-title{margin:0 0 10px;font-size:1.0625rem;font-weight:600;line-height:1.35;letter-spacing:0;color:var(--navy)}
+.tbl-wrap{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tbl-wrap:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.tbl{width:100%;border-collapse:collapse;border-spacing:0;font-size:.875rem;font-weight:400;line-height:1.4;color:var(--ink);
+font-variant-numeric:tabular-nums}
+.tbl th,.tbl td{padding:11px 16px;border:0;border-bottom:1px solid var(--line);text-align:left;vertical-align:baseline;white-space:nowrap}
+.tbl thead th{background:#eeebe4;border-bottom:0;color:var(--ink2);font-size:.8125rem;font-weight:600;vertical-align:bottom}
+.tbl.wrap-head thead th,.tbl thead .grp-row th{white-space:normal}
+.tbl thead .grp-row th{background:transparent;padding:0 16px 6px;color:var(--muted);font-size:.75rem}
+.tbl thead .grp-row th[colspan]{border-bottom:1px solid #d9d3c7}
+.tbl tbody th{font-weight:400}
+.tbl tbody tr:nth-child(even) > *{background:rgba(31,56,100,.035)}
+.tbl .num{text-align:right}
+.tbl .grp{padding-left:30px}
+.tbl tfoot th,.tbl tfoot td{border-bottom:0;border-top:1px solid #cfc8bb;font-weight:600}
+.tbl .dash{color:var(--muted)}
+.tbl td.wrap{white-space:normal;min-width:13rem}
+.tbl th button{display:inline-flex;align-items:center;gap:6px;margin:0;padding:0;border:0;background:none;font:inherit;color:inherit;
+line-height:inherit;text-align:inherit;cursor:pointer}
+.tbl th.num button{flex-direction:row-reverse}
+.tbl th button::after{content:"";flex:none;width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;
+border-top:5px solid currentColor;opacity:0}
+.tbl th button:hover::after{opacity:.35}
+.tbl th[aria-sort="descending"] button::after{opacity:.85}
+.tbl th[aria-sort="ascending"] button::after{opacity:.85;border-top:0;border-bottom:5px solid currentColor}
+.tbl th button:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:2px}
+.cat-block .tbl th,.cat-block .tbl td{padding:10px 12px}
+.cat-block .tbl .grp{padding-left:22px}
+@media(max-width:639px){.tbl th,.tbl td{padding:10px 12px}.tbl .grp{padding-left:20px}}
+.tbl-more{display:inline-flex;align-items:center;min-height:40px;margin:6px 0 0;padding:0;border:0;background:none;cursor:pointer;
+font:inherit;font-size:.875rem;font-weight:600;color:var(--navy);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.2em}
+.tbl-more:hover{color:var(--accent-dark)}
+.tbl-more[hidden]{display:none}
+.tbl-cap{max-width:46rem;margin:8px 0 0;font-size:.8125rem;line-height:1.55;font-weight:400;color:var(--muted)}
+.tbl-links{margin:8px 0 0;font-size:.875rem;font-weight:400}
+.cat-blocks{display:grid;gap:48px;margin:18px 0 20px}
+@media(min-width:1100px){.cat-blocks{grid-template-columns:repeat(2,minmax(0,1fr));gap:56px 36px;align-items:start}}
+.cat-block{min-width:0}
+.cat-block[hidden]{display:none}
 .dict{margin:0 0 32px}
 .dict .data-table td:first-child{white-space:nowrap;font-weight:600}
 .status-live{color:var(--green);font-weight:600}
@@ -1227,49 +1299,37 @@ if PRELAUNCH:
 # before launch this page is only a "No report yet" placeholder, so it stays out of search and the sitemap
 write("weekly-latest.html", page(f"Week {week}", "weekly.html", latest, path="weekly-latest.html", index=not PRELAUNCH))
 
-# Map behaviour: filters by disease and week range, a time slider, clustered markers and pop-ups.
-# Pop-up text comes from the data, so it is set with textContent, never as HTML.
+# Map behaviour: MapLibre GL with the OpenFreeMap Positron basemap, filters by disease and week range, a time
+# slider, clustered symbols (shape for the animals affected, colour for the disease), pop-ups and the table
+# under the map. Pop-up and table text comes from the data, so it is set with textContent, never as HTML.
 MAP_JS = r"""(function () {
   "use strict";
   var cfgEl = document.getElementById("map-config"), mapEl = document.getElementById("map");
   var summary = document.getElementById("map-summary");
   if (!cfgEl || !mapEl) return;
-  if (!window.L || !L.markerClusterGroup) {
-    summary.textContent = "The map could not load. The same records are in the open data.";
-    return;
-  }
   var cfg = JSON.parse(cfgEl.textContent), weeks = cfg.weeks, last = weeks.length - 1;
   var state = { cat: "all", from: 0, to: last };
   var fromSel = document.getElementById("from-week"), toSel = document.getElementById("to-week");
   var slider = document.getElementById("week-slider"), out = document.getElementById("week-out");
-  var small = window.matchMedia("(max-width: 639px)").matches;
-  var map = L.map(mapEl, { scrollWheelZoom: false, minZoom: small ? 1 : 2, maxZoom: 9,
-    maxBounds: [[-75, -200], [88, 200]], maxBoundsViscosity: 0.8 });
-  map.setView(small ? [47, 12] : [47, 14], small ? 2 : 3);
-  mapEl.outbreakLensMap = map;   // handy for testing and for embedding scripts
-  if (cfg.tiles && cfg.tiles.url) {
-    L.tileLayer(cfg.tiles.url, { attribution: cfg.tiles.attribution, subdomains: "abcd", maxZoom: 19 }).addTo(map);
-  } else if (cfg.basemap) {
-    map.attributionControl.addAttribution("Basemap: Natural Earth");
-    fetch(cfg.basemap, { credentials: "same-origin" }).then(function (r) { return r.json(); }).then(function (gj) {
-      L.geoJSON(gj, { interactive: false, renderer: L.canvas({ padding: 0.5 }),
-        style: { color: "#d5cec1", weight: 0.7, fillColor: "#fbf9f4", fillOpacity: 1 } }).addTo(map).bringToBack();
-    }).catch(function () {});
-  }
-  var group = L.markerClusterGroup({
-    showCoverageOnHover: false, maxClusterRadius: 44, spiderfyOnMaxZoom: true,
-    iconCreateFunction: function (c) {
-      var n = c.getChildCount(), s = n < 10 ? 30 : n < 50 ? 36 : n < 200 ? 42 : 48;
-      return L.divIcon({ html: '<span class="cluster">' + n + "</span>", className: "cluster-wrap", iconSize: [s, s] });
-    }
-  });
-  map.addLayer(group);
-  var markers = [];
+  var table = document.getElementById("map-table"), tTitle = document.getElementById("map-table-title");
+  var tNote = document.getElementById("map-table-note");
+  var SHAPES = { domestic: "circle", wild: "triangle" }, NS = "http://www.w3.org/2000/svg";
+  var feats = [], byId = {}, map = null, ready = false, popup = null, mapNote = "";
 
+  function shapeOf(p) { return SHAPES[p.pop] || "square"; }
+  function catOf(p) { return cfg.cats[p.cat] ? p.cat : "other"; }
   function total(w) {
     var t = 0;
     for (var i = state.from; i <= state.to; i++) t += w[weeks[i][0]] || 0;
     return t;
+  }
+  function fmt(n) { return n.toLocaleString("en-GB"); }
+  function cap(t) { return t.charAt(0).toUpperCase() + t.slice(1); }
+  function span() {   // "weeks starting 3 Aug to 19 Oct 2026"
+    var a = weeks[state.from][1], b = weeks[state.to][1];
+    if (state.from === state.to) return "week starting " + b;
+    if (a.slice(-4) === b.slice(-4)) a = a.slice(0, -5);
+    return "weeks starting " + a + " to " + b;
   }
   function el(tag, cls, text) {
     var e = document.createElement(tag);
@@ -1283,13 +1343,38 @@ MAP_JS = r"""(function () {
     a.href = href; a.target = "_blank"; a.rel = "noopener";
     return a;
   }
-  function popup(m) {
-    var p = m.feature.properties, n = total(p.weeks), box = el("div", "pop");
+  function glyph(shape, colour) {   // the map symbol, for the pop-up title
+    var svg = document.createElementNS(NS, "svg"), s;
+    svg.setAttribute("viewBox", "0 0 22 22");
+    svg.setAttribute("aria-hidden", "true");
+    svg.setAttribute("focusable", "false");
+    if (shape === "circle") {
+      s = document.createElementNS(NS, "circle");
+      s.setAttribute("cx", "11"); s.setAttribute("cy", "11"); s.setAttribute("r", "6.5");
+    } else if (shape === "triangle") {
+      s = document.createElementNS(NS, "polygon");
+      s.setAttribute("points", "11,3.4 19.75,18.6 2.25,18.6");
+    } else {
+      s = document.createElementNS(NS, "rect");
+      s.setAttribute("x", "5.3"); s.setAttribute("y", "5.3"); s.setAttribute("width", "11.4"); s.setAttribute("height", "11.4");
+    }
+    s.setAttribute("fill", colour);
+    svg.appendChild(s);
+    return svg;
+  }
+
+  // ---------- pop-ups ----------
+  function record(f) {
+    var p = f.properties, n = total(p.weeks), box = el("div", "pop");
     var unit = n === 1 ? p.unit : (cfg.units[p.unit] || p.unit);
-    box.appendChild(el("p", "pop-title", p.title));
+    var t = el("p", "pop-title");
+    t.appendChild(glyph(shapeOf(p), cfg.cats[catOf(p)].colour));
+    t.appendChild(document.createTextNode(p.title));
+    box.appendChild(t);
     box.appendChild(el("p", "pop-place", p.place));
-    var num = el("p");
-    num.appendChild(el("span", "pop-n", n.toLocaleString("en-GB")));
+    box.appendChild(el("p", "pop-pop", cfg.pop[p.pop] || cfg.pop[""]));
+    var num = el("p", "pop-num");
+    num.appendChild(el("span", "pop-n", fmt(n)));
     num.appendChild(document.createTextNode(" " + unit + (/season/.test(unit) ? "" : " in the weeks shown")));
     box.appendChild(num);
     if (p.note) box.appendChild(el("p", "pop-meta", p.note));
@@ -1302,40 +1387,214 @@ MAP_JS = r"""(function () {
     box.appendChild(links);
     return box;
   }
-  function marker(f) {
-    var p = f.properties, c = f.geometry.coordinates, st = cfg.cats[p.cat] || cfg.cats.other;
-    var icon = L.divIcon({ className: "pin-wrap", iconSize: null,
-      html: '<span class="pin" style="--c:' + st.colour + '"><i></i>' + st.code + "</span>" });
-    var m = L.marker([c[1], c[0]], { icon: icon, title: st.label + ": " + p.place, riseOnHover: true });
-    m.feature = f;
-    m.bindPopup(function () { return popup(m); }, { maxWidth: 280, autoPanPadding: [16, 16] });
-    return m;
+  function openPopup(at, list) {
+    if (!list.length) return;
+    var node;
+    if (list.length === 1) {
+      node = record(list[0]);
+    } else {
+      node = el("div");
+      node.appendChild(el("p", "pop-count", list.length + " records here"));
+      var wrap = el("div", "pop-list");
+      list.sort(function (a, b) { return total(b.properties.weeks) - total(a.properties.weeks); })
+        .forEach(function (f) { wrap.appendChild(record(f)); });
+      node.appendChild(wrap);
+    }
+    if (popup) popup.remove();
+    var pp = new maplibregl.Popup({ maxWidth: "300px", offset: 12, focusAfterOpen: true });
+    pp.setLngLat(at).setDOMContent(node).addTo(map);
+    pp.on("close", function () { if (popup === pp) popup = null; });
+    popup = pp;
   }
-  function describe() {
-    return state.from === 0 && state.to === last ? "Weeks starting " + weeks[0][1] + " to " + weeks[last][1]
-      : state.from === state.to ? "Week starting " + weeks[state.to][1]
-      : "Weeks starting " + weeks[state.from][1] + " to " + weeks[state.to][1];
-  }
-  function render() {
-    var show = [];
-    markers.forEach(function (m) {
-      var p = m.feature.properties;
-      if (state.cat !== "all" && p.cat !== state.cat) return;
-      if (total(p.weeks) > 0) show.push(m);
+
+  // ---------- the table under the map ----------
+  function renderTable(list) {
+    if (!table) return;
+    var all = state.cat === "all", rows = {}, keys = [], split = 0;
+    list.forEach(function (f) {
+      var p = f.properties, n = total(p.weeks), k = (p.iso3 || p.cc) + "|" + (all ? catOf(p) : "");
+      var r = rows[k];
+      if (!r) { r = rows[k] = { cc: p.cc, cat: catOf(p), wild: 0, dom: 0, all: 0 }; keys.push(k); }
+      if (p.pop === "wild") r.wild += n; else if (p.pop === "domestic") r.dom += n; else split += n;
+      r.all += n;
     });
-    group.clearLayers();
-    group.addLayers(show);
+    var data = keys.map(function (k) { return rows[k]; }).sort(function (a, b) {
+      return b.all - a.all || a.cc.localeCompare(b.cc, "en-GB");
+    });
+    var cols = [["Country", "text"]];
+    if (all) cols.push(["Disease", "text"]);
+    cols.push(["Wild", "num"], ["Domestic", "num"], ["Total", "num"]);
+    var head = el("tr");
+    cols.forEach(function (c, i) {
+      var th = el("th", c[1] === "num" ? "num" : null), b = el("button", null, c[0]);
+      th.scope = "col";
+      th.setAttribute("data-col", String(i));
+      th.setAttribute("data-sort", c[1]);
+      th.setAttribute("aria-sort", c[0] === "Total" ? "descending" : "none");
+      b.type = "button";
+      th.appendChild(b);
+      head.appendChild(th);
+    });
+    table.tHead.textContent = "";
+    table.tHead.appendChild(head);
+    var body = table.tBodies[0];
+    body.textContent = "";
+    data.forEach(function (r) {
+      var tr = el("tr"), th = el("th", null, r.cc);
+      th.scope = "row";
+      tr.appendChild(th);
+      if (all) tr.appendChild(el("td", null, cfg.cats[r.cat].short));
+      [r.wild, r.dom, r.all].forEach(function (v) {
+        var td = el("td", "num", fmt(v));
+        td.setAttribute("data-v", String(v));
+        tr.appendChild(td);
+      });
+      body.appendChild(tr);
+    });
+    if (!data.length) {
+      var tr = el("tr"), td = el("td", "dash", "No reports in these weeks.");
+      td.colSpan = cols.length;
+      tr.appendChild(td);
+      body.appendChild(tr);
+    }
+    table.setAttribute("data-noun", all ? "rows" : "countries");
+    table.setAttribute("data-open", "0");
+    tTitle.textContent = all ? cap("reports by country, " + span())
+      : cfg.cats[state.cat].short + ": reports by country, " + span();
+    tNote.textContent = cfg.tableNote + (split ? " Total also includes " + fmt(split) +
+      " that cover both wild and domestic animals, or do not say which." : "");
+    if (window.OLTables) window.OLTables.setup(table);
+  }
+
+  // ---------- the map ----------
+  function current() {
+    var show = [];
+    feats.forEach(function (f) {
+      var p = f.properties;
+      if (state.cat !== "all" && p.cat !== state.cat) return;
+      if (total(p.weeks) > 0) show.push(f);
+    });
+    return show;
+  }
+  function lite(list) {   // the map only needs the place, the id and the symbol
+    return { type: "FeatureCollection", features: list.map(function (f) {
+      return { type: "Feature", geometry: f.geometry,
+        properties: { id: f.properties.id, sym: shapeOf(f.properties) + "-" + catOf(f.properties) } };
+    }) };
+  }
+  function webgl() {
+    try {
+      var c = document.createElement("canvas");
+      return !!(window.WebGLRenderingContext && (c.getContext("webgl2") || c.getContext("webgl")));
+    } catch (e) { return false; }
+  }
+  function off(msg) {
+    ready = false;
+    mapEl.textContent = "";
+    mapEl.appendChild(el("p", "map-off", msg ||
+      "This map needs WebGL, which this browser does not offer. The table below and the open data hold the same records."));
+    mapEl.style.height = "auto";
+    mapEl.style.minHeight = "0";
+  }
+  function tidy(style) {   // credit line, English place names and quieter labels, so the data stands out
+    if (style.sources && style.sources.openmaptiles) style.sources.openmaptiles.attribution = cfg.attribution;
+    var name = ["coalesce", ["get", "name_en"], ["get", "name:latin"], ["get", "name"]];
+    (style.layers || []).forEach(function (l) {
+      var lo = l.layout;
+      if (lo && lo["text-field"] && JSON.stringify(lo["text-field"]).indexOf("name:nonlatin") >= 0) lo["text-field"] = name;
+      if (/^label_/.test(l.id) && l.paint) l.paint["text-color"] = /country/.test(l.id) ? "#4f545b" : "#676c73";
+    });
+    return style;
+  }
+  function plain() {
+    return { version: 8, glyphs: cfg.glyphs, sources: {},
+      layers: [{ id: "background", type: "background", paint: { "background-color": "#f2f3f0" } }] };
+  }
+  function icon(shape, colour) {   // drawn at twice the size, with a white ring and a faint dark edge
+    var r = 2, S = 22, c = document.createElement("canvas"), g;
+    c.width = c.height = S * r;
+    g = c.getContext("2d");
+    g.scale(r, r);
+    g.lineJoin = "round";
+    g.beginPath();
+    if (shape === "circle") g.arc(11, 11, 6.5, 0, 2 * Math.PI);
+    else if (shape === "triangle") { g.moveTo(11, 3.4); g.lineTo(19.75, 18.6); g.lineTo(2.25, 18.6); g.closePath(); }
+    else g.rect(5.3, 5.3, 11.4, 11.4);
+    g.lineWidth = 3.8; g.strokeStyle = "rgba(28,27,25,.38)"; g.stroke();
+    g.lineWidth = 2.4; g.strokeStyle = "#fff"; g.stroke();
+    g.fillStyle = colour; g.fill();
+    return g.getImageData(0, 0, S * r, S * r);
+  }
+  function layers() {
+    Object.keys(cfg.cats).forEach(function (k) {
+      ["circle", "triangle", "square"].forEach(function (sh) {
+        if (!map.hasImage(sh + "-" + k)) map.addImage(sh + "-" + k, icon(sh, cfg.cats[k].colour), { pixelRatio: 2 });
+      });
+    });
+    map.addSource("reports", { type: "geojson", data: lite(current()), cluster: true,
+      clusterRadius: 36, clusterMaxZoom: cfg.maxZoom });
+    map.addLayer({ id: "clusters", type: "circle", source: "reports", filter: ["has", "point_count"],
+      paint: { "circle-color": "#1F3864", "circle-stroke-width": 3, "circle-stroke-color": "rgba(250,247,241,0.92)",
+        "circle-radius": ["step", ["get", "point_count"], 14, 10, 17, 50, 20, 200, 23] } });
+    map.addLayer({ id: "cluster-count", type: "symbol", source: "reports", filter: ["has", "point_count"],
+      layout: { "text-field": ["get", "point_count_abbreviated"], "text-font": ["Noto Sans Bold"], "text-size": 12,
+        "text-allow-overlap": true, "text-ignore-placement": true },
+      paint: { "text-color": "#ffffff" } });
+    map.addLayer({ id: "points", type: "symbol", source: "reports", filter: ["!", ["has", "point_count"]],
+      layout: { "icon-image": ["get", "sym"], "icon-allow-overlap": true, "icon-ignore-placement": true } });
+    map.on("click", "clusters", function (e) {
+      var f = e.features[0], src = map.getSource("reports"), id = f.properties.cluster_id, at = f.geometry.coordinates;
+      src.getClusterExpansionZoom(id).then(function (z) {
+        if (z <= map.getMaxZoom()) { map.easeTo({ center: at, zoom: z }); return null; }
+        return src.getClusterLeaves(id, 200, 0).then(function (leaves) {   // same place: list them instead
+          openPopup(at, leaves.map(function (l) { return byId[l.properties.id]; }).filter(Boolean));
+        });
+      }).catch(function () {});
+    });
+    map.on("click", "points", function (e) {
+      var seen = {}, list = [];
+      e.features.forEach(function (x) {
+        var f = byId[x.properties.id];
+        if (f && !seen[f.properties.id]) { seen[f.properties.id] = 1; list.push(f); }
+      });
+      if (list.length) openPopup(list[0].geometry.coordinates, list);
+    });
+    ["clusters", "points"].forEach(function (id) {
+      map.on("mouseenter", id, function () { map.getCanvas().style.cursor = "pointer"; });
+      map.on("mouseleave", id, function () { map.getCanvas().style.cursor = ""; });
+    });
+    ready = true;
+  }
+  function start(style) {
+    var small = window.matchMedia("(max-width: 639px)").matches;
+    try {
+      map = new maplibregl.Map({ container: mapEl, style: style, center: small ? [12, 46] : [14, 47], zoom: small ? 0.9 : 2,
+        minZoom: 0.6, maxZoom: cfg.maxZoom, cooperativeGestures: true, dragRotate: false, pitchWithRotate: false,
+        touchPitch: false, maxPitch: 0 });
+    } catch (e) { off(); return; }
+    mapEl.outbreakLensMap = map;   // handy for testing and for embedding scripts
+    map.touchZoomRotate.disableRotation();
+    map.keyboard.disableRotation();
+    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
+    map.on("load", layers);
+  }
+
+  function render() {
+    var list = current();
+    if (ready) map.getSource("reports").setData(lite(list));
+    if (popup) popup.remove();
     var what = state.cat === "all" ? "any of the eight diseases" : cfg.cats[state.cat].phrase;
-    summary.textContent = show.length
-      ? show.length.toLocaleString("en-GB") + (show.length === 1 ? " place" : " places") + " with reports of " + what + " in these weeks."
-      : "No reports of " + what + " in these weeks.";
+    summary.textContent = (list.length
+      ? fmt(list.length) + (list.length === 1 ? " place" : " places") + " with reports of " + what + " in these weeks."
+      : "No reports of " + what + " in these weeks.") + mapNote;
+    renderTable(list);
   }
   function sync() {
     fromSel.value = String(state.from);
     toSel.value = String(state.to);
     slider.value = String(state.to);
-    out.textContent = describe();
-    slider.setAttribute("aria-valuetext", describe());
+    out.textContent = cap(span());
+    slider.setAttribute("aria-valuetext", cap(span()));
   }
   Array.prototype.forEach.call(document.querySelectorAll('input[name="map-cat"]'), function (r) {
     r.addEventListener("change", function () { state.cat = r.value; render(); });
@@ -1349,9 +1608,25 @@ MAP_JS = r"""(function () {
   slider.addEventListener("input", function () {
     state.to = +slider.value; if (state.from > state.to) state.from = state.to; sync(); render();
   });
+
+  if (!window.maplibregl || !webgl()) {
+    off();
+  } else {
+    fetch(cfg.style).then(function (r) { if (!r.ok) throw new Error(String(r.status)); return r.json(); })
+      .then(function (st) { start(tidy(st)); })
+      .catch(function () {
+        mapNote = " The basemap did not load, so the points sit on a plain background.";
+        start(plain());
+      });
+  }
   fetch(cfg.data, { credentials: "same-origin" })
     .then(function (r) { if (!r.ok) throw new Error(String(r.status)); return r.json(); })
-    .then(function (gj) { markers = gj.features.map(marker); sync(); render(); })
+    .then(function (gj) {
+      feats = gj.features;
+      feats.forEach(function (f) { byId[f.properties.id] = f; });
+      sync();
+      render();
+    })
     .catch(function () { summary.textContent = "The map data did not load. The same records are in the open data."; });
 })();
 """
@@ -1359,10 +1634,11 @@ MAP_JS = r"""(function () {
 # Numbers behaviour: the disease filter and a tooltip on each chart (pointer, or arrow keys once focused).
 NUMBERS_JS = r"""(function () {
   "use strict";
+  var blocks = Array.prototype.slice.call(document.querySelectorAll(".cat-block"));
   var cards = Array.prototype.slice.call(document.querySelectorAll(".chart-card"));
   Array.prototype.forEach.call(document.querySelectorAll('input[name="num-cat"]'), function (r) {
     r.addEventListener("change", function () {
-      cards.forEach(function (c) { c.hidden = r.value !== "all" && c.getAttribute("data-cat") !== r.value; });
+      blocks.forEach(function (b) { b.hidden = r.value !== "all" && b.getAttribute("data-cat") !== r.value; });
     });
   });
   cards.forEach(function (card) {
@@ -1417,74 +1693,107 @@ NUMBERS_JS = r"""(function () {
 })();
 """
 
+# Tables: sortable columns (header buttons with aria-sort) and the first ten rows with a "Show all" button.
+# Without JavaScript every row shows. Inlined on each page that has tables.
+TABLES_JS = r"""(function () {
+  "use strict";
+  function key(td, num) {
+    var v = td ? td.getAttribute("data-v") : null;
+    if (num) return v == null ? -1 : +v;
+    return v != null ? v : (td ? td.textContent : "");
+  }
+  function limit(table) {
+    var top = +table.getAttribute("data-top") || 10, rows = table.tBodies[0].rows, n = rows.length;
+    var open = table.getAttribute("data-open") === "1", btn = table.olMore;
+    for (var i = 0; i < n; i++) rows[i].hidden = !open && i >= top;
+    if (!btn) {
+      btn = table.olMore = document.createElement("button");
+      btn.type = "button";
+      btn.className = "tbl-more";
+      btn.addEventListener("click", function () {
+        table.setAttribute("data-open", table.getAttribute("data-open") === "1" ? "0" : "1");
+        limit(table);
+      });
+      (table.closest(".tbl-wrap") || table).insertAdjacentElement("afterend", btn);
+    }
+    btn.hidden = n <= top;
+    btn.textContent = open ? "Show the first " + top : "Show all " + n + " " + (table.getAttribute("data-noun") || "rows");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+  }
+  function sort(table, th) {
+    var col = +th.getAttribute("data-col"), num = th.getAttribute("data-sort") === "num", was = th.getAttribute("aria-sort");
+    var dir = was === "descending" ? "ascending" : was === "ascending" ? "descending" : (num ? "descending" : "ascending");
+    Array.prototype.forEach.call(table.querySelectorAll("thead th[data-sort]"), function (h) { h.setAttribute("aria-sort", "none"); });
+    th.setAttribute("aria-sort", dir);
+    var body = table.tBodies[0], rows = Array.prototype.slice.call(body.rows);
+    rows.sort(function (a, b) {
+      var x = key(a.cells[col], num), y = key(b.cells[col], num);
+      var r = num ? x - y : String(x).localeCompare(String(y), "en-GB");
+      if (dir === "descending") r = -r;
+      return r || a.cells[0].textContent.localeCompare(b.cells[0].textContent, "en-GB");
+    });
+    rows.forEach(function (r) { body.appendChild(r); });
+    limit(table);
+  }
+  function setup(table) {
+    if (!table.olBound) {
+      table.olBound = true;
+      table.addEventListener("click", function (e) {
+        var b = e.target.closest ? e.target.closest("thead th[data-sort] button") : null;
+        if (b) sort(table, b.parentNode);
+      });
+    }
+    limit(table);
+  }
+  window.OLTables = { setup: setup };
+  Array.prototype.forEach.call(document.querySelectorAll("table.tbl"), setup);
+})();
+"""
+
 
 # ---------- LIVE DATA: map, numbers and open data, built from pipeline/data ----------
 # The pipeline (pipeline/run.py) writes events.csv, one CSV per disease, aggregates.json, latest.json,
-# map.geojson and dictionary.csv to pipeline/data. They are copied to website/assets/data and drive
-# map.html, analytics.html ("Numbers") and data.html. These pages are built with or without --prelaunch.
+# map.geojson, tables.json and dictionary.csv to pipeline/data. They are copied to website/assets/data and
+# drive map.html, analytics.html ("Numbers") and data.html. These pages are built with or without --prelaunch.
 LIVE_DIR = os.path.join(ROOT, "pipeline", "data")
 LIVE_DATA_URL = "assets/data/"
-# Category colours: the dataviz reference palette in its validated order (adjacent checks pass). On the map
-# every marker also carries its code in ink on white, so colour is never the only cue. "Other" is the
-# brand's muted grey. Terracotta stays reserved for "this week" on the charts.
-CAT_STYLE = {"bird-flu": ("#2a78d6", "BF", "bird flu"), "bluetongue": ("#eb6834", "BT", "bluetongue"),
-             "asf": ("#1baf7a", "ASF", "African swine fever"), "fmd": ("#eda100", "FMD", "foot-and-mouth disease"),
-             "sheep-goat-pox": ("#e87ba4", "SGP", "sheep and goat pox"), "lsd": ("#008300", "LSD", "lumpy skin disease"),
-             "newcastle-disease": ("#6250d6", "ND", "Newcastle disease"), "other": ("#6b7280", "OTH", "other exotic diseases")}
-# Basemap. By default the map draws country shapes from Natural Earth (public domain) itself, so it needs no
-# tile service, key or extra terms. To use raster tiles instead, set MAP_TILES to {"url": ..., "attribution": ...}.
-# CARTO's Positron tiles now need a free API key (commercial use is free up to 1 million tile requests a month)
-# and their attribution must stay visible; without a key they show an "API key required" watermark.
-MAP_TILES = None
-BASEMAP_CACHE = os.path.join(ROOT, "map_basemap.json")
-BASEMAP_SRC = "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_50m_admin_0_countries.geojson"
-
-
-def _basemap():
-    """Country shapes for the map, simplified to about 3 km and cached next to this script (like hero_dots.json)."""
-    if os.path.exists(BASEMAP_CACHE):
-        return BASEMAP_CACHE
-    import urllib.request
-
-    def rnd(o):
-        if o and isinstance(o[0], (int, float)):
-            return [round(o[0], 2), round(o[1], 2)]
-        return [rnd(x) for x in o]
-    try:
-        req = urllib.request.Request(BASEMAP_SRC, headers={"User-Agent": "OutbreakLens site build"})
-        with urllib.request.urlopen(req, timeout=60) as resp:
-            gj = json.load(resp)
-        feats = []
-        for f in gj["features"]:
-            geom = f["geometry"]
-            try:
-                from shapely.geometry import shape, mapping
-                geom = mapping(shape(geom).buffer(0).simplify(0.03, preserve_topology=True))
-            except ImportError:
-                pass
-            feats.append({"type": "Feature", "properties": {},
-                          "geometry": {"type": geom["type"], "coordinates": rnd(list(geom["coordinates"]))}})
-        with open(BASEMAP_CACHE, "w", encoding="utf-8") as f:
-            json.dump({"type": "FeatureCollection", "source": BASEMAP_SRC, "features": feats}, f, separators=(",", ":"))
-        print("basemap: cached %d countries in %s" % (len(feats), BASEMAP_CACHE))
-        return BASEMAP_CACHE
-    except Exception as e:   # network or parse problem: the map still works, on a plain background
-        print("basemap: could not build -", e)
-        return None
-
-
-LEAFLET = ('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" '
-           'integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw==" '
-           'crossorigin="anonymous" referrerpolicy="no-referrer">'
-           '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.css" '
-           'integrity="sha512-mQ77VzAakzdpWdgfL/lM1ksNy89uFgibRQANsNneSTMD/bj0Y/8+94XMwYhnbzx8eki2hrbPpDm0vD0CiT2lcg==" '
-           'crossorigin="anonymous" referrerpolicy="no-referrer">')
-LEAFLET_JS = ('<script defer src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" '
-              'integrity="sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g==" '
-              'crossorigin="anonymous" referrerpolicy="no-referrer"></script>'
-              '<script defer src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.js" '
-              'integrity="sha512-OFs3W4DIZ5ZkrDhBFtsCP6JXtMEDGmhl0QPlmWYBJay40TT1n3gt2Xuw8Pf/iezgW9CdabjkNChRqozl/YADmg==" '
-              'crossorigin="anonymous" referrerpolicy="no-referrer"></script>')
+# One colour per disease, for the map symbols, chips, key, charts and tables. Terracotta (the brand accent) is
+# HPAI. The others are muted and distinct, checked for contrast against the grey basemap. Colour is never the
+# only cue: map symbols also differ by shape, and the key, pop-ups and tables name the disease.
+# Each entry: colour, short name, phrase for running text. "HPAI (bird flu)" is the category label, used for the
+# chips and the first mention on a page. Later mentions use "HPAI".
+CAT_STYLE = {"bird-flu": ("#C0532B", "HPAI", "HPAI"),
+             "bluetongue": ("#0a64b2", "Bluetongue", "bluetongue"),
+             "asf": ("#943c82", "African swine fever", "African swine fever"),
+             "fmd": ("#948904", "Foot-and-mouth disease", "foot-and-mouth disease"),
+             "sheep-goat-pox": ("#028f95", "Sheep and goat pox", "sheep and goat pox"),
+             "lsd": ("#8976cd", "Lumpy skin disease", "lumpy skin disease"),
+             "newcastle-disease": ("#1d7724", "Newcastle disease", "Newcastle disease"),
+             "other": ("#5f6875", "Other exotic diseases", "other exotic diseases")}
+# Basemap: MapLibre GL JS with OpenFreeMap's Positron style. OpenStreetMap data, no key, no registration and
+# no request limits. Its credit must stay visible. Zoom stops at 8 (the scale of the old map), so a region centre
+# never reads as an address.
+MAPLIBRE_CSS = ('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.24.0/maplibre-gl.css" '
+                'integrity="sha512-KIMsMWIdnoG9OwZa+oaIafmbDonqck1UCmq+/zcUi2aaZ97N9QE6TqpTM+n36EO40HGh64hU/375zxtjx7WTyQ==" '
+                'crossorigin="anonymous" referrerpolicy="no-referrer">')
+MAPLIBRE_JS = ('<script defer src="https://cdnjs.cloudflare.com/ajax/libs/maplibre-gl/5.24.0/maplibre-gl.js" '
+               'integrity="sha512-rOFgoUgWaVi69JW1dzBu6PWF9xKW9rxYfY5u2SexFABHhWk0qUWkJoWNz4UuZRMvSXsNZG66+tU5B+HlwWF5kA==" '
+               'crossorigin="anonymous" referrerpolicy="no-referrer"></script>')
+MAP_HEAD = '<link rel="preconnect" href="https://tiles.openfreemap.org" crossorigin>' + MAPLIBRE_CSS
+MAP_STYLE = "https://tiles.openfreemap.org/styles/positron"
+MAP_GLYPHS = "https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf"
+MAP_MAX_ZOOM = 8
+MAP_CREDIT = ('<a href="https://openfreemap.org" target="_blank" rel="noopener">&copy; OpenFreeMap</a> '
+              '<a href="https://www.openmaptiles.org/" target="_blank" rel="noopener">&copy; OpenMapTiles</a>, data '
+              '<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">&copy; OpenStreetMap contributors</a>')
+POP_WORDS = {"domestic": "Domestic animals", "wild": "Wild animals", "mixed": "Domestic and wild animals",
+             "": "Animals not stated by the source"}
+COUNTED = ("Counts are outbreaks, cases or events, as each source counts them. "
+           "Records found in more than one source are counted once.")
+SRC_ORDER = ["WOAH WAHIS", "EU ADIS", "FAO EMPRES-i", "GOV.UK", "DAFM", "Ruokavirasto"]
+LICENCE_SHORT = [("WOAH WAHIS", "WAHIS terms"), ("EU ADIS", "CC BY 4.0"), ("FAO EMPRES-i", "CC BY 4.0"),
+                 ("GOV.UK (Defra and APHA)", "OGL v3.0"), ("DAFM (gov.ie)", "gov.ie terms"),
+                 ("Ruokavirasto (Finnish Food Authority)", "Ruokavirasto terms")]
 WOAH_DISCLAIMER = ("The World Organisation for Animal Health (WOAH) bears no responsibility for the integrity or accuracy "
                    "of the data contained herein, in particular due, but not limited to, any deletion, manipulation, or "
                    "reformatting of data that may have occurred beyond its control.")
@@ -1538,6 +1847,23 @@ def _fmt_range(a, b):
     return "%s to %s" % (_fmt_day(a, True), _fmt_day(b, True))
 
 
+def _weeks_span(starts):
+    """['2026-08-03', ..., '2026-10-19'] -> weeks starting 3 Aug to 19 Oct 2026."""
+    a, b = _fmt_day(starts[0], True), _fmt_day(starts[-1], True)
+    if a[-4:] == b[-4:]:
+        a = a[:-5]
+    return "weeks starting %s to %s" % (a, b)
+
+
+def _cap(t):
+    return t[:1].upper() + t[1:]
+
+
+def _and(items):
+    items = list(items)
+    return " and ".join([", ".join(items[:-1]), items[-1]]) if len(items) > 1 else "".join(items)
+
+
 def _fmt_stamp(ts):
     """An ISO timestamp in UTC -> '22 October 2026 at 9:53pm UK time'."""
     try:
@@ -1559,32 +1885,57 @@ def _load_live():
         print("live data: none in %s, so the map, numbers and data pages use their placeholders" % LIVE_DIR)
         return None
     import csv as _csv
-    with open(os.path.join(LIVE_DIR, "latest.json"), encoding="utf-8") as f:
-        latest = json.load(f)
-    with open(os.path.join(LIVE_DIR, "aggregates.json"), encoding="utf-8") as f:
-        agg = json.load(f)
+
+    def load(name):
+        path = os.path.join(LIVE_DIR, name)
+        if not os.path.exists(path):
+            return None
+        with open(path, encoding="utf-8") as f:
+            return json.load(f)
+    latest, agg, mapdata, tables = load("latest.json"), load("aggregates.json"), load("map.geojson"), load("tables.json")
     with open(os.path.join(LIVE_DIR, "dictionary.csv"), encoding="utf-8", newline="") as f:
         dictionary = list(_csv.DictReader(f))
     files = {}
     out_dir = os.path.join(ASSETS, "data")
     os.makedirs(out_dir, exist_ok=True)
+    for old in ("basemap.geojson",):   # left over from the old Natural Earth basemap
+        if os.path.exists(os.path.join(out_dir, old)):
+            os.remove(os.path.join(out_dir, old))
     cats = list(agg["categories"].keys())
-    for name in ["events.csv"] + ["%s.csv" % c for c in cats] + ["dictionary.csv", "aggregates.json", "latest.json", "map.geojson"]:
+    for name in (["events.csv"] + ["%s.csv" % c for c in cats] +
+                 ["dictionary.csv", "aggregates.json", "latest.json", "map.geojson", "tables.json"]):
         src = os.path.join(LIVE_DIR, name)
         if not os.path.exists(src):
             continue
         shutil.copy(src, os.path.join(out_dir, name))
-        rows = None
+        rows = cols = None
+        sources = set()
         if name.endswith(".csv"):
             with open(src, encoding="utf-8", newline="") as f:
-                rows = sum(1 for _ in _csv.reader(f)) - 1
-        files[name] = {"rows": rows, "size": _size(src)}
+                rd = _csv.reader(f)
+                header = next(rd, [])
+                si = header.index("source") if "source" in header else None
+                rows = 0
+                for r in rd:
+                    rows += 1
+                    if si is not None and si < len(r):
+                        sources.add(r[si])
+            cols = len(header)
+        files[name] = {"rows": rows, "cols": cols, "size": _size(src), "sources": sorted(sources)}
     heads = {h["id"]: h for h in latest.get("headlines", [])}
     print("live data: %d files copied to %s" % (len(files), out_dir))
-    return {"latest": latest, "agg": agg, "dictionary": dictionary, "files": files, "heads": heads, "cats": cats}
+    return {"latest": latest, "agg": agg, "dictionary": dictionary, "files": files, "heads": heads, "cats": cats,
+            "map": mapdata, "tables": tables}
 
 
 LIVE = _load_live()
+
+
+def subnav(current):
+    """Map, Numbers and Downloads: the pages under Data in the main navigation."""
+    items = "".join('<li><a href="%s"%s>%s</a></li>' % (h, ' aria-current="page"' if h == current else "", t)
+                    for h, t in DATA_NAV)
+    return '<nav class="subnav" aria-label="Data"><div class="wrap"><ul>%s</ul></div></nav>' % items
 
 
 def _chips(name, cats_meta):
@@ -1624,10 +1975,8 @@ def _sources_block(latest, extra=""):
                 when = "not available in this run"
         items.append('<li><b>%s</b>%s<span>%s</span></li>' % (_ext(url, name), (", " + when) if when else "", terms))
     return ('<div class="src-block"><h2>Sources</h2><ul class="src-items">%s</ul>'
-            '<p class="fine">%s</p><p class="fine">Records are placed, and the map is drawn, using Natural Earth '
-            'boundaries (public domain).%s%s</p></div>'
-            % ("".join(items), escape(WOAH_DISCLAIMER),
-               (" Map tiles: " + MAP_TILES["attribution"] + ".") if MAP_TILES else "", extra))
+            '<p class="fine">%s</p><p class="fine">Records are placed using Natural Earth boundaries (public domain).%s</p></div>'
+            % ("".join(items), escape(WOAH_DISCLAIMER), extra))
 
 
 def _nice_top(v):
@@ -1644,8 +1993,8 @@ def _nice_top(v):
 
 
 def chart_svg(label, values, week_starts, unit_one, unit_many):
-    """A 12-week column chart as inline SVG: muted columns, terracotta for this week (still in progress),
-    hairline grid, a value on the peak and on this week. Every value is also in the table under the chart."""
+    """A 12-week column chart as inline SVG: muted columns, this week (still in progress) in the disease's
+    colour, hairline grid, a value on the peak and on this week. Every value is also in the table under the chart."""
     W, H, L_, R_, T_, B_ = 360, 146, 30, 6, 18, 116
     n = len(values)
     slot = (W - L_ - R_) / n
@@ -1706,10 +2055,10 @@ SERIES_TEXT = {
 
 
 def _chart_card(slug, c, weeks, week_starts):
-    colour = CAT_STYLE.get(slug, CAT_STYLE["other"])[0]
+    colour, short = CAT_STYLE.get(slug, CAT_STYLE["other"])[:2]
     sub, one, many = SERIES_TEXT.get(c["series_id"], (c.get("metric", ""), "record", "records"))
     vals = [int(v) for v in c["total"]]
-    svg = chart_svg(c["label"], vals, week_starts, one, many)
+    svg = chart_svg(short, vals, week_starts, one, many)
     if c["series_id"] == "govuk-bt-cases":
         areas = c.get("by_area") or {}
         top = ", ".join("%s %s" % (k, "{:,}".format(sum(v))) for k, v in areas.items() if sum(v))
@@ -1733,10 +2082,192 @@ def _chart_card(slug, c, weeks, week_starts):
         body_rows.append("<tr><td>%s%s</td><td>%s</td>%s</tr>" % (
             _fmt_day(ws, True), " (this week so far)" if i == len(week_starts) - 1 else "", "{:,}".format(vals[i]), extra))
     table = ('<details><summary>Show the numbers</summary><table class="mini-table"><caption class="vh">%s, %s by week'
-             '</caption><thead>%s</thead><tbody>%s</tbody></table></details>' % (escape(c["label"]), many, head, "".join(body_rows)))
-    return ('<article class="chart-card" data-cat="%s" id="chart-%s"><h3><i class="cat-dot" style="--c:%s"></i>%s</h3>'
+             '</caption><thead>%s</thead><tbody>%s</tbody></table></details>' % (escape(short), many, head, "".join(body_rows)))
+    return ('<article class="chart-card" data-cat="%s" id="chart-%s" style="--c:%s"><h3 id="chart-%s-h"><i class="cat-dot"></i>%s</h3>'
             '<p class="chart-sub">%s</p>%s%s<p class="chart-src">%s</p>%s</article>'
-            % (slug, slug, colour, escape(c["label"]), sub, svg, top_line, src, table))
+            % (slug, slug, colour, slug, escape(short), sub, svg, top_line, src, table))
+
+
+# ---------- tables in the style of the IZSAM ASF bulletin ----------
+def _th(label, col, kind="num", sort="none", cls=""):
+    """A sortable column header. kind is num or text. sort is the starting aria-sort value."""
+    c = " ".join(x for x in ("num" if kind == "num" else "", cls) if x)
+    return ('<th scope="col"%s data-col="%d" data-sort="%s" aria-sort="%s"><button type="button">%s</button></th>'
+            % (' class="%s"' % c if c else "", col, kind, sort, label))
+
+
+def _td(v, cls=""):
+    """A number cell, right-aligned, with its value for sorting. None shows a dash."""
+    c = "num" + (" " + cls if cls else "")
+    if v is None:
+        return '<td class="%s dash" data-v="-1">&ndash;</td>' % c
+    return '<td class="%s" data-v="%d">%s</td>' % (c, v, "{:,}".format(v))
+
+
+def _tbl(tid, title, head, body, cap, noun="countries", foot="", level="h4", top=10, cls=""):
+    """One-line title, then the table in its own scrolling box, then a caption with the source and date.
+    The script shows the first ten rows and a "Show all" button. Without it every row shows."""
+    return ('<div class="tbl-block" id="%s-block"><%s class="tbl-title" id="%s-title">%s</%s>'
+            '<div class="tbl-wrap" role="region" tabindex="0" aria-labelledby="%s-title">'
+            '<table class="tbl%s" id="%s" data-top="%d" data-noun="%s" aria-labelledby="%s-title">'
+            '<thead>%s</thead><tbody>%s</tbody>%s</table></div><p class="tbl-cap">%s</p></div>'
+            % (tid, level, tid, title, level, tid, " " + cls if cls else "", tid, top, noun, tid, head, body,
+               ("<tfoot>%s</tfoot>" % foot) if foot else "", cap))
+
+
+def _row(name, cells):
+    return '<tr><th scope="row">%s</th>%s</tr>' % (escape(name), "".join(cells))
+
+
+def _srcs(names):
+    return _and(x for x in SRC_ORDER if x in names)
+
+
+def _country_table(slug, bc, span, read):
+    """Country, wild and domestic counts over the 12 weeks (Total when some records are not split)."""
+    rows = bc.get("rows") or []
+    short = CAT_STYLE.get(slug, CAT_STYLE["other"])[1]
+    hpai = slug == "bird-flu"
+    wild, dom = ("Wild birds", "Poultry") if hpai else ("Wild", "Domestic")
+    need_total = any(r["other"] or r.get("mammals") for r in rows)
+    head = "<tr>%s%s%s%s</tr>" % (_th("Country", 0, "text"), _th(wild, 1), _th(dom, 2),
+                                  _th("Total", 3, sort="descending") if need_total else "")
+    body = "".join(_row(r["country"], [_td(r["wild"]), _td(r["domestic"])] + ([_td(r["total"])] if need_total else []))
+                   for r in rows)
+    notes = ["Poultry includes other kept birds."] if hpai else []
+    parts = []
+    if bc.get("mammals_total"):
+        parts.append("%s in mammals" % "{:,}".format(bc["mammals_total"]))
+    if bc.get("other_total"):
+        parts.append("%s that cover both wild and %s animals, or do not say which"
+                     % ("{:,}".format(bc["other_total"]), "kept" if hpai else "domestic"))
+    if parts:
+        notes.append("Total also includes %s." % _and(parts))
+    cap = "%s %s Sources: %s, read %s." % (COUNTED, " ".join(notes), _srcs(bc.get("sources", [])), read)
+    if not rows:
+        body = '<tr><td colspan="%d" class="dash">No reports in these weeks.</td></tr>' % (4 if need_total else 3)
+    return _tbl("tbl-" + slug, '<span class="vh">%s: </span>By country, %s' % (escape(short), span), head, body, cap)
+
+
+def _asf_table(bc, wk, span, read):
+    """ASF: wild boar and domestic pigs in the latest ADIS week and over the 12 weeks."""
+    twelve = {r["iso3"]: r for r in bc.get("rows") or []}
+    week = {r["iso3"]: r for r in (wk or {}).get("rows") or []}
+    zero = {"wild": 0, "domestic": 0, "other": 0, "total": 0}
+    order = sorted(set(twelve) | set(week), key=lambda k: (-twelve.get(k, zero)["total"], -week.get(k, zero)["total"],
+                                                           (twelve.get(k) or week.get(k))["country"]))
+    need_total = any(r["other"] for r in twelve.values())
+    period = (wk or {}).get("period") or []
+    wlab = ("ADIS week, %s" % _fmt_range(period[0], period[1])) if len(period) == 2 and period[0] else "Latest ADIS week"
+    head = ('<tr class="grp-row"><td></td><th scope="colgroup" colspan="2" class="grp">%s</th>'
+            '<th scope="colgroup" colspan="%d" class="grp">%s</th></tr>' % (wlab, 3 if need_total else 2, _cap(span)))
+    head += "<tr>%s%s%s%s%s%s</tr>" % (_th("Country", 0, "text"), _th("Wild boar", 1, cls="grp"), _th("Domestic pigs", 2),
+                                       _th("Wild boar", 3, cls="grp"), _th("Domestic pigs", 4),
+                                       _th("Total", 5, sort="descending") if need_total else "")
+    body = []
+    for k in order:
+        w, t = week.get(k), twelve.get(k, zero)
+        name = (twelve.get(k) or week.get(k))["country"]
+        cells = [_td(w["wild"] if w else None, "grp"), _td(w["domestic"] if w else None),
+                 _td(t["wild"], "grp"), _td(t["domestic"])] + ([_td(t["total"])] if need_total else [])
+        body.append(_row(name, cells))
+    notes = []
+    if wk:
+        notes.append("Latest week: the EU ADIS weekly report, read %s. A dash means that report lists no ASF "
+                     "outbreaks for the country, or the country does not report to ADIS." % _fmt_day(wk["source_updated"][:10] or "", True)
+                     if wk.get("source_updated") else "Latest week: the EU ADIS weekly report.")
+    if bc.get("other_total"):
+        notes.append("Total also includes %s that cover both wild boar and domestic pigs, or do not say which."
+                     % "{:,}".format(bc["other_total"]))
+    cap = "%s %s Sources for the 12 weeks: %s, read %s." % (COUNTED, " ".join(notes), _srcs(bc.get("sources", [])), read)
+    return _tbl("tbl-asf", '<span class="vh">African swine fever: </span>By country, latest week and last 12 weeks',
+                head, "".join(body), cap, cls="wrap-head")
+
+
+def _bt_tables(heads, T):
+    """Bluetongue: cases by nation from GOV.UK, and herd cases by county in Ireland from DAFM."""
+    out = []
+    h = heads.get("govuk-bt-total")
+    if h and h.get("by_area"):
+        areas = sorted(h["by_area"].items(), key=lambda kv: (-kv[1], kv[0]))
+        head = "<tr>%s%s</tr>" % (_th("Nation", 0, "text"), _th("Cases", 1, sort="descending"))
+        body = "".join(_row(k, [_td(v)]) for k, v in areas)
+        foot = _row("United Kingdom", [_td(h["value"])])
+        cap = ("Source: %s, counts to %s, updated %s. A case is a premises where bluetongue was confirmed."
+               % (_ext(h["source_url"], "GOV.UK, Bluetongue: latest situation"), _fmt_day(h["counts_to"], True),
+                  _fmt_day(h["as_of"], True)))
+        out.append(_tbl("tbl-bt-gb", "Bluetongue cases by nation, %s season" % escape(h.get("season") or "this"),
+                        head, body, cap, noun="nations", foot=foot))
+    ie = (T or {}).get("bluetongue_ie")
+    if ie and ie.get("rows"):
+        rows = ie["rows"]
+        head = "<tr>%s%s%s%s</tr>" % (_th("County", 0, "text"), _th("Cattle herds", 1), _th("Sheep flocks", 2),
+                                      _th("Total", 3, sort="descending"))
+        body = "".join(_row(r["county"], [_td(r.get("cattle")), _td(r.get("sheep")), _td(r["total"])]) for r in rows)
+        tot = lambda k: sum((r.get(k) or 0) for r in rows)
+        hh = heads.get("ie-bt-herds")
+        if hh and hh.get("value") != tot("total"):
+            print("tables: Ireland county rows add up to %d, the page total is %s" % (tot("total"), hh.get("value")))
+        foot = _row("Ireland", [_td(tot("cattle")), _td(tot("sheep")), _td(tot("total"))])
+        saved = " Read from a saved copy of the page, because gov.ie could not be read in this run." if ie.get("status") == "fallback" else ""
+        cap = "Source: %s, as at %s.%s" % (_ext(ie["source_url"], "DAFM, Bluetongue virus (gov.ie)"),
+                                           _fmt_day(ie.get("as_at") or "", True), saved)
+        out.append(_tbl("tbl-bt-ie", "Bluetongue herd cases in Ireland by county, as at %s" % _fmt_day(ie.get("as_at") or "", True),
+                        head, body, cap, noun="counties", foot=foot))
+    return "".join(out)
+
+
+def _cat_block(slug, c, weeks, starts, T, heads):
+    """One disease on the Numbers page: its chart, then its table (or tables) beneath."""
+    tables = ""
+    if T:
+        bc = (T.get("by_category") or {}).get(slug) or {}
+        span, read = _weeks_span(T["window"]["week_starts"]), _fmt_day(T["generated_at"][:10], True)
+        if slug == "bluetongue":
+            tables = _bt_tables(heads, T)
+        elif slug == "asf":
+            tables = _asf_table(bc, T.get("asf_adis_week"), span, read)
+        else:
+            tables = _country_table(slug, bc, span, read)
+    return ('<section class="cat-block" data-cat="%s" aria-labelledby="chart-%s-h">%s%s</section>'
+            % (slug, slug, _chart_card(slug, c, weeks, starts), tables))
+
+
+def _map_table(features, weeks):
+    """The table under the map as first served: all diseases, all 12 weeks. The map script redraws it."""
+    rows, split = {}, 0
+    for f in features:
+        p = f["properties"]
+        n = sum(p["weeks"].get(w, 0) for w in weeks)
+        if not n:
+            continue
+        cat = p["cat"] if p["cat"] in CAT_STYLE else "other"
+        r = rows.setdefault((p.get("iso3") or p["cc"], cat), {"cc": p["cc"], "cat": cat, "wild": 0, "dom": 0, "all": 0})
+        if p.get("pop") == "wild":
+            r["wild"] += n
+        elif p.get("pop") == "domestic":
+            r["dom"] += n
+        else:
+            split += n
+        r["all"] += n
+    data = sorted(rows.values(), key=lambda r: (-r["all"], r["cc"]))
+    head = "<tr>%s%s%s%s%s</tr>" % (_th("Country", 0, "text"), _th("Disease", 1, "text"), _th("Wild", 2),
+                                    _th("Domestic", 3), _th("Total", 4, sort="descending"))
+    body = "".join('<tr><th scope="row">%s</th><td>%s</td>%s%s%s</tr>' % (
+        escape(r["cc"]), escape(CAT_STYLE[r["cat"]][1]), _td(r["wild"]), _td(r["dom"]), _td(r["all"])) for r in data)
+    note = COUNTED + ((" Total also includes %s that cover both wild and domestic animals, or do not say which."
+                       % "{:,}".format(split)) if split else "")
+    return head, body, note
+
+
+def _shape_svg(shape, colour="#4b5260"):
+    if shape == "circle":
+        el = '<circle cx="11" cy="11" r="6.5"/>'
+    elif shape == "triangle":
+        el = '<polygon points="11,3.4 19.75,18.6 2.25,18.6"/>'
+    else:
+        el = '<rect x="5.3" y="5.3" width="11.4" height="11.4"/>'
+    return '<svg viewBox="0 0 22 22" aria-hidden="true" focusable="false"><g fill="%s">%s</g></svg>' % (colour, el)
 
 
 def _tiles(heads, latest):
@@ -1750,9 +2281,10 @@ def _tiles(heads, latest):
                         "%s, counts to %s" % (_ext(h["source_url"], "GOV.UK"), _fmt_day(h["counts_to"], True))))
     h = heads.get("govuk-ai-season")
     if h:
-        strains = ", ".join("%s %s" % (k.replace("HPAI ", "").replace(" cases", ""), v) for k, v in (h.get("by_strain") or {}).items() if v)
-        out.append(tile("{:,}".format(h["value"]), "bird flu cases confirmed in the UK this season (%s). Latest confirmed %s."
-                        % (strains, _fmt_day(h.get("latest_case", ""))),
+        strains = sorted((k.replace(" cases", ""), v) for k, v in (h.get("by_strain") or {}).items() if v)
+        out.append(tile("{:,}".format(h["value"]), "HPAI (bird flu) cases confirmed in the UK this season%s. Latest confirmed %s."
+                        % ((": " + _and("%s %s" % ("{:,}".format(v), k) for k, v in strains)) if strains else "",
+                           _fmt_day(h.get("latest_case", ""))),
                         "%s, updated %s" % (_ext(h["source_url"], "GOV.UK"), _fmt_day(h["as_of"], True))))
     h = heads.get("adis-week")
     if h:
@@ -1794,7 +2326,7 @@ def _facts(heads):
         else:
             poultry = "%s where biosecurity is poor, %s where it is stringent" % (
                 h["poultry_poor_biosecurity"], h["poultry_stringent_biosecurity"])
-        rows.append(("Bird flu risk, Great Britain", "Wild birds: %s. Poultry: %s. %s, updated %s."
+        rows.append(("HPAI risk, Great Britain", "Wild birds: %s. Poultry: %s. %s, updated %s."
                      % (h["wild_birds"], poultry, _ext(h["source_url"], "GOV.UK"), _fmt_day(h["as_of"], True))))
         rows.append(("Prevention zone or housing order, England", "%s %s, updated %s."
                      % (escape(h["aipz_or_housing"]), _ext(h["source_url"], "GOV.UK"), _fmt_day(h["as_of"], True))))
@@ -1809,6 +2341,8 @@ def _facts(heads):
     return '<dl class="facts">%s</dl>' % "".join("<div><dt>%s</dt><dd>%s</dd></div>" % r for r in rows)
 
 
+TABLES_TAG = "<script>%s</script>" % TABLES_JS.strip()
+
 if LIVE:
     _latest, _agg = LIVE["latest"], LIVE["agg"]
     _weeks = _agg["window"]["weeks"]
@@ -1816,26 +2350,37 @@ if LIVE:
     _cats = _agg["categories"]
     _read = _fmt_stamp(_latest["generated_at"])
     _first, _last = _fmt_day(_starts[0], True), _fmt_day(_starts[-1], True)
+    _span = _weeks_span(_starts)
 
     # ---------- MAP ----------
-    _bm = None if MAP_TILES else _basemap()
-    if _bm:
-        shutil.copy(_bm, os.path.join(ASSETS, "data", "basemap.geojson"))
-    cfg = {"data": LIVE_DATA_URL + "map.geojson", "tiles": MAP_TILES,
-           "basemap": (LIVE_DATA_URL + "basemap.geojson") if _bm else "",
-           "weeks": [[w, _fmt_day(s, True)] for w, s in zip(_weeks, _starts)],
-           "cats": {k: {"colour": v[0], "code": v[1], "phrase": v[2], "label": _cats[k]["label"] if k in _cats else k}
-                    for k, v in CAT_STYLE.items()},
-           "units": {"outbreak": "outbreaks", "event": "events", "case": "cases", "wild boar": "wild boar",
+    cfg = {"data": LIVE_DATA_URL + "map.geojson", "style": MAP_STYLE, "glyphs": MAP_GLYPHS, "attribution": MAP_CREDIT,
+           "maxZoom": MAP_MAX_ZOOM, "weeks": [[w, _fmt_day(s, True)] for w, s in zip(_weeks, _starts)],
+           "cats": {k: {"colour": v[0], "short": v[1], "phrase": v[2]} for k, v in CAT_STYLE.items()},
+           "units": {"outbreak": "outbreaks", "event": "events", "case": "cases",
                      "case (premises) this season": "cases (premises) this season",
-                     "herd case this season": "herd cases this season"}}
+                     "herd case this season": "herd cases this season"},
+           "pop": POP_WORDS, "tableNote": COUNTED}
     cfg_json = json.dumps(cfg, ensure_ascii=False).replace("</", "<\\/")
     week_opts = "".join('<option value="%d">%s</option>' % (i, _fmt_day(s, True)) for i, s in enumerate(_starts))
     week_opts_to = week_opts.replace('<option value="%d">' % (len(_starts) - 1), '<option value="%d" selected>' % (len(_starts) - 1))
-    keys = "".join('<li><span class="key"><i style="--c:%s"></i>%s</span>%s</li>' % (v[0], v[1], escape(_cats[k]["label"]))
-                   for k, v in CAT_STYLE.items() if k in _cats)
-    keys += '<li><span class="key-cluster">12</span>Places grouped together. Zoom in or select to see them.</li>'
-    map_body = page_head("Map of official reports",
+    shapes = "".join("<li>%s%s</li>" % (_shape_svg(sh), t) for sh, t in
+                     (("circle", "Domestic animals"), ("triangle", "Wild animals"), ("square", "Both, or not stated")))
+    colours = "".join('<li><i class="sw" style="--c:%s"></i>%s</li>' % (v[0], escape(v[1])) for k, v in CAT_STYLE.items() if k in _cats)
+    legend = ('<div class="legend" role="group" aria-label="Key">'
+              '<div><p class="legend-title">Shape: the animals affected</p><ul>%s</ul></div>'
+              '<div><p class="legend-title">Colour: the disease</p><ul>%s</ul></div>'
+              '<div><p class="legend-title">Groups</p><ul><li><span class="key-cluster">12</span>Places close together. '
+              'Zoom in or select to see them.</li></ul></div></div>' % (shapes, colours))
+    m_head, m_body, m_note = _map_table((LIVE["map"] or {}).get("features", []), _weeks)
+    map_table = ('<div class="tbl-block" id="by-country"><h2 class="tbl-title" id="map-table-title">%s</h2>'
+                 '<div class="tbl-wrap" role="region" tabindex="0" aria-labelledby="map-table-title">'
+                 '<table class="tbl" id="map-table" data-top="10" data-noun="rows" aria-labelledby="map-table-title">'
+                 '<thead>%s</thead><tbody>%s</tbody></table></div>'
+                 '<p class="tbl-cap" id="map-table-note">%s</p>'
+                 '<p class="tbl-links"><a href="data.html">Download the data</a></p></div>'
+                 % (_cap("reports by country, " + _span), m_head, m_body, m_note))
+    map_credit = (" The basemap is %s, under the Open Database Licence." % MAP_CREDIT)
+    map_body = subnav("map.html") + page_head("Map of official reports",
         "Outbreaks and cases reported by WOAH, the EU, FAO and national governments in the last 12 weeks. "
         "Every point sits at the centre of a country, region or county.", "Live data") + f"""
 <section class="section tight"><div class="wrap">
@@ -1847,30 +2392,35 @@ if LIVE:
 <div class="field"><label class="field-label" for="to-week">To week starting</label><select id="to-week">{week_opts_to}</select></div>
 <div class="field slider"><label class="field-label" for="week-slider">Show weeks up to</label>
 <input type="range" id="week-slider" min="0" max="{len(_starts) - 1}" value="{len(_starts) - 1}" step="1">
-<output id="week-out" for="week-slider">Weeks starting {_first} to {_last}</output></div>
+<output id="week-out" for="week-slider">{_cap(_span)}</output></div>
 </div>
 </form>
 <p class="map-summary" id="map-summary" aria-live="polite">Loading the map data.</p>
 <div class="map-shell"><div id="map" role="region" aria-label="Map of official animal-disease reports"></div>
-<noscript><p>The map needs JavaScript. The same records are in the <a href="data.html">open data</a>.</p></noscript></div>
-<ul class="key-list" aria-label="Key">{keys}</ul>
+<noscript><p>The map needs JavaScript. The table below and the <a href="data.html">open data</a> hold the same records.</p></noscript></div>
+{legend}
+<div class="map-after">
 <div class="below-map">
 <p><strong>Points sit at the centre of a country, region or county. They never show a farm or other premises.</strong></p>
 <p class="note">Where a national source publishes the figures (GOV.UK, DAFM in Ireland, Ruokavirasto in Finland), the map shows them and links the matching WOAH and EU records in the pop-up, so nothing is counted twice. Season totals appear in the week they were published. Counts change with the weeks you choose.</p>
 </div>
-{_sources_block(_latest)}
+{map_table}
+</div>
+{_sources_block(_latest, map_credit)}
 <div class="actions"><a class="btn btn-primary" href="data.html">Download the data</a><a class="btn btn-outline" href="analytics.html">See the numbers</a></div>
 </div></section>
 <script type="application/json" id="map-config">{cfg_json}</script>
-{LEAFLET_JS}<script defer src="assets/map.js?v={hashlib.sha256(MAP_JS.encode()).hexdigest()[:8]}"></script>"""
-    write("map.html", page("Map", "map.html", map_body,
+{TABLES_TAG}
+{MAPLIBRE_JS}<script defer src="assets/map.js?v={hashlib.sha256(MAP_JS.encode()).hexdigest()[:8]}"></script>"""
+    write("map.html", page("Map", "data.html", map_body,
           "A map of official animal-disease reports from WOAH, the EU, FAO and national governments, at country, region or county level.",
-          head=LEAFLET))
+          path="map.html", head=MAP_HEAD))
     write(os.path.join("assets", "map.js"), MAP_JS)
 
     # ---------- NUMBERS ----------
-    charts = "".join(_chart_card(slug, _cats[slug], _weeks, _starts) for slug in _cats)
-    num_body = page_head("The numbers",
+    _T = LIVE.get("tables")
+    blocks = "".join(_cat_block(slug, _cats[slug], _weeks, _starts, _T, LIVE["heads"]) for slug in _cats)
+    num_body = subnav("analytics.html") + page_head("The numbers",
         "Headline figures and 12 weeks of counts for each disease, from official sources. Every figure shows its source and date.",
         "Live data") + f"""
 <section class="section tight"><div class="wrap">
@@ -1882,15 +2432,17 @@ if LIVE:
 </div></section>
 <section class="section tight" aria-labelledby="weekly-title"><div class="wrap">
 <div class="section-head"><h2 id="weekly-title">Week by week</h2>
-<p>The last 12 weeks for each disease. This week is in terracotta and is not finished yet.</p></div>
+<p>The last 12 weeks for each disease, with a table by country under each chart. This week is shown in the disease&rsquo;s colour and is not finished yet.</p></div>
 <form class="filters" onsubmit="return false">{_chips("num-cat", _cats)}</form>
-<div class="charts">{charts}</div>
-<p class="note">Each chart keeps its source&rsquo;s own counting rules, so the charts cannot be added together. The weekly counts by country are in <a href="{LIVE_DATA_URL}aggregates.json">aggregates.json</a>.</p>
+<div class="cat-blocks">{blocks}</div>
+<p class="note">Each chart keeps its source&rsquo;s own counting rules, so the charts cannot be added together. The weekly counts by country are in <a href="{LIVE_DATA_URL}aggregates.json">aggregates.json</a>, and the country tables are in <a href="{LIVE_DATA_URL}tables.json">tables.json</a>.</p>
 {_sources_block(_latest)}
 </div></section>
+{TABLES_TAG}
 <script defer src="assets/numbers.js?v={hashlib.sha256(NUMBERS_JS.encode()).hexdigest()[:8]}"></script>"""
-    write("analytics.html", page("Numbers", "analytics.html", num_body,
-          "Headline animal-disease figures and 12 weeks of counts for each disease, each with its official source and date."))
+    write("analytics.html", page("Numbers", "data.html", num_body,
+          "Headline animal-disease figures and 12 weeks of counts for each disease, each with its official source and date.",
+          path="analytics.html"))
     write(os.path.join("assets", "numbers.js"), NUMBERS_JS)
 
 
@@ -1914,6 +2466,13 @@ if LIVE:
         r = (_files.get(name) or {}).get("rows")
         return "{:,} rows".format(r) if r is not None else ""
 
+    def _licences(sources):
+        out = []
+        for name, short in LICENCE_SHORT:
+            if name in sources and short not in out:
+                out.append(short)
+        return ", ".join(out) if out else "OutbreakLens, free to reuse"
+
     by_cat = "".join('<span><a href="%s%s.csv" download>%s</a> <span class="nw">(%s)</span></span>' % (
         LIVE_DATA_URL, slug, escape(LIVE["agg"]["categories"][slug]["label"]),
         "{:,}".format((_files.get("%s.csv" % slug) or {}).get("rows") or 0)) for slug in LIVE["cats"])
@@ -1927,17 +2486,28 @@ if LIVE:
     ]
     rows_html = "".join('<tr><td data-label="Dataset">%s</td><td data-label="What it holds">%s</td><td data-label="Download">%s</td></tr>'
                         % r for r in table_rows)
+    _stamp_iso = LIVE["latest"]["generated_at"][:10]
+    csv_rows = "".join(
+        '<tr><th scope="row"><a href="%s%s" download>%s</a></th>%s%s<td data-v="%s">%s</td><td class="wrap">%s</td></tr>'
+        % (LIVE_DATA_URL, n, n, _td(_files[n]["rows"]), _td(_files[n]["cols"]), _stamp_iso, _fmt_day(_stamp_iso, True),
+           _licences(_files[n]["sources"]))
+        for n in ["events.csv"] + ["%s.csv" % c for c in LIVE["cats"]] + ["dictionary.csv"] if n in _files)
+    csv_head = "<tr>%s%s%s%s%s</tr>" % (_th("File", 0, "text"), _th("Rows", 1), _th("Columns", 2),
+                                        _th("Last updated", 3, "text"), _th("Licence", 4, "text"))
+    csv_table = _tbl("tbl-csv", "CSV files, data read %s" % _fmt_day(_stamp_iso, True), csv_head, csv_rows,
+                     "Free to reuse with credit to OutbreakLens and to the sources. The terms named apply to the rows "
+                     "from each source. They are set out under Sources below.", noun="files", level="h2")
     dict_rows = "".join('<tr><td data-label="Column"><code>%s</code></td><td data-label="Type">%s</td><td data-label="Meaning">%s</td></tr>'
                         % (escape(d["column"]), escape(d["type"]), escape(d["description"])) for d in _dict)
     status_label = {"live": "Read live", "fallback": "Saved copy", "failed": "Not available", "stub": "Not connected"}
     status_rows = "".join(
         '<tr><td data-label="Source">%s</td><td data-label="This run"><span class="status-%s">%s</span></td>'
         '<td data-label="Rows">%s</td><td data-label="Source updated">%s</td></tr>'
-        % (escape(s["name"].replace("GOV.UK (Defra and APHA)", "GOV.UK " + ("bluetongue" if s["key"] == "govuk_bluetongue" else "bird flu"))),
+        % (escape(s["name"].replace("GOV.UK (Defra and APHA)", "GOV.UK " + ("bluetongue" if s["key"] == "govuk_bluetongue" else "HPAI"))),
            escape(s["status"]), status_label.get(s["status"], escape(s["status"])), "{:,}".format(s["rows"]),
            _fmt_day((s.get("source_updated") or "")[:10], True) or "not given")
         for s in LIVE["latest"].get("sources", []))
-    data = page_head("Open data, free to use",
+    data = subnav("data.html") + page_head("Open data, free to use",
         "The records behind the map and the numbers. One row per event, case or published total, each with its source, "
         "date and link. Updated each time the pipeline runs.", "Live data") + f"""
 <section class="section tight"><div class="wrap">
@@ -1945,6 +2515,7 @@ if LIVE:
 <table class="data-table"><caption class="vh">Files to download</caption>
 <thead><tr><th scope="col">Dataset</th><th scope="col">What it holds</th><th scope="col">Download</th></tr></thead>
 <tbody>{rows_html}</tbody></table>
+{csv_table}
 <div class="narrow">
 <h2>Licence</h2>
 <p>Free to reuse with attribution to OutbreakLens and to the original providers. Each provider&rsquo;s own terms also apply, and some limit commercial use. They are listed under Sources below.</p>
@@ -1967,7 +2538,8 @@ if LIVE:
 <tbody>{status_rows}</tbody></table>
 <p class="note">A saved copy means the source could not be read in this run, so the last good copy was used. Its date is shown.</p>
 {_sources_block(LIVE["latest"])}
-</div></section>"""
+</div></section>
+{TABLES_TAG}"""
 elif PRELAUNCH:
     data = page_head("Clean data, free to use",
         "Every report will come with a tidy, de-duplicated dataset: one row per reported event, standard columns, "

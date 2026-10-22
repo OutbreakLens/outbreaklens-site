@@ -189,7 +189,7 @@ def fetch(ctx) -> SourceResult:
                                          for n in lifted))
     else:
         aipz = "The page does not say that an Avian Influenza Prevention Zone (AIPZ) or a housing order is in force in England."
-    res.headlines.append({"id": "govuk-ai-season", "label": "Bird flu cases confirmed in the UK this season",
+    res.headlines.append({"id": "govuk-ai-season", "label": "HPAI (bird flu) cases confirmed in the UK this season",
                           "value": summary.get("Total") and sum(v or 0 for v in summary["Total"].values()) or len(res.rows),
                           "unit": "cases", "detail": "; ".join("%s: %s" % (k, ", ".join("%s %s" % (kk.replace(" cases", ""), vv)
                                                                                  for kk, vv in v.items()))
@@ -198,7 +198,7 @@ def fetch(ctx) -> SourceResult:
                           "latest_case": max((r["date_confirmed"] for r in res.rows), default=""),
                           "previous_seasons": prev, "as_of": iso_date(updated), "source": NAME, "source_url": page,
                           "fetched_at": res.fetched_at})
-    res.headlines.append({"id": "govuk-ai-risk", "label": "Bird flu risk levels in Great Britain",
+    res.headlines.append({"id": "govuk-ai-risk", "label": "HPAI (bird flu) risk levels in Great Britain",
                           "value": wild.group(1) if wild else "", "unit": "risk to wild birds",
                           "wild_birds": wild.group(1) if wild else "not found",
                           "poultry_poor_biosecurity": ("%s (%s uncertainty)" % poor.groups()) if poor else "not found",
@@ -209,7 +209,7 @@ def fetch(ctx) -> SourceResult:
                           "as_of": iso_date(updated), "source": NAME, "source_url": page, "fetched_at": res.fetched_at})
     weeks = [iso_week(d.isoformat()) for d in ctx.week_starts()]
     res.series.append({"id": "govuk-ai-cases", "source": NAME, "source_url": page, "unit": "cases",
-                       "metric": "Bird flu cases confirmed in the UK each week (listed on the GOV.UK page)",
+                       "metric": "HPAI (bird flu) cases confirmed in the UK each week (listed on the GOV.UK page)",
                        "date_basis": "date of confirmation", "geography": "United Kingdom", "fetched_at": res.fetched_at,
                        "source_updated": updated, "weeks": weeks,
                        "by_category": {"bird-flu": {"total": [weekly.get(w, 0) for w in weeks],

@@ -72,7 +72,9 @@ def main(argv=None):
     counts = outputs.write_tables(args.outdir, rows)
     outputs.write_aggregates(args.outdir, ctx, results, generated)
     outputs.write_latest(args.outdir, ctx, results, rows, generated, counts)
-    mapc = outputs.write_map(args.outdir, rows, results, edges)
+    feats = outputs.write_map(args.outdir, rows, results, edges)
+    outputs.write_tables_json(args.outdir, ctx, feats, rows, results, generated)
+    mapc = collections.Counter(f["properties"]["src"] for f in feats)
 
     status = {"generated_at": generated, "window": [ctx.window_start.isoformat(), ctx.today.isoformat()],
               "sources": [r.summary() for r in results],

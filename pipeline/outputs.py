@@ -7,6 +7,7 @@ outputs.py: write the public files.
   data/aggregates.json      weekly counts by category and country for the last 12 weeks, per source
   data/latest.json          headline numbers, each with its source and date
   data/map.geojson          points at country, region or county centres for the map
+  data/tables.json          country tables for the Numbers page, from the same records as the map
   data/run_status.json      what each source returned in this run
 
 Map rule: where a national source (GOV.UK, DAFM, Ruokavirasto) covers a country and disease,
@@ -15,7 +16,7 @@ pop-up, so the same outbreak is not drawn twice. EMPRES-i and ADIS records alrea
 WAHIS are left off the map for the same reason. All of them stay in the CSV files.
 """
 from __future__ import annotations
-import collections, csv, datetime as dt, json, os
+import collections, csv, datetime as dt, json, os, re
 
 from adapters.common import COLUMNS, iso_week
 import categories, clean, geo
@@ -27,7 +28,7 @@ DICTIONARY = [
     ("source_url", "URL", "Where to check the figure. For WAHIS, the event's page.", "https://wahis.woah.org/#/in-event/7918/dashboard"),
     ("source_updated", "date-time", "When the source last updated the record or page, as the source gives it.", "2026-10-20T15:02:50.583+00:00"),
     ("fetched_at", "date-time (UTC)", "When OutbreakLens read the source.", "2026-10-22T19:32:07Z"),
-    ("category", "slug", "One of: bird-flu, bluetongue, asf, fmd, sheep-goat-pox, lsd, newcastle-disease, other.", "bird-flu"),
+    ("category", "slug", "Disease category, as a slug with the label the site uses: bird-flu = HPAI (bird flu); bluetongue = Bluetongue; asf = African swine fever; fmd = Foot-and-mouth disease; sheep-goat-pox = Sheep and goat pox, with peste des petits ruminants; lsd = Lumpy skin disease; newcastle-disease = Newcastle disease; other = Other exotic diseases.", "bird-flu"),
     ("disease", "text", "Disease as the source names it, shortened (WAHIS's '(Inf. with)' removed).", "High pathogenicity avian influenza viruses (poultry)"),
     ("serotype_or_strain", "text", "Serotype, subtype or strain where given.", "H5N1"),
     ("country_iso3", "ISO 3166-1 alpha-3", "Country code. Kosovo uses XKX.", "GBR"),
@@ -155,15 +156,38 @@ def _place_label(r_or_u, iso3):
 
 
 def _title(r):
-    t = r["disease"]
-    if r.get("serotype_or_strain"):
-        t += ", " + r["serotype_or_strain"]
-    return t
+    """Pop-up title. HPAI records read 'HPAI H5N1' (or 'LPAI ...'); other diseases keep the source's name."""
+    strain = (r.get("serotype_or_strain") or "").strip()
+    if r["category"] == "bird-flu":
+        base = "LPAI" if re.search(r"low pathogen", r["disease"], re.I) else "HPAI"
+        strain = re.sub(r"\b(HPAI|LPAI)\b", "", strain).strip(" ,")
+        if strain.lower() in ("pending", "untyped or partially typed"):
+            return "%s, subtype %s" % (base, "pending" if strain.lower() == "pending" else "not typed")
+        return ("%s %s" % (base, strain)).strip()
+    return r["disease"] + (", " + strain if strain else "")
+
+
+MAMMAL = re.compile(r"mammal|bovine|cattle|dairy|\bcats?\b|feline|\bdogs?\b|canine|\bfox|mink|\bseals?\b|sea lion|otter|ferret|"
+                    r"skunk|raccoon|\bbears?\b|marten|badger|polecat|lynx|dolphin|porpoise|\bpigs?\b|swine|goat|sheep|alpaca|"
+                    r"opossum|rodent|\bmice\b|\bmouse\b|\brats?\b|squirrel|hedgehog|ruminant|equine|horse|\bdeer\b", re.I)
+BIRD = re.compile(r"bird|egret|sparrow|goose|geese|duck|gull|swan|tern\b|owl|hawk|eagle|heron|poultry|chicken|turkey|"
+                  r"pheasant|crow|raven|pelican|skua|buzzard|falcon|wigeon|teal|mallard", re.I)
+
+
+def _mammals_only(species):
+    """True when every species named is a mammal (so an HPAI record is not counted as wild birds or poultry)."""
+    parts = [x.strip() for x in re.split(r";", species or "") if x.strip()]
+    return bool(parts) and all(MAMMAL.search(x) and not BIRD.search(x) for x in parts)
+
+
+POP_WORDS = {"domestic": "Domestic animals", "wild": "Wild animals", "mixed": "Domestic and wild animals", "": "Not stated"}
 
 
 def write_map(out, rows, results, edges):
-    """One feature per record and place. Each feature carries counts by ISO week, so the map's time
-    filter changes the counts and hides a marker only when it has nothing in the chosen weeks."""
+    """One feature per record, place and population type. Each feature carries counts by ISO week, so the
+    map's time filter changes the counts and hides a marker only when it has nothing in the chosen weeks.
+    Counts are outbreak-like throughout: outbreaks (WOAH, EU), events (FAO), and cases as national pages
+    count them (premises, herds, wild boar finds)."""
     id2row = {r["event_id"]: r for r in rows}
     national = {r["event_id"] for r in rows if r["source"] in clean.NATIONAL}
     feats = []
@@ -181,13 +205,18 @@ def write_map(out, rows, results, edges):
                 out_.append([src, o["source_url"]])
         return out_
 
-    def feature(fid, r, lat, lon, weeks, unit, place, note, date):
+    def feature(fid, r, lat, lon, weeks, unit, place, note, date, pop, species=None):
+        pop = pop if pop in ("domestic", "wild", "mixed") else ""
+        props = {"id": fid, "cat": r["category"], "src": SHORT_SOURCE.get(r["source"], r["source"]),
+                 "title": _title(r), "place": place, "cc": r["country_name"], "iso3": r["country_iso3"],
+                 "pop": pop, "date": date, "weeks": dict(sorted(weeks.items())), "unit": unit,
+                 "url": r["source_url"], "also": also(r["event_id"]), "note": note}
+        if r["category"] == "bird-flu" and _mammals_only(r["species"] if species is None else species):
+            props["mam"] = 1   # mammals only: not counted as wild birds or poultry in the tables
         return {"type": "Feature", "geometry": {"type": "Point", "coordinates": [round(lon, 2), round(lat, 2)]},
-                "properties": {"id": fid, "cat": r["category"], "src": SHORT_SOURCE.get(r["source"], r["source"]),
-                               "title": _title(r), "place": place, "date": date, "weeks": dict(sorted(weeks.items())),
-                               "unit": unit, "url": r["source_url"], "also": also(r["event_id"]), "note": note}}
+                "properties": props}
 
-    # WAHIS: one feature per event and region, with outbreaks by start week
+    # WAHIS: one feature per event, region and population type, with outbreaks by start week
     wres = next((x for x in results if x.key == "wahis"), None)
     grouped = collections.OrderedDict()
     for u in (wres.extras.get("map_units", []) if wres else []):
@@ -197,34 +226,38 @@ def write_map(out, rows, results, edges):
         if any(x in national for x in edges.get(u["event_id"], ())):
             if u["country_iso3"] != "GBR" or u["admin1"] in geo.UK_NATIONS:
                 continue   # drawn from the national source instead
-        k = (u["event_id"], u["admin1"], u["admin2"], u["lat"], u["lon"])
+        k = (u["event_id"], u["admin1"], u["admin2"], u["lat"], u["lon"], u.get("pop", ""))
         g = grouped.setdefault(k, {"u": u, "weeks": collections.Counter(), "date": ""})
         g["weeks"][u["week"]] += u["count"]
         g["date"] = max(g["date"], u["date"])
-    for (eid, a1, a2, la, lo), g in grouped.items():
+    for (eid, a1, a2, la, lo, pop), g in grouped.items():
         r = id2row[eid]
-        feats.append(feature("%s-%s" % (eid, geo.norm(a2 or a1 or "country").replace(" ", "-")), r, la, lo, g["weeks"],
-                             "outbreak", _place_label(g["u"], g["u"]["country_iso3"]),
-                             "Outbreaks counted by their start date. Latest start %s." % _fmt_date(g["date"]), g["date"]))
-    # EMPRES-i events not already in WAHIS or a national source, grouped by region
+        feats.append(feature("%s-%s%s" % (eid, geo.norm(a2 or a1 or "country").replace(" ", "-"), ("-" + pop) if pop else ""),
+                             r, la, lo, g["weeks"], "outbreak", _place_label(g["u"], g["u"]["country_iso3"]),
+                             "Outbreaks counted by their start date. Latest start %s." % _fmt_date(g["date"]), g["date"], pop))
+    # EMPRES-i events not already in WAHIS or a national source, grouped by region and population type
     groups = collections.defaultdict(list)
     for r in rows:
         if r["source"] == "FAO EMPRES-i" and not edges.get(r["event_id"]) and r["lat"] != "":
-            groups[(r["category"], r["country_iso3"], r["admin1"], r["admin2"], r["lat"], r["lon"], r["disease"])].append(r)
-    for (cat, iso3, a1, a2, la, lo, dis), grp in groups.items():
+            groups[(r["category"], r["country_iso3"], r["admin1"], r["admin2"], r["lat"], r["lon"], r["disease"],
+                    r["population_type"])].append(r)
+    for (cat, iso3, a1, a2, la, lo, dis, pop), grp in groups.items():
         r0 = max(grp, key=lambda r: r["date_start"] or "")
         weeks = collections.Counter(iso_week(g["date_start"] or g["date_reported"]) for g in grp)
         srcs = sorted({(g.get("_diag_source") or "not given") for g in grp})
-        feats.append(feature("empres-i-%s-%s-%s" % (iso3.lower(), geo.norm(a2 or a1 or "country").replace(" ", "-"), cat),
+        feats.append(feature("empres-i-%s-%s-%s%s" % (iso3.lower(), geo.norm(a2 or a1 or "country").replace(" ", "-"), cat,
+                                                      ("-" + pop) if pop else ""),
                              r0, la, lo, weeks, "event", _place_label(r0, iso3),
                              "EMPRES-i events by observation date, not found in WOAH WAHIS this run. Reported by: %s."
-                             % ", ".join(srcs), r0["date_start"] or r0["date_reported"]))
+                             % ", ".join(srcs), r0["date_start"] or r0["date_reported"], pop,
+                             species="; ".join(g["species"] for g in grp)))
     # ADIS rows not linked to WAHIS or a national source
     for r in rows:
         if r["source"] == "EU ADIS" and not edges.get(r["event_id"]) and r["lat"] != "":
             feats.append(feature(r["event_id"], r, r["lat"], r["lon"], {iso_week(r["date_reported"]): r["outbreaks"] or 0},
                                  "outbreak", r["country_name"], "ADIS week %s to %s." % (
-                                     _fmt_date(r["date_start"]), _fmt_date(r["date_reported"])), r["date_reported"]))
+                                     _fmt_date(r["date_start"]), _fmt_date(r["date_reported"])), r["date_reported"],
+                                 r["population_type"]))
     # national sources
     fi = collections.defaultdict(list)
     for r in rows:
@@ -236,32 +269,97 @@ def write_map(out, rows, results, edges):
             feats.append(feature(r["event_id"], r, r["lat"], r["lon"], {iso_week(r["date_reported"]): r["outbreaks"] or 0},
                                  "case (premises) this season", _place_label(r, "GBR"),
                                  "Season total, %s to %s. GOV.UK counts a case as a premises." % (
-                                     _fmt_date(r["date_start"]), _fmt_date(r["date_reported"])), r["date_reported"]))
+                                     _fmt_date(r["date_start"]), _fmt_date(r["date_reported"])), r["date_reported"], "domestic"))
         elif r["source"] == "GOV.UK (Defra and APHA)":
             feats.append(feature(r["event_id"], r, r["lat"], r["lon"], {iso_week(r["date_confirmed"]): 1}, "case",
                                  _place_label(r, "GBR"), "Published as %s. Shown at the centre of %s." % (
-                                     r["place_as_published"], r["admin2"] or r["admin1"]), r["date_confirmed"]))
+                                     r["place_as_published"], r["admin2"] or r["admin1"]), r["date_confirmed"], "domestic"))
         elif r["source"] == "DAFM (gov.ie)":
             feats.append(feature(r["event_id"], r, r["lat"], r["lon"], {iso_week(r["date_reported"]): r["outbreaks"] or 0},
                                  "herd case this season", _place_label(r, "IRL"),
-                                 "Herd cases as at %s." % _fmt_date(r["date_reported"]), r["date_reported"]))
+                                 "Herd cases as at %s." % _fmt_date(r["date_reported"]), r["date_reported"], "domestic"))
         else:
             fi[(r["admin1"], r["lat"], r["lon"])].append(r)
     for (a1, la, lo), grp in fi.items():
         r0 = max(grp, key=lambda r: r["date_confirmed"])
-        weeks = collections.Counter()
-        for g in grp:
-            weeks[iso_week(g["date_confirmed"])] += g["cases"] or 1
+        weeks = collections.Counter(iso_week(g["date_confirmed"]) for g in grp)
+        animals = sum(g["cases"] or 1 for g in grp)
         munis = sorted({g["admin2"] for g in grp})
-        feats.append(feature("fi-asf-%s" % geo.norm(a1).replace(" ", "-"), r0, la, lo, weeks, "wild boar",
-                             "%s, Finland" % a1, "Municipalities: %s. Latest confirmed %s." % (
-                                 ", ".join(munis), _fmt_date(r0["date_confirmed"])), r0["date_confirmed"]))
+        feats.append(feature("fi-asf-%s" % geo.norm(a1).replace(" ", "-"), r0, la, lo, weeks, "case",
+                             "%s, Finland" % a1, "Each case is a find of wild boar: %d animals in %d cases. Municipalities: %s. "
+                             "Latest confirmed %s." % (animals, len(grp), ", ".join(munis), _fmt_date(r0["date_confirmed"])),
+                             r0["date_confirmed"], "wild"))
+    seen = collections.Counter()
+    for f in feats:   # ids stay unique, even if two groups share a place and population type
+        fid = f["properties"]["id"]
+        seen[fid] += 1
+        if seen[fid] > 1:
+            f["properties"]["id"] = "%s-%d" % (fid, seen[fid])
     gj = {"type": "FeatureCollection",
           "properties": {"note": "Points are at the centre of a country, region or county. They never show a farm or other premises.",
-                         "units": {"outbreak": "outbreaks", "event": "events", "case": "cases", "wild boar": "wild boar",
+                         "units": {"outbreak": "outbreaks", "event": "events", "case": "cases",
                                    "case (premises) this season": "cases (premises) this season",
-                                   "herd case this season": "herd cases this season"}},
+                                   "herd case this season": "herd cases this season"},
+                         "population": POP_WORDS},
           "features": sorted(feats, key=lambda f: (f["properties"]["date"] or "", f["properties"]["id"]))}
     with open(os.path.join(out, "map.geojson"), "w", encoding="utf-8") as f:
         json.dump(gj, f, ensure_ascii=False, separators=(",", ":"))
-    return collections.Counter(f["properties"]["src"] for f in feats)
+    return feats
+
+
+def write_tables_json(out, ctx, feats, rows, results, generated):
+    """Ready-made tables for the Numbers page: outbreaks by country and population type for each category over
+    the 12 weeks (from the same de-duplicated records as the map), the latest ADIS week for ASF, and the
+    national bluetongue tables."""
+    weeks = [iso_week(d.isoformat()) for d in ctx.week_starts()]
+    starts = [d.isoformat() for d in ctx.week_starts()]
+    per = collections.defaultdict(dict)
+    srcs = collections.defaultdict(set)
+    for f in feats:
+        p = f["properties"]
+        n = sum(v for w, v in p["weeks"].items() if w in weeks)
+        if not n:
+            continue
+        rec = per[p["cat"]].setdefault(p["iso3"], {"iso3": p["iso3"], "country": p["cc"], "wild": 0, "domestic": 0,
+                                                   "other": 0, "mammals": 0, "total": 0})
+        if p.get("mam"):
+            rec["mammals"] += n
+        else:
+            rec[p["pop"] if p["pop"] in ("wild", "domestic") else "other"] += n
+        rec["total"] += n
+        srcs[p["cat"]].add(p["src"])
+    by_cat = {}
+    for slug, label, _ in categories.CATEGORIES:
+        rws = sorted(per[slug].values(), key=lambda r: (-r["total"], r["country"]))
+        by_cat[slug] = {"label": label, "rows": rws, "sources": sorted(srcs[slug]),
+                        "other_total": sum(r["other"] for r in rws), "mammals_total": sum(r["mammals"] for r in rws)}
+    doc = {"generated_at": generated, "window": {"weeks": weeks, "week_starts": starts, "end": ctx.today.isoformat()},
+           "by_category": by_cat,
+           "note": "Counts are outbreaks or cases as each source counts them, after removing records already drawn from "
+                   "another source. 'other' holds records that cover both kept and wild animals or do not say. "
+                   "'mammals' holds HPAI records in mammals only."}
+    adis_res = next((x for x in results if x.key == "adis"), None)
+    if adis_res and adis_res.extras.get("period"):
+        wk = {}
+        for r in rows:
+            if r["source"] == "EU ADIS" and r["category"] == "asf":
+                rec = wk.setdefault(r["country_iso3"], {"iso3": r["country_iso3"], "country": r["country_name"],
+                                                         "wild": 0, "domestic": 0, "total": 0})
+                rec["wild" if r["population_type"] == "wild" else "domestic"] += r["outbreaks"] or 0
+                rec["total"] += r["outbreaks"] or 0
+        doc["asf_adis_week"] = {"period": list(adis_res.extras["period"]), "source_updated": adis_res.source_updated,
+                                "source_url": adis_res.url, "status": adis_res.status,
+                                "rows": sorted(wk.values(), key=lambda r: (-r["total"], r["country"]))}
+    bt = next((x for x in results if x.key == "govuk_bluetongue"), None)
+    if bt and bt.extras.get("nations"):
+        doc["bluetongue_gb"] = {"period": list(bt.extras.get("period") or ("", "")), "source_updated": bt.source_updated,
+                                "source_url": bt.url, "status": bt.status,
+                                "rows": [{"nation": k, "cases": v} for k, v in bt.extras["nations"].items()]}
+    ie = next((x for x in results if x.key == "ie_dafm"), None)
+    if ie and ie.extras.get("counties"):
+        doc["bluetongue_ie"] = {"as_at": ie.extras.get("as_at", ""), "source_updated": ie.source_updated,
+                                "source_url": ie.url, "status": ie.status,
+                                "rows": sorted(ie.extras["counties"], key=lambda r: (-r["total"], r["county"]))}
+    with open(os.path.join(out, "tables.json"), "w", encoding="utf-8") as f:
+        json.dump(doc, f, ensure_ascii=False, indent=1)
+    return doc

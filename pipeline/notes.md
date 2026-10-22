@@ -5,7 +5,7 @@ goes to the live site. First written on 22 October 2026 from the build run. The 
 rewritten by `run.py` on every full run.
 
 <!-- run-status:start -->
-Last run: 2026-10-22T20:30:18Z. Window 2026-08-03 to 2026-10-22.
+Last run: 2026-10-22T22:59:37Z. Window 2026-08-03 to 2026-10-22.
 
 | Source | Status | Rows | Updated by source | Note |
 |---|---|---|---|---|
@@ -91,18 +91,15 @@ Lappeenranta and Pyhtää, placed at their regions (Kymenlaakso, South Karelia).
 | DAFM (gov.ie) | Irish PSI is generally under the PSI Licence (CC BY 4.0); DAFM's own statement could not be read from the container. | Probably allowed; confirm. |
 | Ruokavirasto | "The materials on the page may be used and linked to, but the source of the information must be mentioned. The use of the materials for commercial purposes must always be agreed upon separately with the Finnish Food Authority." | **Restricted.** Needs agreement before commercial use. |
 | Natural Earth | Public domain. | Allowed. |
-| CARTO basemaps | Every user now needs a free API key; commercial use is free up to 1 million tile requests a month; attribution must stay visible. Without a key the tiles show an "API key required" watermark. | The map uses its own Natural Earth basemap instead. `MAP_TILES` in build_site.py switches to tiles once a key exists. |
+| OpenFreeMap (basemap) | Public instance: free, no registration or API key, no limits on map views or requests. Attribution is required: OpenFreeMap, OpenMapTiles and OpenStreetMap contributors (shown on the map and under Sources). No service guarantee. OpenStreetMap data is under the Open Database Licence. | Allowed ("Yes" on openfreemap.org). If the service is down, the map shows the points on a plain background. |
 
 ## Decisions before this goes to main
 
 1. Reuse terms: write to WOAH and FAO about monetised use and scheduled reads, and to Ruokavirasto for
    commercial use, or drop Finland from the public files until agreed.
-2. Basemap: keep the Natural Earth basemap (no keys, no terms) or get a free CARTO key.
-3. Where the pipeline runs: a weekly scheduled run on a machine gov.ie accepts would also fix the DAFM
+2. Where the pipeline runs: a weekly scheduled run on a machine gov.ie accepts would also fix the DAFM
    fallback. The editorial hold for UK pig-disease records stays on unless changed in `clean.py`.
-4. The navigation now has nine items, so the full menu shows from 1024 px; below that the Menu button
-   is used on every page.
-5. Public repository: `cache/` is ignored because it holds outbreak points. Keep it that way.
+3. Public repository: `cache/` is ignored because it holds outbreak points. Keep it that way.
 
 ## Known limits
 
@@ -112,5 +109,10 @@ Lappeenranta and Pyhtää, placed at their regions (Kymenlaakso, South Karelia).
 - The GOV.UK bluetongue county tables are season totals, so the map shows them only in the week they
   were published.
 - `same_as` lists up to 20 ids per row; the linked rows also point back.
+- WAHIS can report a cluster of outbreaks as one record (its `clusterCount`). The pipeline counts that
+  record as one outbreak at its start date. EMPRES-i may list the detections in a cluster one by one,
+  with their own dates, and these do not match the WAHIS record. In this run that is why the HPAI table
+  shows 326 reports in wild birds in Australia (311 from EMPRES-i), while the WOAH chart shows 15.
+- The map needs WebGL. Without it, the page says so and the table under the map still works.
 - Five region centres happen to lie within about 1 km of a reported outbreak. They are the fixed
   Natural Earth label points used for every record in that region, not outbreak locations.

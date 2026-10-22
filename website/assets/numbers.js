@@ -1,9 +1,10 @@
 (function () {
   "use strict";
+  var blocks = Array.prototype.slice.call(document.querySelectorAll(".cat-block"));
   var cards = Array.prototype.slice.call(document.querySelectorAll(".chart-card"));
   Array.prototype.forEach.call(document.querySelectorAll('input[name="num-cat"]'), function (r) {
     r.addEventListener("change", function () {
-      cards.forEach(function (c) { c.hidden = r.value !== "all" && c.getAttribute("data-cat") !== r.value; });
+      blocks.forEach(function (b) { b.hidden = r.value !== "all" && b.getAttribute("data-cat") !== r.value; });
     });
   });
   cards.forEach(function (card) {

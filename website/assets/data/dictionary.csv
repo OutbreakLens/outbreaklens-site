@@ -5,7 +5,7 @@ source,text,Who published the figure.,WOAH WAHIS
 source_url,URL,"Where to check the figure. For WAHIS, the event's page.",https://wahis.woah.org/#/in-event/7918/dashboard
 source_updated,date-time,"When the source last updated the record or page, as the source gives it.",2026-10-20T15:02:50.583+00:00
 fetched_at,date-time (UTC),When OutbreakLens read the source.,2026-10-22T19:32:07Z
-category,slug,"One of: bird-flu, bluetongue, asf, fmd, sheep-goat-pox, lsd, newcastle-disease, other.",bird-flu
+category,slug,"Disease category, as a slug with the label the site uses: bird-flu = HPAI (bird flu); bluetongue = Bluetongue; asf = African swine fever; fmd = Foot-and-mouth disease; sheep-goat-pox = Sheep and goat pox, with peste des petits ruminants; lsd = Lumpy skin disease; newcastle-disease = Newcastle disease; other = Other exotic diseases.",bird-flu
 disease,text,"Disease as the source names it, shortened (WAHIS's '(Inf. with)' removed).",High pathogenicity avian influenza viruses (poultry)
 serotype_or_strain,text,"Serotype, subtype or strain where given.",H5N1
 country_iso3,ISO 3166-1 alpha-3,Country code. Kosovo uses XKX.,GBR

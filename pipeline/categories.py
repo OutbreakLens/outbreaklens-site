@@ -11,7 +11,7 @@ import re
 
 # slug, label for pages, one-line scope note
 CATEGORIES = [
-    ("bird-flu", "Bird flu", "Avian influenza in poultry, captive birds, wild birds and mammals"),
+    ("bird-flu", "HPAI (bird flu)", "Avian influenza in poultry, captive birds, wild birds and mammals"),
     ("bluetongue", "Bluetongue", "Bluetongue virus, all serotypes"),
     ("asf", "African swine fever", "African swine fever in domestic pigs and wild boar"),
     ("fmd", "Foot-and-mouth disease", "Foot-and-mouth disease, all serotypes"),

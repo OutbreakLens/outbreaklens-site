@@ -93,6 +93,9 @@ def fetch(ctx) -> SourceResult:
             notes="Herd cases as at %s: %s cattle, %s sheep.%s" % (
                 asat, bov if bov is not None else "?", ovi if ovi is not None else "?",
                 " From a WebFetch copy of the page." if res.status == "fallback" else "")))
+    res.extras["as_at"] = asat
+    res.extras["counties"] = [{"county": c[0], "cattle": c[1] if len(c) > 2 else None,
+                               "sheep": c[2] if len(c) > 3 else None, "total": c[-1]} for c in data["rows"]]
     tots = data.get("totals") or []
     res.headlines.append({"id": "ie-bt-herds", "label": "Bluetongue herd cases in Ireland",
                           "value": tots[-1] if tots else sum(r["outbreaks"] for r in res.rows), "unit": "herds",

@@ -1,6 +1,6 @@
 {
  "updated": "2026-10-21T12:04:01+01:00",
- "fetched_at": "2026-10-22T20:30:39Z",
+ "fetched_at": "2026-10-22T22:59:58Z",
  "cases": [
   {
    "event_id": "govuk-ai-aiv2026-21",
@@ -22,7 +22,7 @@
  "headlines": [
   {
    "id": "govuk-ai-season",
-   "label": "Bird flu cases confirmed in the UK this season",
+   "label": "HPAI (bird flu) cases confirmed in the UK this season",
    "value": 2,
    "unit": "cases",
    "detail": "England: HPAI H5N5 0, HPAI H5N1 1; Scotland: HPAI H5N5 1, HPAI H5N1 0; Wales: HPAI H5N5 0, HPAI H5N1 0; Northern Ireland: HPAI H5N5 0, HPAI H5N1 0",
@@ -57,11 +57,11 @@
    "as_of": "2026-10-21",
    "source": "GOV.UK (Defra and APHA)",
    "source_url": "https://www.gov.uk/guidance/bird-flu-avian-influenza-latest-situation-in-england",
-   "fetched_at": "2026-10-22T20:30:39Z"
+   "fetched_at": "2026-10-22T22:59:58Z"
   },
   {
    "id": "govuk-ai-risk",
-   "label": "Bird flu risk levels in Great Britain",
+   "label": "HPAI (bird flu) risk levels in Great Britain",
    "value": "medium",
    "unit": "risk to wild birds",
    "wild_birds": "medium",
@@ -86,7 +86,7 @@
    "as_of": "2026-10-21",
    "source": "GOV.UK (Defra and APHA)",
    "source_url": "https://www.gov.uk/guidance/bird-flu-avian-influenza-latest-situation-in-england",
-   "fetched_at": "2026-10-22T20:30:39Z"
+   "fetched_at": "2026-10-22T22:59:58Z"
   }
  ]
 }

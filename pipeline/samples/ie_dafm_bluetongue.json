@@ -1,0 +1,31 @@
+{
+ "source": "Department of Agriculture, Food and the Marine (DAFM), gov.ie, Bluetongue virus",
+ "url": "https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/publications/bluetongue-virus/",
+ "captured_at": "2026-10-22T19:58:00Z",
+ "capture_method": "WebFetch. The container's shell gets HTTP 403 from gov.ie's CloudFront, so the page was read with WebFetch and the table typed into this file. Re-check against the live page before relying on it.",
+ "last_updated": "2026-10-21",
+ "published": "2021-05-25",
+ "counts_as_at": "2026-10-21",
+ "serotype": "3",
+ "serotype_text": "The serotype that has been detected in Ireland is 3.",
+ "first_detection": "BTV-3 was first detected in a Wexford herd in January 2026.",
+ "columns": ["County", "Bovine Cases", "Ovine Cases", "Total Herd Cases (Ovine & Bovine)"],
+ "rows": [
+  ["Dublin", 1, 0, 1],
+  ["Kilkenny", 1, 0, 1],
+  ["Longford", 1, 0, 1],
+  ["Louth", 1, 0, 1],
+  ["Meath", 1, 0, 1],
+  ["Monaghan", 1, 0, 1],
+  ["Roscommon", 1, 0, 1],
+  ["Tipperary", 1, 0, 1],
+  ["Westmeath", 1, 0, 1],
+  ["Cork", 4, 0, 4],
+  ["Wicklow", 4, 1, 5],
+  ["Kildare", 5, 1, 6],
+  ["Waterford", 7, 0, 7],
+  ["Wexford", 16, 1, 17]
+ ],
+ "totals": [45, 3, 48],
+ "discrepancy": "The page's background section also mentions BTV-3 positive cattle herds in Laois, which is not in the county table."
+}

@@ -1,0 +1,1167 @@
+{
+ "period_start": "2026-10-15",
+ "period_end": "2026-10-21",
+ "created": "2026-10-22",
+ "countries": {
+  "AL": [
+   "ALB",
+   "Albania"
+  ],
+  "BE": [
+   "BEL",
+   "Belgium"
+  ],
+  "BG": [
+   "BGR",
+   "Bulgaria"
+  ],
+  "HR": [
+   "HRV",
+   "Croatia"
+  ],
+  "CY": [
+   "CYP",
+   "Cyprus"
+  ],
+  "DK": [
+   "DNK",
+   "Denmark"
+  ],
+  "EE": [
+   "EST",
+   "Estonia"
+  ],
+  "FI": [
+   "FIN",
+   "Finland"
+  ],
+  "FR": [
+   "FRA",
+   "France"
+  ],
+  "DE": [
+   "DEU",
+   "Germany"
+  ],
+  "GR": [
+   "GRC",
+   "Greece"
+  ],
+  "HU": [
+   "HUN",
+   "Hungary"
+  ],
+  "IE": [
+   "IRL",
+   "Ireland"
+  ],
+  "IT": [
+   "ITA",
+   "Italy"
+  ],
+  "LV": [
+   "LVA",
+   "Latvia"
+  ],
+  "MD": [
+   "MDA",
+   "Moldova"
+  ],
+  "NL": [
+   "NLD",
+   "Netherlands"
+  ],
+  "NO": [
+   "NOR",
+   "Norway"
+  ],
+  "PL": [
+   "POL",
+   "Poland"
+  ],
+  "RO": [
+   "ROU",
+   "Romania"
+  ],
+  "ES": [
+   "ESP",
+   "Spain"
+  ]
+ },
+ "diseases": {
+  "A.S.F. in domestic pigs": "ASF.DP",
+  "A.S.F. in wild boar": "ASF.WB",
+  "Bluetongue virus (Inf. with)": "BT",
+  "Sheep pox and goat pox": "CAPRIPOX",
+  "HPAI(NON-P) in Captive Birds": "HPAI(NON-P).CB",
+  "HPAI(NON-P) in Wild Birds": "HPAI(NON-P).WB",
+  "High pathogenicity avian influenza viruses (Inf. with) (poultry)": "HPAI(P)",
+  "Mycobacterium tuberculosis complex (Inf. with)(2019-)": "MTBC",
+  "Newcastle disease virus (Inf. with)": "ND",
+  "Rabies virus (Inf. with)": "RABIES",
+  "West Nile Fever": "WNF"
+ },
+ "matrix": [
+  {
+   "label": "A.S.F. in domestic pigs",
+   "cells": {
+    "RO": {
+     "n": 3,
+     "date": "2026-10-21"
+    },
+    "MD": {
+     "n": 2,
+     "date": "2026-10-21"
+    }
+   }
+  },
+  {
+   "label": "A.S.F. in wild boar",
+   "cells": {
+    "BG": {
+     "n": 61,
+     "date": "2026-10-19"
+    },
+    "DE": {
+     "n": 8,
+     "date": "2026-10-16"
+    },
+    "ES": {
+     "n": 1,
+     "date": "2026-10-15"
+    },
+    "EE": {
+     "n": 2,
+     "date": "2026-10-21"
+    },
+    "FI": {
+     "n": 15,
+     "date": "2026-10-19"
+    },
+    "HR": {
+     "n": 2,
+     "date": "2026-10-21"
+    },
+    "HU": {
+     "n": 7,
+     "date": "2026-10-19"
+    },
+    "IT": {
+     "n": 3,
+     "date": "2026-10-21"
+    },
+    "LV": {
+     "n": 6,
+     "date": "2026-10-20"
+    },
+    "PL": {
+     "n": 16,
+     "date": "2026-10-21"
+    }
+   }
+  },
+  {
+   "label": "Bluetongue virus (Inf. with) / 3",
+   "cells": {
+    "IE": {
+     "n": 1,
+     "date": "2026-10-16"
+    }
+   }
+  },
+  {
+   "label": "Bluetongue virus (Inf. with) / 4",
+   "cells": {
+    "CY": {
+     "n": 2,
+     "date": "2026-10-16"
+    },
+    "ES": {
+     "n": 1,
+     "date": "2026-10-16"
+    }
+   }
+  },
+  {
+   "label": "Bluetongue virus (Inf. with) / 8",
+   "cells": {
+    "ES": {
+     "n": 1,
+     "date": "2026-10-15"
+    }
+   }
+  },
+  {
+   "label": "HPAI(NON-P) in Captive Birds / H5N1",
+   "cells": {
+    "AL": {
+     "n": 1,
+     "date": "2026-10-20"
+    }
+   }
+  },
+  {
+   "label": "HPAI(NON-P) in Wild Birds / H5N1",
+   "cells": {
+    "BE": {
+     "n": 1,
+     "date": "2026-10-19"
+    },
+    "DE": {
+     "n": 1,
+     "date": "2026-10-20"
+    },
+    "DK": {
+     "n": 3,
+     "date": "2026-10-21"
+    },
+    "IT": {
+     "n": 1,
+     "date": "2026-10-21"
+    },
+    "NL": {
+     "n": 2,
+     "date": "2026-10-20"
+    },
+    "NO": {
+     "n": 2,
+     "date": "2026-10-16"
+    }
+   }
+  },
+  {
+   "label": "High pathogenicity avian influenza viruses (Inf. with) (poultry) / H5N1",
+   "cells": {
+    "BG": {
+     "n": 1,
+     "date": "2026-10-17"
+    }
+   }
+  },
+  {
+   "label": "Mycobacterium tuberculosis complex (Inf. with)(2019-)",
+   "cells": {
+    "ES": {
+     "n": 1,
+     "date": "2026-10-21"
+    },
+    "IT": {
+     "n": 1,
+     "date": "2026-10-20"
+    }
+   }
+  },
+  {
+   "label": "Newcastle disease virus (Inf. with)",
+   "cells": {
+    "ES": {
+     "n": 1,
+     "date": "2026-10-16"
+    },
+    "HU": {
+     "n": 1,
+     "date": "2026-10-16"
+    }
+   }
+  },
+  {
+   "label": "Rabies virus (Inf. with) / RABV",
+   "cells": {
+    "HU": {
+     "n": 1,
+     "date": "2026-10-16"
+    },
+    "RO": {
+     "n": 3,
+     "date": "2026-10-20"
+    },
+    "MD": {
+     "n": 4,
+     "date": "2026-10-19"
+    }
+   }
+  },
+  {
+   "label": "Sheep pox and goat pox",
+   "cells": {
+    "BG": {
+     "n": 4,
+     "date": "2026-10-16"
+    },
+    "GR": {
+     "n": 3,
+     "date": "2026-10-21"
+    },
+    "RO": {
+     "n": 1,
+     "date": "2026-10-21"
+    },
+    "AL": {
+     "n": 1,
+     "date": "2026-10-20"
+    }
+   }
+  },
+  {
+   "label": "West Nile Fever",
+   "cells": {
+    "BE": {
+     "n": 2,
+     "date": "2026-10-20"
+    },
+    "CY": {
+     "n": 1,
+     "date": "2026-10-16"
+    },
+    "ES": {
+     "n": 8,
+     "date": "2026-10-19"
+    },
+    "FR": {
+     "n": 12,
+     "date": "2026-10-19"
+    },
+    "HU": {
+     "n": 1,
+     "date": "2026-10-19"
+    },
+    "IT": {
+     "n": 21,
+     "date": "2026-10-21"
+    }
+   }
+  }
+ ],
+ "summary": [
+  {
+   "country": "Belgium",
+   "label": "HPAI(NON-P) in Wild Birds / H5N1",
+   "refs": [
+    "BE-HPAI(NON-P)-2026-00151"
+   ],
+   "species": [
+    "Eurasian Wigeon"
+   ],
+   "admin": [
+    "Leuven"
+   ]
+  },
+  {
+   "country": "Belgium",
+   "label": "West Nile Fever",
+   "refs": [
+    "BE-WNF-2026-00284",
+    "BE-WNF-2026-00285"
+   ],
+   "species": [
+    "Eurasian Jackdaw",
+    "Northern Goshawk"
+   ],
+   "admin": [
+    "Nivelles",
+    "Leuven"
+   ]
+  },
+  {
+   "country": "Bulgaria",
+   "label": "A.S.F. in wild boar",
+   "refs": [
+    "BG-ASF-2026-00299",
+    "BG-ASF-2026-00300",
+    "BG-ASF-2026-00301",
+    "BG-ASF-2026-00302",
+    "BG-ASF-2026-00303",
+    "BG-ASF-2026-00304",
+    "BG-ASF-2026-00305",
+    "BG-ASF-2026-00306",
+    "BG-ASF-2026-00307",
+    "BG-ASF-2026-00308",
+    "BG-ASF-2026-00309",
+    "BG-ASF-2026-00310",
+    "BG-ASF-2026-00311",
+    "BG-ASF-2026-00312",
+    "BG-ASF-2026-00313",
+    "BG-ASF-2026-00314",
+    "BG-ASF-2026-00315",
+    "BG-ASF-2026-00316",
+    "BG-ASF-2026-00317",
+    "BG-ASF-2026-00318",
+    "BG-ASF-2026-00319",
+    "BG-ASF-2026-00320",
+    "BG-ASF-2026-00321",
+    "BG-ASF-2026-00322",
+    "BG-ASF-2026-00323",
+    "BG-ASF-2026-00324",
+    "BG-ASF-2026-00325",
+    "BG-ASF-2026-00326",
+    "BG-ASF-2026-00327",
+    "BG-ASF-2026-00328",
+    "BG-ASF-2026-00329",
+    "BG-ASF-2026-00330",
+    "BG-ASF-2026-00331",
+    "BG-ASF-2026-00332",
+    "BG-ASF-2026-00333",
+    "BG-ASF-2026-00334",
+    "BG-ASF-2026-00335",
+    "BG-ASF-2026-00336",
+    "BG-ASF-2026-00337",
+    "BG-ASF-2026-00338",
+    "BG-ASF-2026-00339",
+    "BG-ASF-2026-00340",
+    "BG-ASF-2026-00341",
+    "BG-ASF-2026-00342",
+    "BG-ASF-2026-00343",
+    "BG-ASF-2026-00344",
+    "BG-ASF-2026-00345",
+    "BG-ASF-2026-00346",
+    "BG-ASF-2026-00347",
+    "BG-ASF-2026-00348",
+    "BG-ASF-2026-00349",
+    "BG-ASF-2026-00350",
+    "BG-ASF-2026-00351",
+    "BG-ASF-2026-00352",
+    "BG-ASF-2026-00353",
+    "BG-ASF-2026-00354",
+    "BG-ASF-2026-00355",
+    "BG-ASF-2026-00356",
+    "BG-ASF-2026-00357",
+    "BG-ASF-2026-00358",
+    "BG-ASF-2026-00359"
+   ],
+   "species": [
+    "Wild boar"
+   ],
+   "admin": [
+    "Pleven",
+    "Troyan",
+    "Preslav",
+    "Varbitsa",
+    "Tutrakan",
+    "Antonovo",
+    "Sevlievo",
+    "Gabrovo",
+    "Montana",
+    "Georgy Damyanovo",
+    "Vidin",
+    "Lovech",
+    "Kirkovo",
+    "Krumovgrad",
+    "Kardzhali",
+    "Chernoochene",
+    "Ardino",
+    "Nedelino",
+    "Chepelare",
+    "Smolyan",
+    "Devin",
+    "Stara Zagora",
+    "Yambol",
+    "Straldzha",
+    "Bolyarovo",
+    "Elhovo",
+    "Nova Zagora",
+    "Burgas",
+    "Harmanli",
+    "Stambolovo",
+    "Asenovgrad",
+    "Rodopi",
+    "Panagyurishte",
+    "Aksakovo",
+    "Vratsa",
+    "Mezdra",
+    "Silistra",
+    "Nikopol",
+    "Berkovitsa"
+   ]
+  },
+  {
+   "country": "Bulgaria",
+   "label": "High pathogenicity avian influenza viruses (Inf. with) (poultry) / H5N1",
+   "refs": [
+    "BG-HPAI(P)-2026-00014"
+   ],
+   "species": [
+    "Birds"
+   ],
+   "admin": [
+    "Stara Zagora"
+   ]
+  },
+  {
+   "country": "Bulgaria",
+   "label": "Sheep pox and goat pox",
+   "refs": [
+    "BG-CAPRIPOX-2026-00049",
+    "BG-CAPRIPOX-2026-00050",
+    "BG-CAPRIPOX-2026-00051",
+    "BG-CAPRIPOX-2026-00052"
+   ],
+   "species": [
+    "Sheep"
+   ],
+   "admin": [
+    "Elin Pelin",
+    "Pavel Banya",
+    "Haskovo"
+   ]
+  },
+  {
+   "country": "Croatia",
+   "label": "A.S.F. in wild boar",
+   "refs": [
+    "HR-ASF-2026-00237",
+    "HR-ASF-2026-00238"
+   ],
+   "species": [
+    "Wild boar"
+   ],
+   "admin": [
+    "Crnac",
+    "Draž"
+   ]
+  },
+  {
+   "country": "Cyprus",
+   "label": "Bluetongue virus (Inf. with) / 4",
+   "refs": [
+    "CY-BT-2026-00004",
+    "CY-BT-2026-00005"
+   ],
+   "species": [
+    "Sheep",
+    "Sheep/goats (mixed herd)"
+   ],
+   "admin": [
+    "Limassol",
+    "Nicosia"
+   ]
+  },
+  {
+   "country": "Cyprus",
+   "label": "West Nile Fever",
+   "refs": [
+    "CY-WNF-2026-00002"
+   ],
+   "species": [
+    "Equidae"
+   ],
+   "admin": [
+    "Limassol"
+   ]
+  },
+  {
+   "country": "Denmark",
+   "label": "HPAI(NON-P) in Wild Birds / H5N1",
+   "refs": [
+    "DK-HPAI(NON-P)-2026-00158",
+    "DK-HPAI(NON-P)-2026-00159",
+    "DK-HPAI(NON-P)-2026-00160"
+   ],
+   "species": [
+    "Common pheasant",
+    "Red Jungle Fowl",
+    "Greylag Goose",
+    "Eurasian Jay"
+   ],
+   "admin": [
+    "Lolland",
+    "Kalundborg"
+   ]
+  },
+  {
+   "country": "Estonia",
+   "label": "A.S.F. in wild boar",
+   "refs": [
+    "EE-ASF-2026-00086",
+    "EE-ASF-2026-00087"
+   ],
+   "species": [
+    "Wild boar"
+   ],
+   "admin": [
+    "Habaja",
+    "Lümandu"
+   ]
+  },
+  {
+   "country": "Finland",
+   "label": "A.S.F. in wild boar",
+   "refs": [
+    "FI-ASF-2026-00051",
+    "FI-ASF-2026-00052",
+    "FI-ASF-2026-00053",
+    "FI-ASF-2026-00054",
+    "FI-ASF-2026-00055",
+    "FI-ASF-2026-00056",
+    "FI-ASF-2026-00057",
+    "FI-ASF-2026-00058",
+    "FI-ASF-2026-00059",
+    "FI-ASF-2026-00060",
+    "FI-ASF-2026-00061",
+    "FI-ASF-2026-00062",
+    "FI-ASF-2026-00063",
+    "FI-ASF-2026-00064",
+    "FI-ASF-2026-00065"
+   ],
+   "species": [
+    "Wild boar"
+   ],
+   "admin": [
+    "Pyhtää",
+    "Lappeenranta",
+    "Virolahti",
+    "Miehikkälä"
+   ]
+  },
+  {
+   "country": "France",
+   "label": "West Nile Fever",
+   "refs": [
+    "FR-WNF-2026-00421",
+    "FR-WNF-2026-00422",
+    "FR-WNF-2026-00423",
+    "FR-WNF-2026-00424",
+    "FR-WNF-2026-00425",
+    "FR-WNF-2026-00426",
+    "FR-WNF-2026-00427",
+    "FR-WNF-2026-00428",
+    "FR-WNF-2026-00429",
+    "FR-WNF-2026-00430",
+    "FR-WNF-2026-00431",
+    "FR-WNF-2026-00432"
+   ],
+   "species": [
+    "Equidae",
+    "Birds"
+   ],
+   "admin": [
+    "Haute-Garonne",
+    "Drôme",
+    "Aude",
+    "Gard",
+    "Vendée",
+    "Tarn-et-Garonne",
+    "Allier"
+   ]
+  },
+  {
+   "country": "Germany",
+   "label": "A.S.F. in wild boar",
+   "refs": [
+    "DE-ASF-2026-00725",
+    "DE-ASF-2026-00726",
+    "DE-ASF-2026-00727",
+    "DE-ASF-2026-00728",
+    "DE-ASF-2026-00729",
+    "DE-ASF-2026-00730",
+    "DE-ASF-2026-00731",
+    "DE-ASF-2026-00732"
+   ],
+   "species": [
+    "Wild boar"
+   ],
+   "admin": [
+    "Schwedt/Oder",
+    "Kirchhundem"
+   ]
+  },
+  {
+   "country": "Germany",
+   "label": "HPAI(NON-P) in Wild Birds / H5N1",
+   "refs": [
+    "DE-HPAI(NON-P)-2026-01580"
+   ],
+   "species": [
+    "Cygnus (unidentified)"
+   ],
+   "admin": [
+    "Hamburg"
+   ]
+  },
+  {
+   "country": "Greece",
+   "label": "Sheep pox and goat pox",
+   "refs": [
+    "GR-CAPRIPOX-2026-00269",
+    "GR-CAPRIPOX-2026-00270",
+    "GR-CAPRIPOX-2026-00271"
+   ],
+   "species": [
+    "Sheep"
+   ],
+   "admin": [
+    "Farsala",
+    "Preveza",
+    "Arta"
+   ]
+  },
+  {
+   "country": "Hungary",
+   "label": "A.S.F. in wild boar",
+   "refs": [
+    "HU-ASF-2026-00670",
+    "HU-ASF-2026-00671",
+    "HU-ASF-2026-00672",
+    "HU-ASF-2026-00673",
+    "HU-ASF-2026-00674",
+    "HU-ASF-2026-00675",
+    "HU-ASF-2026-00676"
+   ],
+   "species": [
+    "Wild boar"
+   ],
+   "admin": [
+    "Mohács",
+    "Esztergom",
+    "Debrecen"
+   ]
+  },
+  {
+   "country": "Hungary",
+   "label": "Newcastle disease virus (Inf. with)",
+   "refs": [
+    "HU-ND-2026-00009"
+   ],
+   "species": [
+    "Birds"
+   ],
+   "admin": [
+    "Kecskemét"
+   ]
+  },
+  {
+   "country": "Hungary",
+   "label": "Rabies virus (Inf. with) / RABV",
+   "refs": [
+    "HU-RABIES-2026-00005"
+   ],
+   "species": [
+    "Red Fox"
+   ],
+   "admin": [
+    "Fehérgyarmat"
+   ]
+  },
+  {
+   "country": "Hungary",
+   "label": "West Nile Fever",
+   "refs": [
+    "HU-WNF-2026-00004"
+   ],
+   "species": [
+    "Equidae"
+   ],
+   "admin": [
+    "Dunakeszi"
+   ]
+  },
+  {
+   "country": "Ireland",
+   "label": "Bluetongue virus (Inf. with) / 3",
+   "refs": [
+    "IE-BT-2026-00047"
+   ],
+   "species": [
+    "Cattle"
+   ],
+   "admin": [
+    "Kilkenny"
+   ]
+  },
+  {
+   "country": "Italy",
+   "label": "A.S.F. in wild boar",
+   "refs": [
+    "IT-ASF-2026-01113",
+    "IT-ASF-2026-01114",
+    "IT-ASF-2026-01115"
+   ],
+   "species": [
+    "Wild boar"
+   ],
+   "admin": [
+    "Camerana",
+    "Podenzana",
+    "Cengio"
+   ]
+  },
+  {
+   "country": "Italy",
+   "label": "HPAI(NON-P) in Wild Birds / H5N1",
+   "refs": [
+    "IT-HPAI(NON-P)-2026-00013"
+   ],
+   "species": [
+    "Eurasian Wigeon"
+   ],
+   "admin": [
+    "Grado"
+   ]
+  },
+  {
+   "country": "Italy",
+   "label": "Mycobacterium tuberculosis complex (Inf. with)(2019-)",
+   "refs": [
+    "IT-MTBC-2026-00029"
+   ],
+   "species": [
+    "Cattle"
+   ],
+   "admin": [
+    "Poviglio"
+   ]
+  },
+  {
+   "country": "Italy",
+   "label": "West Nile Fever",
+   "refs": [
+    "IT-WNF-2026-00446",
+    "IT-WNF-2026-00447",
+    "IT-WNF-2026-00448",
+    "IT-WNF-2026-00449",
+    "IT-WNF-2026-00450",
+    "IT-WNF-2026-00451",
+    "IT-WNF-2026-00452",
+    "IT-WNF-2026-00453",
+    "IT-WNF-2026-00454",
+    "IT-WNF-2026-00455",
+    "IT-WNF-2026-00456",
+    "IT-WNF-2026-00457",
+    "IT-WNF-2026-00458",
+    "IT-WNF-2026-00459",
+    "IT-WNF-2026-00460",
+    "IT-WNF-2026-00461",
+    "IT-WNF-2026-00462",
+    "IT-WNF-2026-00463",
+    "IT-WNF-2026-00464",
+    "IT-WNF-2026-00465",
+    "IT-WNF-2026-00466"
+   ],
+   "species": [
+    "Hooded Crow",
+    "Equidae",
+    "European Turtle-Dove",
+    "Chaffinch",
+    "Common Wood-Pigeon",
+    "Rock Pigeon (Rock Dove)",
+    "Eurasian Jackdaw",
+    "Eurasian Jay",
+    "Common magpie"
+   ],
+   "admin": [
+    "Francavilla Al Mare",
+    "Città Sant' Angelo",
+    "Aielli",
+    "Vedelago",
+    "Santa Maria Di Sala",
+    "Longarone",
+    "Mirano",
+    "Fossò",
+    "Villorba",
+    "Ferentino",
+    "Rieti",
+    "Milano",
+    "Grosseto",
+    "Maglie",
+    "Moretta",
+    "Monteodorisio",
+    "Vasto",
+    "Capoterra"
+   ]
+  },
+  {
+   "country": "Latvia",
+   "label": "A.S.F. in wild boar",
+   "refs": [
+    "LV-ASF-2026-00633",
+    "LV-ASF-2026-00634",
+    "LV-ASF-2026-00635",
+    "LV-ASF-2026-00636",
+    "LV-ASF-2026-00637",
+    "LV-ASF-2026-00638"
+   ],
+   "species": [
+    "Wild boar"
+   ],
+   "admin": [
+    "Lībagu pagasts",
+    "Rojas pagasts",
+    "Sēmes pagasts",
+    "Tadaiķu pagasts",
+    "Lielauces pagasts"
+   ]
+  },
+  {
+   "country": "Netherlands",
+   "label": "HPAI(NON-P) in Wild Birds / H5N1",
+   "refs": [
+    "NL-HPAI(NON-P)-2026-00197",
+    "NL-HPAI(NON-P)-2026-00198"
+   ],
+   "species": [
+    "Common Teal",
+    "Greylag Goose"
+   ],
+   "admin": [
+    "Dongeradeel",
+    "Het Bildt"
+   ]
+  },
+  {
+   "country": "Poland",
+   "label": "A.S.F. in wild boar",
+   "refs": [
+    "PL-ASF-2026-01779",
+    "PL-ASF-2026-01780",
+    "PL-ASF-2026-01781",
+    "PL-ASF-2026-01782",
+    "PL-ASF-2026-01783",
+    "PL-ASF-2026-01784",
+    "PL-ASF-2026-01785",
+    "PL-ASF-2026-01786",
+    "PL-ASF-2026-01787",
+    "PL-ASF-2026-01788",
+    "PL-ASF-2026-01789",
+    "PL-ASF-2026-01790",
+    "PL-ASF-2026-01791",
+    "PL-ASF-2026-01792",
+    "PL-ASF-2026-01793",
+    "PL-ASF-2026-01794"
+   ],
+   "species": [
+    "Wild boar"
+   ],
+   "admin": [
+    "Rachanie",
+    "Czemierniki",
+    "Mosina",
+    "Pyrzyce",
+    "Łysomice",
+    "Potęgowo",
+    "Morąg",
+    "Zabłudów",
+    "Warlubie",
+    "Jeżewo",
+    "Gowarczów"
+   ]
+  },
+  {
+   "country": "Romania",
+   "label": "A.S.F. in domestic pigs",
+   "refs": [
+    "RO-ASF-2026-00629",
+    "RO-ASF-2026-00630",
+    "RO-ASF-2026-00631"
+   ],
+   "species": [
+    "Swine"
+   ],
+   "admin": [
+    "Sopot",
+    "Lupeni",
+    "Scrioastea"
+   ]
+  },
+  {
+   "country": "Romania",
+   "label": "Rabies virus (Inf. with) / RABV",
+   "refs": [
+    "RO-RABIES-2026-00100",
+    "RO-RABIES-2026-00101",
+    "RO-RABIES-2026-00102"
+   ],
+   "species": [
+    "Dogs",
+    "Red Fox",
+    "Cattle"
+   ],
+   "admin": [
+    "Candesti",
+    "Botesti",
+    "Cristinesti"
+   ]
+  },
+  {
+   "country": "Romania",
+   "label": "Sheep pox and goat pox",
+   "refs": [
+    "RO-CAPRIPOX-2026-00060"
+   ],
+   "species": [
+    "Sheep/goats (mixed herd)"
+   ],
+   "admin": [
+    "Bira"
+   ]
+  },
+  {
+   "country": "Spain",
+   "label": "A.S.F. in wild boar",
+   "refs": [
+    "ES-ASF-2026-00063"
+   ],
+   "species": [
+    "Wild boar"
+   ],
+   "admin": [
+    "BAIX LLOBREGAT (SANT BOI)"
+   ]
+  },
+  {
+   "country": "Spain",
+   "label": "Bluetongue virus (Inf. with) / 4",
+   "refs": [
+    "ES-BT-2026-00032"
+   ],
+   "species": [
+    "Cattle"
+   ],
+   "admin": [
+    "POSADAS (VEGA DEL GUADALQUIVIR)"
+   ]
+  },
+  {
+   "country": "Spain",
+   "label": "Bluetongue virus (Inf. with) / 8",
+   "refs": [
+    "ES-BT-2026-00031"
+   ],
+   "species": [
+    "Cattle"
+   ],
+   "admin": [
+    "O CARBALLIÑO"
+   ]
+  },
+  {
+   "country": "Spain",
+   "label": "Mycobacterium tuberculosis complex (Inf. with)(2019-)",
+   "refs": [
+    "ES-MTBC-2026-00008"
+   ],
+   "species": [
+    "Cattle"
+   ],
+   "admin": [
+    "VEGADEO"
+   ]
+  },
+  {
+   "country": "Spain",
+   "label": "Newcastle disease virus (Inf. with)",
+   "refs": [
+    "ES-ND-2026-00041"
+   ],
+   "species": [
+    "Birds"
+   ],
+   "admin": [
+    "HIGUERUELA"
+   ]
+  },
+  {
+   "country": "Spain",
+   "label": "West Nile Fever",
+   "refs": [
+    "ES-WNF-2026-00034",
+    "ES-WNF-2026-00035",
+    "ES-WNF-2026-00036",
+    "ES-WNF-2026-00037",
+    "ES-WNF-2026-00038",
+    "ES-WNF-2026-00039",
+    "ES-WNF-2026-00040",
+    "ES-WNF-2026-00041"
+   ],
+   "species": [
+    "Northern Goshawk",
+    "Long-eared Owl",
+    "Equidae",
+    "Tawny owl"
+   ],
+   "admin": [
+    "CAMPIÑA",
+    "BAIX EMPORDA (LA BISBAL)",
+    "ALT EMPORDA (FIGUERES)",
+    "PLA DE L'ESTANY (BANYOLES)",
+    "CARTAYA (COSTA OCCIDENTAL)"
+   ]
+  },
+  {
+   "country": "Albania",
+   "label": "HPAI(NON-P) in Captive Birds / H5N1",
+   "refs": [
+    "AL-HPAI(NON-P)-2026-00001"
+   ],
+   "species": [
+    "Birds"
+   ],
+   "admin": [
+    "Maminas"
+   ]
+  },
+  {
+   "country": "Albania",
+   "label": "Sheep pox and goat pox",
+   "refs": [
+    "AL-CAPRIPOX-2026-00002"
+   ],
+   "species": [
+    "Sheep/goats (mixed herd)"
+   ],
+   "admin": [
+    "Cërrik"
+   ]
+  },
+  {
+   "country": "Moldova",
+   "label": "A.S.F. in domestic pigs",
+   "refs": [
+    "MD-ASF-2026-00050",
+    "MD-ASF-2026-00051"
+   ],
+   "species": [
+    "Swine"
+   ],
+   "admin": [
+    "Rîşcani",
+    "Găgăuzia"
+   ]
+  },
+  {
+   "country": "Moldova",
+   "label": "Rabies virus (Inf. with) / RABV",
+   "refs": [
+    "MD-RABIES-2026-00092",
+    "MD-RABIES-2026-00093",
+    "MD-RABIES-2026-00094",
+    "MD-RABIES-2026-00095"
+   ],
+   "species": [
+    "Dogs",
+    "Cattle",
+    "Red Fox"
+   ],
+   "admin": [
+    "Floreşti",
+    "Sîngerei",
+    "Edineţ",
+    "Ialoveni"
+   ]
+  },
+  {
+   "country": "Norway",
+   "label": "HPAI(NON-P) in Wild Birds / H5N1",
+   "refs": [
+    "NO-HPAI(NON-P)-2026-00076",
+    "NO-HPAI(NON-P)-2026-00077"
+   ],
+   "species": [
+    "Anserinae (unidentified)",
+    "Whooper Swan"
+   ],
+   "admin": [
+    "Verdal",
+    "Drammen"
+   ]
+  }
+ ]
+}

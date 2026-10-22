@@ -9,3 +9,10 @@ OutbreakLens is an educational summary of public data, made in a personal capaci
 ## Building the site
 
 `python3 -I build_site.py --prelaunch` regenerates `website/` from the templates in the script, `hero_dots.json` and `brand/final/`. Commit the result and push: the workflow deploys it.
+
+## Live data: map, Numbers and open data
+
+`pipeline/` reads official animal-disease data (WOAH WAHIS, EU ADIS, FAO EMPRES-i, GOV.UK, DAFM, Ruokavirasto) and writes open files to `pipeline/data/`. Run `python3 pipeline/run.py`, then build the site: `build_site.py` copies the files to `website/assets/data/` and builds `map.html`, `analytics.html` (Numbers) and `data.html`. See `pipeline/README.md` and `pipeline/notes.md`.
+
+The map draws its own basemap from Natural Earth country shapes, cached in `map_basemap.json` (like `hero_dots.json`). Delete it to rebuild it.
+

@@ -47,8 +47,9 @@ ASSETS = os.path.join(SITE, "assets")
 PIPE = os.path.join(ROOT, "pipeline", "outputs")
 BRAND_DIR = os.path.join(ROOT, "brand", "final")   # optional: final favicons and share image
 SHORTS_DIR = os.path.join(ROOT, "content", "shorts")   # cover.png for each short, in a folder named by its slug
-NAV = [("index.html","Home"),("weekly.html","Weekly"),("watch.html","Watch"),("data.html","Data"),
-       ("sources.html","Sources"),("about.html","About"),("subscribe.html","Subscribe")]
+NAV = [("index.html","Home"),("weekly.html","Weekly"),("watch.html","Watch"),("map.html","Map"),
+       ("analytics.html","Numbers"),("data.html","Data"),("sources.html","Sources"),("about.html","About"),
+       ("subscribe.html","Subscribe")]
 TODAY = dt.date.today()
 YEAR = TODAY.year
 YOUTUBE = SOCIAL[0][1]
@@ -455,7 +456,8 @@ padding:6px 0 10px;box-shadow:0 18px 32px rgba(8,16,34,.35)}
 font-weight:600;border-left:4px solid transparent}
 .nav-mobile nav a:hover{background:rgba(250,247,241,.06)}
 .nav-mobile nav a[aria-current="page"]{border-left-color:var(--accent);background:rgba(250,247,241,.05)}
-@media(min-width:768px){.bar{min-height:68px}.nav-desktop{display:flex;align-items:center;gap:2px}.nav-mobile{display:none}}
+@media(min-width:768px){.bar{min-height:68px}}
+@media(min-width:1024px){.nav-desktop{display:flex;align-items:center;gap:2px}.nav-mobile{display:none}}
 
 /* buttons */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 22px;
@@ -726,6 +728,129 @@ border-radius:var(--radius);overflow:hidden;margin:0 0 56px}
 .disclaimer{margin:40px 0 0;padding-top:20px;border-top:1px solid rgba(250,247,241,.14);font-size:.8125rem;line-height:1.55;color:var(--on-dark3);max-width:62em}
 .copyright{margin:10px 0 0;font-size:.8125rem;color:var(--on-dark3)}
 
+/* live data pages: map, numbers, data */
+.section.tight{padding:28px 0 56px}
+@media(min-width:768px){.section.tight{padding:40px 0 72px}}
+.section.tight + .section.tight{padding-top:0}
+.lede-row{display:flex;flex-wrap:wrap;gap:6px 18px;align-items:baseline;margin:0 0 20px;font-size:.875rem;font-weight:400;color:var(--muted)}
+.filters{display:grid;gap:18px;margin:0 0 18px}
+.chips{border:0;margin:0;padding:0;min-width:0}
+.chips legend,.field-label{display:block;font-size:.875rem;font-weight:600;color:var(--ink2);margin:0 0 8px;padding:0}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px}
+.chip{position:relative;display:inline-flex}
+.chip input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.chip span{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:8px 14px;border:1px solid #d9d2c5;
+border-radius:999px;background:var(--card);font-size:.875rem;font-weight:600;color:var(--navy);line-height:1.2}
+.chip input:hover + span{border-color:var(--navy2)}
+.chip input:checked + span{background:var(--navy);border-color:var(--navy);color:#fff}
+.chip input:focus-visible + span{outline:3px solid var(--accent);outline-offset:2px}
+.cat-dot{width:10px;height:10px;border-radius:50%;background:var(--c);flex:none;box-shadow:0 0 0 2px #fff}
+@media(max-width:639px){.chip-row{gap:6px}.chip span{min-height:36px;padding:6px 10px;gap:6px;font-size:.8125rem}}
+.time-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.time-row .slider{grid-column:1/-1}
+@media(min-width:900px){.time-row{grid-template-columns:11rem 11rem minmax(0,1fr);align-items:start;gap:20px}.time-row .slider{grid-column:auto}}
+.field{display:grid;gap:6px;min-width:0}
+.field select{font:inherit;font-size:.9375rem;font-weight:400;color:var(--ink);width:100%;min-height:44px;padding:8px 12px;
+border:1px solid #cfc8bb;border-radius:6px;background:#fff}
+.slider input[type=range]{width:100%;min-height:36px;margin:0;accent-color:var(--navy)}
+.slider output{display:block;font-size:.875rem;font-weight:400;color:var(--ink2)}
+.map-summary{margin:0 0 10px;font-size:.9375rem;font-weight:400;color:var(--ink2)}
+.map-shell{position:relative;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#e3e9ec}
+.map-shell .leaflet-container{background:#e3e9ec}
+#map{height:64vh;min-height:360px;max-height:620px}
+@media(min-width:768px){#map{height:580px}}
+.map-shell noscript p{padding:24px}
+.map-shell .leaflet-container{font-family:var(--font);font-weight:400;font-size:.8125rem}
+.map-shell .leaflet-container a{color:var(--navy)}
+.map-shell .leaflet-control-attribution{font-size:11px}
+.pin-wrap{width:0!important;height:0!important;background:none;border:0}
+.pin{position:absolute;left:0;top:0;transform:translate(-50%,-50%);display:inline-flex;align-items:center;gap:4px;height:20px;
+padding:0 7px 0 5px;border-radius:999px;background:#fff;box-shadow:0 0 0 1px rgba(28,27,25,.16),0 1px 3px rgba(28,27,25,.28);
+font:600 11px/1 var(--font);letter-spacing:.02em;color:var(--ink);white-space:nowrap}
+.pin i,.key i{width:10px;height:10px;border-radius:50%;background:var(--c);flex:none}
+.cluster-wrap{background:none;border:0}
+.cluster{display:flex;align-items:center;justify-content:center;width:100%;height:100%;border-radius:50%;background:var(--navy);
+color:#fff;font:600 12px/1 var(--font);box-shadow:0 0 0 3px rgba(250,247,241,.92),0 1px 4px rgba(0,0,0,.3)}
+.map-shell .leaflet-popup-content{margin:14px 16px;font-size:.875rem;line-height:1.5;color:var(--ink)}
+.map-shell .leaflet-popup-content p{margin:0}
+.map-shell .leaflet-popup-content .pop-title{font-size:1rem;font-weight:600;color:var(--navy);margin:0 0 2px;line-height:1.3}
+.map-shell .leaflet-popup-content .pop-place{margin:0 0 10px;color:var(--ink2)}
+.map-shell .pop-n{display:block;font-size:1.5rem;font-weight:300;color:var(--navy);line-height:1.1;margin:0 0 2px}
+.map-shell .leaflet-popup-content .pop-meta{margin:8px 0 0;color:var(--muted);font-size:.8125rem;line-height:1.45}
+.map-shell .leaflet-popup-content .pop-links{margin:10px 0 0;padding:8px 0 0;border-top:1px solid var(--line);font-size:.8125rem}
+.key-list{display:flex;flex-wrap:wrap;gap:8px 16px;list-style:none;margin:14px 0 0;padding:0;font-size:.875rem;font-weight:400;color:var(--ink2)}
+.key-list li{display:inline-flex;align-items:center;gap:8px}
+.key{display:inline-flex;align-items:center;gap:4px;height:20px;padding:0 7px 0 5px;border-radius:999px;background:#fff;
+box-shadow:0 0 0 1px rgba(28,27,25,.16);font:600 11px/1 var(--font);letter-spacing:.02em;color:var(--ink)}
+.key-cluster{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--navy);
+color:#fff;font:600 10px/1 var(--font)}
+.below-map{display:grid;gap:4px;margin:18px 0 0;max-width:52rem}
+.below-map p{margin:0 0 6px}
+.updated{font-size:.875rem;font-weight:400;color:var(--ink2)}
+.src-block{max-width:52rem;margin:40px 0 0;padding-top:24px;border-top:1px solid var(--line)}
+.src-block h2{font-size:1.375rem;margin:0 0 12px}
+.src-items{list-style:none;margin:0 0 14px;padding:0;font-size:.9375rem;font-weight:400}
+.src-items li{padding:10px 0;border-bottom:1px solid var(--line)}
+.src-items li:first-child{border-top:1px solid var(--line)}
+.src-items b{font-weight:600;color:var(--navy)}
+.src-items span{display:block;color:var(--muted);font-size:.8125rem;margin-top:2px}
+.fine{font-size:.8125rem;line-height:1.55;font-weight:400;color:var(--muted);margin:0 0 8px}
+.tiles{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin:0 0 28px}
+@media(min-width:640px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:1024px){.tiles{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.tile{background:var(--card);padding:20px 20px 18px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.tile b{display:block;font-weight:300;font-size:clamp(2.25rem,1.9rem + 1.4vw,3rem);line-height:1.05;color:var(--navy)}
+.tile .t-label{color:var(--ink);font-weight:400;line-height:1.45}
+.tile .t-src{margin-top:auto;padding-top:6px;font-size:.8125rem;color:var(--muted);font-weight:400;line-height:1.45}
+.facts{margin:0;border-top:1px solid var(--line)}
+.facts div{display:grid;gap:2px 20px;padding:12px 0;border-bottom:1px solid var(--line)}
+@media(min-width:768px){.facts div{grid-template-columns:15rem minmax(0,1fr)}}
+.facts dt{font-weight:600;color:var(--navy);font-size:.9375rem}
+.facts dd{margin:0;color:var(--ink2);font-weight:400;font-size:.9375rem}
+.charts{display:grid;gap:16px;margin:18px 0 20px}
+@media(min-width:700px){.charts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:1100px){.charts{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}}
+.chart-card{position:relative;display:flex;flex-direction:column;min-width:0;background:var(--card);border:1px solid var(--line);
+border-radius:var(--radius);padding:20px 18px 16px}
+.chart-card[hidden]{display:none}
+.chart-card h3{display:flex;align-items:center;gap:10px;font-size:1.1875rem;margin:0 0 4px}
+.chart-sub{margin:0 0 12px;font-size:.875rem;line-height:1.45;color:var(--ink2);font-weight:400}
+.chart{display:block;width:100%;max-width:520px;height:auto;overflow:visible}
+.chart:focus-visible{outline:3px solid var(--accent);outline-offset:4px;border-radius:4px}
+.chart .grid{stroke:#ece7de;stroke-width:1}
+.chart .base{stroke:#c9c2b5;stroke-width:1}
+.chart text{font-family:var(--font)}
+.chart .tick,.chart .xl{font-size:11px;font-weight:400;fill:#6b7280;font-variant-numeric:tabular-nums}
+.chart .bar{fill:#6b7280}
+.chart .bar.now{fill:var(--accent)}
+.chart .bar.on{fill:#454c58}
+.chart .bar.now.on{fill:var(--accent-dark)}
+.chart .val{font-size:12px;font-weight:600;fill:var(--ink)}
+.chart .hit{fill:transparent}
+.chart-top,.chart-src{margin:8px 0 0;font-size:.8125rem;line-height:1.45;font-weight:400;color:var(--ink2)}
+.chart-src{color:var(--muted)}
+.chart-card details{margin-top:8px;font-size:.875rem}
+.chart-card summary,.dict summary{cursor:pointer;font-weight:600;color:var(--navy);min-height:36px;display:flex;align-items:center;
+gap:10px;list-style:none}
+.chart-card summary::-webkit-details-marker,.dict summary::-webkit-details-marker{display:none}
+.chart-card summary::after,.dict summary::after{content:"";width:7px;height:7px;border-right:2px solid currentColor;
+border-bottom:2px solid currentColor;transform:translateY(-2px) rotate(45deg)}
+.chart-card details[open] > summary::after,.dict[open] > summary::after{transform:translateY(2px) rotate(-135deg)}
+.mini-table{width:100%;border-collapse:collapse;font-size:.8125rem;margin:4px 0 0;font-variant-numeric:tabular-nums}
+.mini-table th,.mini-table td{padding:5px 6px;border-bottom:1px solid var(--line);text-align:right;font-weight:400}
+.mini-table th{font-weight:600;color:var(--ink2)}
+.mini-table th:first-child,.mini-table td:first-child{text-align:left}
+.chart-tip{position:absolute;z-index:5;pointer-events:none;background:var(--navy-ink);color:#fff;font-size:.8125rem;line-height:1.35;
+padding:6px 10px;border-radius:6px;white-space:nowrap;transform:translate(-50%,calc(-100% - 8px));opacity:0;transition:opacity .1s}
+.chart-tip.show{opacity:1}
+.chart-tip strong{display:block;font-size:1rem;font-weight:600}
+.dl-cats{display:flex;flex-wrap:wrap;gap:4px 14px}
+.dict{margin:0 0 32px}
+.dict .data-table td:first-child{white-space:nowrap;font-weight:600}
+.status-live{color:var(--green);font-weight:600}
+.status-fallback{color:#8a5a00;font-weight:600}
+.status-failed{color:#b42318;font-weight:600}
+
 @media(prefers-reduced-motion:reduce){*{transition:none!important}
 .sig-pulse{animation:none;opacity:.55;transform:scale(2.2)}}
 """
@@ -767,9 +892,10 @@ def ld_json(extra=None):
             % json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/"))
 
 
-def page(title, active, body, desc="Accessible weekly animal-disease intelligence.", path=None, index=True, ld=None):
+def page(title, active, body, desc="Accessible weekly animal-disease intelligence.", path=None, index=True, ld=None, head=""):
     """path is the file the page is written to (defaults to active). index=False keeps a page out of
-    search results and the sitemap. ld is an extra JSON-LD object for this page."""
+    search results and the sitemap. ld is an extra JSON-LD object for this page. head is extra markup
+    for <head>, such as the map's stylesheets."""
     path = path or active
     def cur(h):
         return ' aria-current="page"' if h == active else ""
@@ -777,8 +903,9 @@ def page(title, active, body, desc="Accessible weekly animal-disease intelligenc
     desk += '<a class="nav-cta" href="subscribe.html"%s>Subscribe</a>' % cur("subscribe.html")
     mob = "".join('<a href="%s"%s>%s</a>' % (h, cur(h), t) for h, t in NAV)
     explore = "".join('<li><a href="%s">%s</a></li>' % (h, t) for h, t in
-                      [("weekly.html", "Weekly reports"), ("watch.html", "Short videos"), ("data.html", "Open data"),
-                       ("sources.html", "Sources"), ("about.html", "About")])
+                      [("weekly.html", "Weekly reports"), ("watch.html", "Short videos"), ("map.html", "Map"),
+                       ("analytics.html", "Numbers"), ("data.html", "Open data"), ("sources.html", "Sources"),
+                       ("about.html", "About")])
     # platform icons: official monochrome logos from the Simple Icons CDN, never redrawn here.
     # alt is empty because the platform name sits next to each icon as link text.
     follow = '<li><a class="plat" href="subscribe.html">%sNewsletter</a></li>' % ICON_MAIL + "".join(
@@ -808,7 +935,7 @@ def page(title, active, body, desc="Accessible weekly animal-disease intelligenc
 {SHARE_META}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/styles.css?v={CSS_VER}">
+<link rel="stylesheet" href="assets/styles.css?v={CSS_VER}">{head}
 {ICON_LINKS}
 {ld_json(ld)}
 </head><body>
@@ -950,9 +1077,11 @@ def short_cover(slug):
             print("cover: made %s (%d KB)" % (web, os.path.getsize(web) // 1024))
         except Exception as e:   # Pillow missing or the file unreadable: build without a cover
             print("cover: could not make", web, "-", e)
+    published = os.path.join(ASSETS, "shorts", slug + ".jpg")
     if not os.path.exists(web):
-        return ""
-    shutil.copy(web, os.path.join(ASSETS, "shorts", slug + ".jpg"))
+        # No content/ folder here (it is not in the repository): keep the cover already published in website/.
+        return "assets/shorts/%s.jpg" % slug if os.path.exists(published) else ""
+    shutil.copy(web, published)
     return "assets/shorts/%s.jpg" % slug
 
 
@@ -1098,10 +1227,748 @@ if PRELAUNCH:
 # before launch this page is only a "No report yet" placeholder, so it stays out of search and the sitemap
 write("weekly-latest.html", page(f"Week {week}", "weekly.html", latest, path="weekly-latest.html", index=not PRELAUNCH))
 
+# Map behaviour: filters by disease and week range, a time slider, clustered markers and pop-ups.
+# Pop-up text comes from the data, so it is set with textContent, never as HTML.
+MAP_JS = r"""(function () {
+  "use strict";
+  var cfgEl = document.getElementById("map-config"), mapEl = document.getElementById("map");
+  var summary = document.getElementById("map-summary");
+  if (!cfgEl || !mapEl) return;
+  if (!window.L || !L.markerClusterGroup) {
+    summary.textContent = "The map could not load. The same records are in the open data.";
+    return;
+  }
+  var cfg = JSON.parse(cfgEl.textContent), weeks = cfg.weeks, last = weeks.length - 1;
+  var state = { cat: "all", from: 0, to: last };
+  var fromSel = document.getElementById("from-week"), toSel = document.getElementById("to-week");
+  var slider = document.getElementById("week-slider"), out = document.getElementById("week-out");
+  var small = window.matchMedia("(max-width: 639px)").matches;
+  var map = L.map(mapEl, { scrollWheelZoom: false, minZoom: small ? 1 : 2, maxZoom: 9,
+    maxBounds: [[-75, -200], [88, 200]], maxBoundsViscosity: 0.8 });
+  map.setView(small ? [47, 12] : [47, 14], small ? 2 : 3);
+  mapEl.outbreakLensMap = map;   // handy for testing and for embedding scripts
+  if (cfg.tiles && cfg.tiles.url) {
+    L.tileLayer(cfg.tiles.url, { attribution: cfg.tiles.attribution, subdomains: "abcd", maxZoom: 19 }).addTo(map);
+  } else if (cfg.basemap) {
+    map.attributionControl.addAttribution("Basemap: Natural Earth");
+    fetch(cfg.basemap, { credentials: "same-origin" }).then(function (r) { return r.json(); }).then(function (gj) {
+      L.geoJSON(gj, { interactive: false, renderer: L.canvas({ padding: 0.5 }),
+        style: { color: "#d5cec1", weight: 0.7, fillColor: "#fbf9f4", fillOpacity: 1 } }).addTo(map).bringToBack();
+    }).catch(function () {});
+  }
+  var group = L.markerClusterGroup({
+    showCoverageOnHover: false, maxClusterRadius: 44, spiderfyOnMaxZoom: true,
+    iconCreateFunction: function (c) {
+      var n = c.getChildCount(), s = n < 10 ? 30 : n < 50 ? 36 : n < 200 ? 42 : 48;
+      return L.divIcon({ html: '<span class="cluster">' + n + "</span>", className: "cluster-wrap", iconSize: [s, s] });
+    }
+  });
+  map.addLayer(group);
+  var markers = [];
+
+  function total(w) {
+    var t = 0;
+    for (var i = state.from; i <= state.to; i++) t += w[weeks[i][0]] || 0;
+    return t;
+  }
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function link(text, href) {
+    if (!/^https?:\/\//.test(href || "")) return el("span", null, text);
+    var a = el("a", null, text);
+    a.href = href; a.target = "_blank"; a.rel = "noopener";
+    return a;
+  }
+  function popup(m) {
+    var p = m.feature.properties, n = total(p.weeks), box = el("div", "pop");
+    var unit = n === 1 ? p.unit : (cfg.units[p.unit] || p.unit);
+    box.appendChild(el("p", "pop-title", p.title));
+    box.appendChild(el("p", "pop-place", p.place));
+    var num = el("p");
+    num.appendChild(el("span", "pop-n", n.toLocaleString("en-GB")));
+    num.appendChild(document.createTextNode(" " + unit + (/season/.test(unit) ? "" : " in the weeks shown")));
+    box.appendChild(num);
+    if (p.note) box.appendChild(el("p", "pop-meta", p.note));
+    var links = el("p", "pop-links");
+    links.appendChild(link("Source: " + p.src, p.url));
+    (p.also || []).forEach(function (x) {
+      links.appendChild(document.createTextNode(" · "));
+      links.appendChild(link("Also: " + x[0], x[1]));
+    });
+    box.appendChild(links);
+    return box;
+  }
+  function marker(f) {
+    var p = f.properties, c = f.geometry.coordinates, st = cfg.cats[p.cat] || cfg.cats.other;
+    var icon = L.divIcon({ className: "pin-wrap", iconSize: null,
+      html: '<span class="pin" style="--c:' + st.colour + '"><i></i>' + st.code + "</span>" });
+    var m = L.marker([c[1], c[0]], { icon: icon, title: st.label + ": " + p.place, riseOnHover: true });
+    m.feature = f;
+    m.bindPopup(function () { return popup(m); }, { maxWidth: 280, autoPanPadding: [16, 16] });
+    return m;
+  }
+  function describe() {
+    return state.from === 0 && state.to === last ? "Weeks starting " + weeks[0][1] + " to " + weeks[last][1]
+      : state.from === state.to ? "Week starting " + weeks[state.to][1]
+      : "Weeks starting " + weeks[state.from][1] + " to " + weeks[state.to][1];
+  }
+  function render() {
+    var show = [];
+    markers.forEach(function (m) {
+      var p = m.feature.properties;
+      if (state.cat !== "all" && p.cat !== state.cat) return;
+      if (total(p.weeks) > 0) show.push(m);
+    });
+    group.clearLayers();
+    group.addLayers(show);
+    var what = state.cat === "all" ? "any of the eight diseases" : cfg.cats[state.cat].phrase;
+    summary.textContent = show.length
+      ? show.length.toLocaleString("en-GB") + (show.length === 1 ? " place" : " places") + " with reports of " + what + " in these weeks."
+      : "No reports of " + what + " in these weeks.";
+  }
+  function sync() {
+    fromSel.value = String(state.from);
+    toSel.value = String(state.to);
+    slider.value = String(state.to);
+    out.textContent = describe();
+    slider.setAttribute("aria-valuetext", describe());
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('input[name="map-cat"]'), function (r) {
+    r.addEventListener("change", function () { state.cat = r.value; render(); });
+  });
+  fromSel.addEventListener("change", function () {
+    state.from = +fromSel.value; if (state.to < state.from) state.to = state.from; sync(); render();
+  });
+  toSel.addEventListener("change", function () {
+    state.to = +toSel.value; if (state.from > state.to) state.from = state.to; sync(); render();
+  });
+  slider.addEventListener("input", function () {
+    state.to = +slider.value; if (state.from > state.to) state.from = state.to; sync(); render();
+  });
+  fetch(cfg.data, { credentials: "same-origin" })
+    .then(function (r) { if (!r.ok) throw new Error(String(r.status)); return r.json(); })
+    .then(function (gj) { markers = gj.features.map(marker); sync(); render(); })
+    .catch(function () { summary.textContent = "The map data did not load. The same records are in the open data."; });
+})();
+"""
+
+# Numbers behaviour: the disease filter and a tooltip on each chart (pointer, or arrow keys once focused).
+NUMBERS_JS = r"""(function () {
+  "use strict";
+  var cards = Array.prototype.slice.call(document.querySelectorAll(".chart-card"));
+  Array.prototype.forEach.call(document.querySelectorAll('input[name="num-cat"]'), function (r) {
+    r.addEventListener("change", function () {
+      cards.forEach(function (c) { c.hidden = r.value !== "all" && c.getAttribute("data-cat") !== r.value; });
+    });
+  });
+  cards.forEach(function (card) {
+    var svg = card.querySelector("svg.chart");
+    if (!svg) return;
+    var hits = svg.querySelectorAll(".hit"), cur = -1;
+    var tip = document.createElement("div");
+    tip.className = "chart-tip";
+    tip.setAttribute("aria-hidden", "true");
+    card.appendChild(tip);
+    function bar(i) { return svg.querySelector('.bar[data-i="' + i + '"]'); }
+    function show(i) {
+      if (cur >= 0 && bar(cur)) bar(cur).classList.remove("on");
+      cur = i;
+      var h = hits[i], b = bar(i);
+      if (!h) return;
+      if (b) b.classList.add("on");
+      tip.textContent = "";
+      var s = document.createElement("strong");
+      s.textContent = h.getAttribute("data-v");
+      tip.appendChild(s);
+      tip.appendChild(document.createTextNode(h.getAttribute("data-l")));
+      var cr = card.getBoundingClientRect(), hr = h.getBoundingClientRect(), sr = svg.getBoundingClientRect();
+      var topY = (b ? b.getBoundingClientRect().top : sr.top + sr.height * 0.79) - cr.top;
+      var x = hr.left + hr.width / 2 - cr.left;
+      tip.style.left = Math.min(Math.max(x, 90), cr.width - 90) + "px";
+      tip.style.top = Math.max(topY, sr.top - cr.top + 24) + "px";
+      tip.classList.add("show");
+    }
+    function hide() {
+      tip.classList.remove("show");
+      if (cur >= 0 && bar(cur)) bar(cur).classList.remove("on");
+      cur = -1;
+    }
+    Array.prototype.forEach.call(hits, function (h, i) {
+      h.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") show(i); });
+      h.addEventListener("pointerleave", function (e) { if (e.pointerType === "mouse") hide(); });
+      h.addEventListener("click", function () { if (cur === i) hide(); else show(i); });
+    });
+    svg.addEventListener("focus", function () { show(hits.length - 1); });
+    svg.addEventListener("blur", hide);
+    svg.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+        e.preventDefault();
+        var i = cur < 0 ? hits.length - 1 : cur + (e.key === "ArrowRight" ? 1 : -1);
+        show(Math.max(0, Math.min(hits.length - 1, i)));
+      } else if (e.key === "Escape") {
+        hide();
+      }
+    });
+  });
+})();
+"""
+
+
+# ---------- LIVE DATA: map, numbers and open data, built from pipeline/data ----------
+# The pipeline (pipeline/run.py) writes events.csv, one CSV per disease, aggregates.json, latest.json,
+# map.geojson and dictionary.csv to pipeline/data. They are copied to website/assets/data and drive
+# map.html, analytics.html ("Numbers") and data.html. These pages are built with or without --prelaunch.
+LIVE_DIR = os.path.join(ROOT, "pipeline", "data")
+LIVE_DATA_URL = "assets/data/"
+# Category colours: the dataviz reference palette in its validated order (adjacent checks pass). On the map
+# every marker also carries its code in ink on white, so colour is never the only cue. "Other" is the
+# brand's muted grey. Terracotta stays reserved for "this week" on the charts.
+CAT_STYLE = {"bird-flu": ("#2a78d6", "BF", "bird flu"), "bluetongue": ("#eb6834", "BT", "bluetongue"),
+             "asf": ("#1baf7a", "ASF", "African swine fever"), "fmd": ("#eda100", "FMD", "foot-and-mouth disease"),
+             "sheep-goat-pox": ("#e87ba4", "SGP", "sheep and goat pox"), "lsd": ("#008300", "LSD", "lumpy skin disease"),
+             "newcastle-disease": ("#6250d6", "ND", "Newcastle disease"), "other": ("#6b7280", "OTH", "other exotic diseases")}
+# Basemap. By default the map draws country shapes from Natural Earth (public domain) itself, so it needs no
+# tile service, key or extra terms. To use raster tiles instead, set MAP_TILES to {"url": ..., "attribution": ...}.
+# CARTO's Positron tiles now need a free API key (commercial use is free up to 1 million tile requests a month)
+# and their attribution must stay visible; without a key they show an "API key required" watermark.
+MAP_TILES = None
+BASEMAP_CACHE = os.path.join(ROOT, "map_basemap.json")
+BASEMAP_SRC = "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_50m_admin_0_countries.geojson"
+
+
+def _basemap():
+    """Country shapes for the map, simplified to about 3 km and cached next to this script (like hero_dots.json)."""
+    if os.path.exists(BASEMAP_CACHE):
+        return BASEMAP_CACHE
+    import urllib.request
+
+    def rnd(o):
+        if o and isinstance(o[0], (int, float)):
+            return [round(o[0], 2), round(o[1], 2)]
+        return [rnd(x) for x in o]
+    try:
+        req = urllib.request.Request(BASEMAP_SRC, headers={"User-Agent": "OutbreakLens site build"})
+        with urllib.request.urlopen(req, timeout=60) as resp:
+            gj = json.load(resp)
+        feats = []
+        for f in gj["features"]:
+            geom = f["geometry"]
+            try:
+                from shapely.geometry import shape, mapping
+                geom = mapping(shape(geom).buffer(0).simplify(0.03, preserve_topology=True))
+            except ImportError:
+                pass
+            feats.append({"type": "Feature", "properties": {},
+                          "geometry": {"type": geom["type"], "coordinates": rnd(list(geom["coordinates"]))}})
+        with open(BASEMAP_CACHE, "w", encoding="utf-8") as f:
+            json.dump({"type": "FeatureCollection", "source": BASEMAP_SRC, "features": feats}, f, separators=(",", ":"))
+        print("basemap: cached %d countries in %s" % (len(feats), BASEMAP_CACHE))
+        return BASEMAP_CACHE
+    except Exception as e:   # network or parse problem: the map still works, on a plain background
+        print("basemap: could not build -", e)
+        return None
+
+
+LEAFLET = ('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" '
+           'integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw==" '
+           'crossorigin="anonymous" referrerpolicy="no-referrer">'
+           '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.css" '
+           'integrity="sha512-mQ77VzAakzdpWdgfL/lM1ksNy89uFgibRQANsNneSTMD/bj0Y/8+94XMwYhnbzx8eki2hrbPpDm0vD0CiT2lcg==" '
+           'crossorigin="anonymous" referrerpolicy="no-referrer">')
+LEAFLET_JS = ('<script defer src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" '
+              'integrity="sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g==" '
+              'crossorigin="anonymous" referrerpolicy="no-referrer"></script>'
+              '<script defer src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.js" '
+              'integrity="sha512-OFs3W4DIZ5ZkrDhBFtsCP6JXtMEDGmhl0QPlmWYBJay40TT1n3gt2Xuw8Pf/iezgW9CdabjkNChRqozl/YADmg==" '
+              'crossorigin="anonymous" referrerpolicy="no-referrer"></script>')
+WOAH_DISCLAIMER = ("The World Organisation for Animal Health (WOAH) bears no responsibility for the integrity or accuracy "
+                   "of the data contained herein, in particular due, but not limited to, any deletion, manipulation, or "
+                   "reformatting of data that may have occurred beyond its control.")
+SOURCE_TERMS = [
+    ("WOAH WAHIS", "https://wahis.woah.org/",
+     "Immediate notifications and follow-up reports: one row per event, with outbreaks counted by their start date.",
+     "The WAHIS Terms of Use and Conditions allow &ldquo;viewing, downloading, storing, reproducing, adapting, "
+     "translating&rdquo; the data, with WOAH named as the source and the WOAH disclaimer below. OutbreakLens has "
+     "reformatted the data: one row per event, a disease category, and places shown at region level."),
+    ("EU ADIS", "https://webgate.ec.europa.eu/tracesnt/adis/public/notification/outbreaks-weekly-report",
+     "The weekly outbreak report: outbreaks by country, disease and species. Each week is stored, because the report is replaced.",
+     "&copy; European Union. Reuse is allowed with credit and an indication of changes (CC BY 4.0, Commission "
+     "Decision 2011/833/EU)."),
+    ("FAO EMPRES-i", "https://data.apps.fao.org/catalog/dataset/4849cca2-a2bf-4f1a-8348-ea01a692ff30",
+     "Latest reported events from FAO&rsquo;s public data catalogue. Most come from WOAH and are matched to the WAHIS rows.",
+     "CC BY 4.0, as listed for &lsquo;EMPRES-i: Global Animal Disease Events Dashboard&rsquo; in the FAO data catalogue."),
+    ("GOV.UK, Bluetongue: latest situation", "https://www.gov.uk/guidance/bluetongue-latest-situation",
+     "Cases (premises) by nation and county, and the daily update notes.",
+     "Contains public sector information licensed under the Open Government Licence v3.0."),
+    ("GOV.UK, Bird flu (avian influenza): latest situation in England",
+     "https://www.gov.uk/guidance/bird-flu-avian-influenza-latest-situation-in-england",
+     "Confirmed cases this season, risk levels, and whether the page says a prevention zone or housing order is in force.",
+     "Contains public sector information licensed under the Open Government Licence v3.0."),
+    ("DAFM, Bluetongue virus (gov.ie)",
+     "https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/publications/bluetongue-virus/",
+     "Herd cases by county in Ireland.",
+     "Contains Irish Public Sector Information. Check gov.ie for the re-use terms."),
+    ("Ruokavirasto, ASF cases in Finland",
+     "https://www.ruokavirasto.fi/en/animals/animal-health-and-diseases/animal-diseases/pigs/african-swine-fever-asf/asf-in-finland-2026/asf-cases-in-finland/",
+     "Wild boar cases by date and municipality.",
+     "Ruokavirasto&rsquo;s terms: the material may be used with the source named. Commercial use must be agreed "
+     "separately with the Finnish Food Authority."),
+]
+
+
+def _fmt_day(iso, short=False):
+    """2026-10-21 -> 21 October 2026, or 21 Oct 2026 when short."""
+    if not iso:
+        return ""
+    d = dt.date.fromisoformat(iso[:10])
+    return "%d %s %d" % (d.day, d.strftime("%b" if short else "%B"), d.year)
+
+
+def _fmt_range(a, b):
+    """2026-10-15, 2026-10-21 -> 15 to 21 Oct 2026."""
+    x, z = dt.date.fromisoformat(a[:10]), dt.date.fromisoformat(b[:10])
+    if (x.year, x.month) == (z.year, z.month):
+        return "%d to %d %s %d" % (x.day, z.day, z.strftime("%b"), z.year)
+    if x.year == z.year:
+        return "%d %s to %d %s %d" % (x.day, x.strftime("%b"), z.day, z.strftime("%b"), z.year)
+    return "%s to %s" % (_fmt_day(a, True), _fmt_day(b, True))
+
+
+def _fmt_stamp(ts):
+    """An ISO timestamp in UTC -> '22 October 2026 at 9:53pm UK time'."""
+    try:
+        from zoneinfo import ZoneInfo
+        t = dt.datetime.fromisoformat(ts.replace("Z", "+00:00")).astimezone(ZoneInfo("Europe/London"))
+        return "%s at %s UK time" % (_fmt_day(t.date().isoformat()), t.strftime("%I:%M%p").lstrip("0").lower())
+    except Exception:
+        return ts
+
+
+def _size(path):
+    b = os.path.getsize(path)
+    return "%.1f MB" % (b / 1e6) if b >= 1e6 else "%d KB" % max(1, round(b / 1e3))
+
+
+def _load_live():
+    need = ("events.csv", "latest.json", "aggregates.json", "map.geojson", "dictionary.csv")
+    if not all(os.path.exists(os.path.join(LIVE_DIR, f)) for f in need):
+        print("live data: none in %s, so the map, numbers and data pages use their placeholders" % LIVE_DIR)
+        return None
+    import csv as _csv
+    with open(os.path.join(LIVE_DIR, "latest.json"), encoding="utf-8") as f:
+        latest = json.load(f)
+    with open(os.path.join(LIVE_DIR, "aggregates.json"), encoding="utf-8") as f:
+        agg = json.load(f)
+    with open(os.path.join(LIVE_DIR, "dictionary.csv"), encoding="utf-8", newline="") as f:
+        dictionary = list(_csv.DictReader(f))
+    files = {}
+    out_dir = os.path.join(ASSETS, "data")
+    os.makedirs(out_dir, exist_ok=True)
+    cats = list(agg["categories"].keys())
+    for name in ["events.csv"] + ["%s.csv" % c for c in cats] + ["dictionary.csv", "aggregates.json", "latest.json", "map.geojson"]:
+        src = os.path.join(LIVE_DIR, name)
+        if not os.path.exists(src):
+            continue
+        shutil.copy(src, os.path.join(out_dir, name))
+        rows = None
+        if name.endswith(".csv"):
+            with open(src, encoding="utf-8", newline="") as f:
+                rows = sum(1 for _ in _csv.reader(f)) - 1
+        files[name] = {"rows": rows, "size": _size(src)}
+    heads = {h["id"]: h for h in latest.get("headlines", [])}
+    print("live data: %d files copied to %s" % (len(files), out_dir))
+    return {"latest": latest, "agg": agg, "dictionary": dictionary, "files": files, "heads": heads, "cats": cats}
+
+
+LIVE = _load_live()
+
+
+def _chips(name, cats_meta):
+    opts = ['<label class="chip"><input type="radio" name="%s" value="all" checked><span>All diseases</span></label>' % name]
+    for slug in cats_meta:
+        colour = CAT_STYLE.get(slug, CAT_STYLE["other"])[0]
+        opts.append('<label class="chip"><input type="radio" name="%s" value="%s"><span><i class="cat-dot" style="--c:%s"></i>%s</span></label>'
+                    % (name, slug, colour, escape(cats_meta[slug]["label"])))
+    return '<fieldset class="chips"><legend>Disease</legend><div class="chip-row">%s</div></fieldset>' % "".join(opts)
+
+
+def _ext(url, text):
+    return ext(escape(url), text)
+
+
+def _sources_block(latest, extra=""):
+    """Every source with the date it was last updated, plus the WOAH disclaimer the WAHIS terms require."""
+    status = {s["name"]: s for s in latest.get("sources", [])}
+    names = {"WOAH WAHIS": "WOAH WAHIS", "EU ADIS": "EU ADIS", "FAO EMPRES-i": "FAO EMPRES-i",
+             "GOV.UK, Bluetongue: latest situation": "GOV.UK (Defra and APHA)",
+             "GOV.UK, Bird flu (avian influenza): latest situation in England": "GOV.UK (Defra and APHA)",
+             "DAFM, Bluetongue virus (gov.ie)": "DAFM (gov.ie)",
+             "Ruokavirasto, ASF cases in Finland": "Ruokavirasto (Finnish Food Authority)"}
+    keyed = {"GOV.UK, Bluetongue: latest situation": "govuk_bluetongue",
+             "GOV.UK, Bird flu (avian influenza): latest situation in England": "govuk_birdflu"}
+    by_key = {s["key"]: s for s in latest.get("sources", [])}
+    items = []
+    for name, url, what, terms in SOURCE_TERMS:
+        s = by_key.get(keyed[name]) if name in keyed else status.get(names[name])
+        when = ""
+        if s:
+            upd = (s.get("source_updated") or "")[:10]
+            when = ("updated %s" % _fmt_day(upd)) if upd else ("read %s" % _fmt_day(s["fetched_at"][:10]))
+            if s.get("status") == "fallback":
+                when += ", from a saved copy"
+            elif s.get("status") == "failed":
+                when = "not available in this run"
+        items.append('<li><b>%s</b>%s<span>%s</span></li>' % (_ext(url, name), (", " + when) if when else "", terms))
+    return ('<div class="src-block"><h2>Sources</h2><ul class="src-items">%s</ul>'
+            '<p class="fine">%s</p><p class="fine">Records are placed, and the map is drawn, using Natural Earth '
+            'boundaries (public domain).%s%s</p></div>'
+            % ("".join(items), escape(WOAH_DISCLAIMER),
+               (" Map tiles: " + MAP_TILES["attribution"] + ".") if MAP_TILES else "", extra))
+
+
+def _nice_top(v):
+    if v <= 1:
+        return 1
+    if v <= 2:
+        return 2
+    import math
+    mag = 10 ** math.floor(math.log10(v))
+    for m in (1, 2, 4, 6, 8, 10):   # halves are whole numbers, so the middle gridline is a clean value
+        if m * mag >= v:
+            return int(m * mag)
+    return int(10 * mag)
+
+
+def chart_svg(label, values, week_starts, unit_one, unit_many):
+    """A 12-week column chart as inline SVG: muted columns, terracotta for this week (still in progress),
+    hairline grid, a value on the peak and on this week. Every value is also in the table under the chart."""
+    W, H, L_, R_, T_, B_ = 360, 146, 30, 6, 18, 116
+    n = len(values)
+    slot = (W - L_ - R_) / n
+    bw = min(16.0, slot - 6)
+    top = _nice_top(max(values) if values else 0)
+    ticks = [0, top // 2, top] if top >= 4 else [0, top]
+    y = lambda v: B_ - (B_ - T_) * v / top
+    cx = lambda i: L_ + i * slot + slot / 2
+    p = []
+    for t in ticks[1:]:
+        p.append('<line class="grid" x1="%d" x2="%d" y1="%.1f" y2="%.1f"/>' % (L_, W - R_, y(t), y(t)))
+    for t in ticks:
+        p.append('<text class="tick" x="%d" y="%.1f" text-anchor="end">%s</text>' % (L_ - 6, y(t) + 3.5, "{:,}".format(t)))
+    peak = max(range(n), key=lambda i: (values[i], -i)) if any(values) else None
+    for i, v in enumerate(values):
+        if v <= 0:
+            continue
+        x = cx(i) - bw / 2
+        h = max(B_ - y(v), 1.5)
+        r = min(4.0, h, bw / 2)
+        yt = B_ - h
+        d = ("M%.1f %.1fV%.1fQ%.1f %.1f %.1f %.1fH%.1fQ%.1f %.1f %.1f %.1fV%.1fZ"
+             % (x, B_, yt + r, x, yt, x + r, yt, x + bw - r, x + bw, yt, x + bw, yt + r, B_))
+        p.append('<path class="bar%s" data-i="%d" d="%s"/>' % (" now" if i == n - 1 else "", i, d))
+    p.append('<line class="base" x1="%d" x2="%d" y1="%d" y2="%d"/>' % (L_, W - R_, B_, B_))
+    for i in (0, 4, 8):
+        if i < n - 1:
+            d = dt.date.fromisoformat(week_starts[i])
+            p.append('<text class="xl" x="%.1f" y="%d" text-anchor="middle">%d %s</text>' % (cx(i), B_ + 16, d.day, d.strftime("%b")))
+    p.append('<text class="xl" x="%d" y="%d" text-anchor="end">This week</text>' % (W - R_, B_ + 16))
+    now_v = values[-1]
+    # the label runs left over the two previous columns, so it sits above the tallest of the last three
+    now_y = max(min(y(v) for v in values[-3:]) if any(values[-3:]) else B_, T_ - 4)
+    p.append('<text class="val" x="%.1f" y="%.1f" text-anchor="end">%s so far</text>' % (cx(n - 1) + bw / 2, now_y - 5, "{:,}".format(now_v)))
+    if peak is not None and peak != n - 1:
+        clash = abs(cx(peak) - cx(n - 1)) < 64 and abs(y(values[peak]) - now_y) < 16
+        if not clash:
+            p.append('<text class="val" x="%.1f" y="%.1f" text-anchor="middle">%s</text>' % (cx(peak), y(values[peak]) - 5, "{:,}".format(values[peak])))
+    for i, v in enumerate(values):
+        when = ("this week, from %s" % _fmt_day(week_starts[i], True)) if i == n - 1 else ("week starting %s" % _fmt_day(week_starts[i], True))
+        p.append('<rect class="hit" x="%.1f" y="%d" width="%.1f" height="%d" data-i="%d" data-v="%s" data-l="%s, %s"/>'
+                 % (L_ + i * slot, T_ - 10, slot, B_ - T_ + 10, i, "{:,}".format(v) + (" so far" if i == n - 1 else ""),
+                    unit_one if v == 1 else unit_many, when))
+    if peak is not None:
+        summary = "Highest: %s in the week starting %s. This week so far: %s." % (
+            "{:,}".format(values[peak]), _fmt_day(week_starts[peak]), "{:,}".format(now_v))
+    else:
+        summary = "None in these 12 weeks."
+    aria = "%s, %s by week for 12 weeks. %s Use the arrow keys to read each week." % (label, unit_many, summary)
+    return ('<svg class="chart" viewBox="0 0 %d %d" role="img" tabindex="0" aria-label="%s" focusable="true">%s</svg>'
+            % (W, H, escape(aria), "".join(p)))
+
+
+SERIES_TEXT = {
+    "wahis-outbreaks": ("Outbreaks by the week they started, worldwide, from reports to WOAH.", "outbreak", "outbreaks"),
+    "govuk-bt-cases": ("Cases (premises) by the week they were confirmed, Great Britain.", "case (premises)", "cases (premises)"),
+}
+
+
+def _chart_card(slug, c, weeks, week_starts):
+    colour = CAT_STYLE.get(slug, CAT_STYLE["other"])[0]
+    sub, one, many = SERIES_TEXT.get(c["series_id"], (c.get("metric", ""), "record", "records"))
+    vals = [int(v) for v in c["total"]]
+    svg = chart_svg(c["label"], vals, week_starts, one, many)
+    if c["series_id"] == "govuk-bt-cases":
+        areas = c.get("by_area") or {}
+        top = ", ".join("%s %s" % (k, "{:,}".format(sum(v))) for k, v in areas.items() if sum(v))
+        top_line = '<p class="chart-top">Over these 12 weeks: %s.</p>' % top if top else ""
+        src = ('Source: %s, updated %s. Weekly counts come from the page&rsquo;s daily update notes and may differ '
+               'slightly from its totals.' % (_ext(c["source_url"], "GOV.UK, Bluetongue: latest situation"),
+                                               _fmt_day(c["source_updated"][:10], True)))
+        cols = [k for k, v in areas.items() if sum(v)]
+    else:
+        tops = c.get("top_countries") or []
+        top_line = ('<p class="chart-top">Most in these 12 weeks: %s.</p>'
+                    % ", ".join("%s %s" % (escape(t["name"]), "{:,}".format(t["count"])) for t in tops[:3])) if tops else ""
+        src = 'Source: %s, read %s. Recent weeks fill in as countries report.' % (
+            _ext(c["source_url"], "WOAH WAHIS"), _fmt_day(c["fetched_at"][:10], True))
+        cols = []
+    head = '<tr><th scope="col">Week starting</th><th scope="col">%s</th>%s</tr>' % (
+        escape(many[0].upper() + many[1:]), "".join('<th scope="col">%s</th>' % escape(k) for k in cols))
+    body_rows = []
+    for i, ws in enumerate(week_starts):
+        extra = "".join("<td>%s</td>" % "{:,}".format(c["by_area"][k][i]) for k in cols)
+        body_rows.append("<tr><td>%s%s</td><td>%s</td>%s</tr>" % (
+            _fmt_day(ws, True), " (this week so far)" if i == len(week_starts) - 1 else "", "{:,}".format(vals[i]), extra))
+    table = ('<details><summary>Show the numbers</summary><table class="mini-table"><caption class="vh">%s, %s by week'
+             '</caption><thead>%s</thead><tbody>%s</tbody></table></details>' % (escape(c["label"]), many, head, "".join(body_rows)))
+    return ('<article class="chart-card" data-cat="%s" id="chart-%s"><h3><i class="cat-dot" style="--c:%s"></i>%s</h3>'
+            '<p class="chart-sub">%s</p>%s%s<p class="chart-src">%s</p>%s</article>'
+            % (slug, slug, colour, escape(c["label"]), sub, svg, top_line, src, table))
+
+
+def _tiles(heads, latest):
+    def tile(value, label, src_html):
+        return '<div class="tile"><b>%s</b><span class="t-label">%s</span><span class="t-src">%s</span></div>' % (value, label, src_html)
+    out = []
+    h = heads.get("govuk-bt-total")
+    if h:
+        areas = ", ".join("%s %s" % (k, "{:,}".format(v)) for k, v in (h.get("by_area") or {}).items())
+        out.append(tile("{:,}".format(h["value"]), "bluetongue cases (premises) confirmed in the UK this season. %s." % areas,
+                        "%s, counts to %s" % (_ext(h["source_url"], "GOV.UK"), _fmt_day(h["counts_to"], True))))
+    h = heads.get("govuk-ai-season")
+    if h:
+        strains = ", ".join("%s %s" % (k.replace("HPAI ", "").replace(" cases", ""), v) for k, v in (h.get("by_strain") or {}).items() if v)
+        out.append(tile("{:,}".format(h["value"]), "bird flu cases confirmed in the UK this season (%s). Latest confirmed %s."
+                        % (strains, _fmt_day(h.get("latest_case", ""))),
+                        "%s, updated %s" % (_ext(h["source_url"], "GOV.UK"), _fmt_day(h["as_of"], True))))
+    h = heads.get("adis-week")
+    if h:
+        start, end = h["detail"].split(",")[0].split(" to ")
+        cats = h.get("by_category") or {}
+        biggest = max(cats.items(), key=lambda kv: kv[1]) if cats else None
+        ncountries = re.search(r"(\d+) countries", h["detail"])
+        lab = ("outbreaks in the EU&rsquo;s weekly ADIS report, %s%s." % (
+            _fmt_range(start.strip(), end.strip()),
+            (", in %s countries" % ncountries.group(1)) if ncountries else ""))
+        if biggest:
+            lab += " %s were %s." % ("{:,}".format(biggest[1]), CAT_STYLE.get(biggest[0], CAT_STYLE["other"])[2])
+        out.append(tile("{:,}".format(h["value"]), lab, "%s, %s" % (_ext(h["source_url"], "European Commission, ADIS"), _fmt_day(h["as_of"], True))))
+    h = heads.get("wahis-recent")
+    if h:
+        out.append(tile("{:,}".format(h["value"]), "disease events in %d countries with a new report to WOAH in the last 7 days. %s."
+                        % (h.get("countries", 0), h.get("detail", "").capitalize()),
+                        "%s, read %s" % (_ext(h["source_url"], "WOAH WAHIS"), _fmt_day(h["fetched_at"][:10], True))))
+    h = heads.get("fi-asf-wild-boar")
+    if h:
+        out.append(tile("{:,}".format(h["value"]), "wild boar found with African swine fever in Finland this year, in %d cases. "
+                        "Latest confirmed %s in %s." % (h.get("cases", 0), _fmt_day(h.get("latest_date", "")), escape(h.get("latest_municipality", ""))),
+                        "%s, updated %s" % (_ext(h["source_url"], "Ruokavirasto"), _fmt_day(h["as_of"], True))))
+    h = heads.get("ie-bt-herds")
+    if h:
+        saved = " Read from a saved copy of the page." if h.get("status") == "fallback" else ""
+        out.append(tile("{:,}".format(h["value"]), "bluetongue herd cases in Ireland (%s), as at %s." % (h.get("detail", ""), _fmt_day(h.get("counts_to", ""))),
+                        "%s, updated %s.%s" % (_ext(h["source_url"], "DAFM"), _fmt_day(h["as_of"], True), saved)))
+    return '<div class="tiles">%s</div>' % "".join(out)
+
+
+def _facts(heads):
+    rows = []
+    h = heads.get("govuk-ai-risk")
+    if h:
+        if h.get("poultry_poor_level") and h.get("poultry_poor_uncertainty") == h.get("poultry_stringent_uncertainty"):
+            poultry = "%s where biosecurity is poor and %s where it is stringent, both with %s uncertainty" % (
+                h["poultry_poor_level"], h["poultry_stringent_level"], h["poultry_poor_uncertainty"])
+        else:
+            poultry = "%s where biosecurity is poor, %s where it is stringent" % (
+                h["poultry_poor_biosecurity"], h["poultry_stringent_biosecurity"])
+        rows.append(("Bird flu risk, Great Britain", "Wild birds: %s. Poultry: %s. %s, updated %s."
+                     % (h["wild_birds"], poultry, _ext(h["source_url"], "GOV.UK"), _fmt_day(h["as_of"], True))))
+        rows.append(("Prevention zone or housing order, England", "%s %s, updated %s."
+                     % (escape(h["aipz_or_housing"]), _ext(h["source_url"], "GOV.UK"), _fmt_day(h["as_of"], True))))
+    h = heads.get("govuk-bt-risk")
+    inv = heads.get("govuk-bt-investigation")
+    if h:
+        rows.append(("Bluetongue risk and zones",
+                     "Risk of incursion: %s. %s%s %s, updated %s."
+                     % (h["detail"].rstrip(".").replace(". ", ", ").lower(), h.get("zone", ""),
+                        (" %s potential cases under investigation in Great Britain." % "{:,}".format(inv["value"])) if inv else "",
+                        _ext(h["source_url"], "GOV.UK"), _fmt_day(h["as_of"], True))))
+    return '<dl class="facts">%s</dl>' % "".join("<div><dt>%s</dt><dd>%s</dd></div>" % r for r in rows)
+
+
+if LIVE:
+    _latest, _agg = LIVE["latest"], LIVE["agg"]
+    _weeks = _agg["window"]["weeks"]
+    _starts = _agg["window"]["week_starts"]
+    _cats = _agg["categories"]
+    _read = _fmt_stamp(_latest["generated_at"])
+    _first, _last = _fmt_day(_starts[0], True), _fmt_day(_starts[-1], True)
+
+    # ---------- MAP ----------
+    _bm = None if MAP_TILES else _basemap()
+    if _bm:
+        shutil.copy(_bm, os.path.join(ASSETS, "data", "basemap.geojson"))
+    cfg = {"data": LIVE_DATA_URL + "map.geojson", "tiles": MAP_TILES,
+           "basemap": (LIVE_DATA_URL + "basemap.geojson") if _bm else "",
+           "weeks": [[w, _fmt_day(s, True)] for w, s in zip(_weeks, _starts)],
+           "cats": {k: {"colour": v[0], "code": v[1], "phrase": v[2], "label": _cats[k]["label"] if k in _cats else k}
+                    for k, v in CAT_STYLE.items()},
+           "units": {"outbreak": "outbreaks", "event": "events", "case": "cases", "wild boar": "wild boar",
+                     "case (premises) this season": "cases (premises) this season",
+                     "herd case this season": "herd cases this season"}}
+    cfg_json = json.dumps(cfg, ensure_ascii=False).replace("</", "<\\/")
+    week_opts = "".join('<option value="%d">%s</option>' % (i, _fmt_day(s, True)) for i, s in enumerate(_starts))
+    week_opts_to = week_opts.replace('<option value="%d">' % (len(_starts) - 1), '<option value="%d" selected>' % (len(_starts) - 1))
+    keys = "".join('<li><span class="key"><i style="--c:%s"></i>%s</span>%s</li>' % (v[0], v[1], escape(_cats[k]["label"]))
+                   for k, v in CAT_STYLE.items() if k in _cats)
+    keys += '<li><span class="key-cluster">12</span>Places grouped together. Zoom in or select to see them.</li>'
+    map_body = page_head("Map of official reports",
+        "Outbreaks and cases reported by WOAH, the EU, FAO and national governments in the last 12 weeks. "
+        "Every point sits at the centre of a country, region or county.", "Live data") + f"""
+<section class="section tight"><div class="wrap">
+<p class="lede-row"><span>Data read {_read}</span><a href="data.html">Download the data</a><a href="analytics.html">See the numbers</a></p>
+<form class="filters" id="map-filters" onsubmit="return false">
+{_chips("map-cat", _cats)}
+<div class="time-row">
+<div class="field"><label class="field-label" for="from-week">From week starting</label><select id="from-week">{week_opts}</select></div>
+<div class="field"><label class="field-label" for="to-week">To week starting</label><select id="to-week">{week_opts_to}</select></div>
+<div class="field slider"><label class="field-label" for="week-slider">Show weeks up to</label>
+<input type="range" id="week-slider" min="0" max="{len(_starts) - 1}" value="{len(_starts) - 1}" step="1">
+<output id="week-out" for="week-slider">Weeks starting {_first} to {_last}</output></div>
+</div>
+</form>
+<p class="map-summary" id="map-summary" aria-live="polite">Loading the map data.</p>
+<div class="map-shell"><div id="map" role="region" aria-label="Map of official animal-disease reports"></div>
+<noscript><p>The map needs JavaScript. The same records are in the <a href="data.html">open data</a>.</p></noscript></div>
+<ul class="key-list" aria-label="Key">{keys}</ul>
+<div class="below-map">
+<p><strong>Points sit at the centre of a country, region or county. They never show a farm or other premises.</strong></p>
+<p class="note">Where a national source publishes the figures (GOV.UK, DAFM in Ireland, Ruokavirasto in Finland), the map shows them and links the matching WOAH and EU records in the pop-up, so nothing is counted twice. Season totals appear in the week they were published. Counts change with the weeks you choose.</p>
+</div>
+{_sources_block(_latest)}
+<div class="actions"><a class="btn btn-primary" href="data.html">Download the data</a><a class="btn btn-outline" href="analytics.html">See the numbers</a></div>
+</div></section>
+<script type="application/json" id="map-config">{cfg_json}</script>
+{LEAFLET_JS}<script defer src="assets/map.js?v={hashlib.sha256(MAP_JS.encode()).hexdigest()[:8]}"></script>"""
+    write("map.html", page("Map", "map.html", map_body,
+          "A map of official animal-disease reports from WOAH, the EU, FAO and national governments, at country, region or county level.",
+          head=LEAFLET))
+    write(os.path.join("assets", "map.js"), MAP_JS)
+
+    # ---------- NUMBERS ----------
+    charts = "".join(_chart_card(slug, _cats[slug], _weeks, _starts) for slug in _cats)
+    num_body = page_head("The numbers",
+        "Headline figures and 12 weeks of counts for each disease, from official sources. Every figure shows its source and date.",
+        "Live data") + f"""
+<section class="section tight"><div class="wrap">
+<p class="lede-row"><span>Data read {_read}</span><a href="map.html">See the map</a><a href="data.html">Download the data</a></p>
+<h2 class="vh">Headline figures</h2>
+{_tiles(LIVE["heads"], _latest)}
+<h2 class="vh">Risk levels and controls</h2>
+{_facts(LIVE["heads"])}
+</div></section>
+<section class="section tight" aria-labelledby="weekly-title"><div class="wrap">
+<div class="section-head"><h2 id="weekly-title">Week by week</h2>
+<p>The last 12 weeks for each disease. This week is in terracotta and is not finished yet.</p></div>
+<form class="filters" onsubmit="return false">{_chips("num-cat", _cats)}</form>
+<div class="charts">{charts}</div>
+<p class="note">Each chart keeps its source&rsquo;s own counting rules, so the charts cannot be added together. The weekly counts by country are in <a href="{LIVE_DATA_URL}aggregates.json">aggregates.json</a>.</p>
+{_sources_block(_latest)}
+</div></section>
+<script defer src="assets/numbers.js?v={hashlib.sha256(NUMBERS_JS.encode()).hexdigest()[:8]}"></script>"""
+    write("analytics.html", page("Numbers", "analytics.html", num_body,
+          "Headline animal-disease figures and 12 weeks of counts for each disease, each with its official source and date."))
+    write(os.path.join("assets", "numbers.js"), NUMBERS_JS)
+
+
 # ---------- DATA ----------
 licence = ('<p class="note">Licence: free to reuse with attribution to OutbreakLens and to the original data providers. '
            'Derived from publicly available sources. Always check the primary source&#39;s own terms.</p>')
-if PRELAUNCH:
+if LIVE:
+    _files, _dict = LIVE["files"], LIVE["dictionary"]
+    _status = {s["key"]: s for s in LIVE["latest"].get("sources", [])}
+
+    def _dl(name, label=None):
+        f = _files.get(name)
+        if not f:
+            return ""
+        kind = {"csv": "CSV", "json": "JSON", "geojson": "GeoJSON"}.get(name.rsplit(".", 1)[1], name.rsplit(".", 1)[1])
+        # one wrapping span, so the phone layout (label | value grid) keeps the size next to the link
+        return '<span><a href="%s%s" download>%s</a> <span class="nw">(%s, %s)</span></span>' % (
+            LIVE_DATA_URL, name, escape(label or name), kind, f["size"])
+
+    def _rows(name):
+        r = (_files.get(name) or {}).get("rows")
+        return "{:,} rows".format(r) if r is not None else ""
+
+    by_cat = "".join('<span><a href="%s%s.csv" download>%s</a> <span class="nw">(%s)</span></span>' % (
+        LIVE_DATA_URL, slug, escape(LIVE["agg"]["categories"][slug]["label"]),
+        "{:,}".format((_files.get("%s.csv" % slug) or {}).get("rows") or 0)) for slug in LIVE["cats"])
+    table_rows = [
+        ("All records", "Every event, case and published total from the seven sources. One row each, with its source, date and link. %s." % _rows("events.csv"), _dl("events.csv")),
+        ("By disease", "The same rows, one file for each of the eight diseases. Rows in brackets.", '<span class="dl-cats">%s</span>' % by_cat),
+        ("Weekly counts", "Counts by week, disease and country for the last 12 weeks, kept separate for each source.", _dl("aggregates.json")),
+        ("Headline numbers", "The figures on the Numbers page, each with its source and date.", _dl("latest.json")),
+        ("Map points", "The places on the map, at the centre of a country, region or county, with counts by week.", _dl("map.geojson")),
+        ("Data dictionary", "What each column in the CSV files means.", _dl("dictionary.csv")),
+    ]
+    rows_html = "".join('<tr><td data-label="Dataset">%s</td><td data-label="What it holds">%s</td><td data-label="Download">%s</td></tr>'
+                        % r for r in table_rows)
+    dict_rows = "".join('<tr><td data-label="Column"><code>%s</code></td><td data-label="Type">%s</td><td data-label="Meaning">%s</td></tr>'
+                        % (escape(d["column"]), escape(d["type"]), escape(d["description"])) for d in _dict)
+    status_label = {"live": "Read live", "fallback": "Saved copy", "failed": "Not available", "stub": "Not connected"}
+    status_rows = "".join(
+        '<tr><td data-label="Source">%s</td><td data-label="This run"><span class="status-%s">%s</span></td>'
+        '<td data-label="Rows">%s</td><td data-label="Source updated">%s</td></tr>'
+        % (escape(s["name"].replace("GOV.UK (Defra and APHA)", "GOV.UK " + ("bluetongue" if s["key"] == "govuk_bluetongue" else "bird flu"))),
+           escape(s["status"]), status_label.get(s["status"], escape(s["status"])), "{:,}".format(s["rows"]),
+           _fmt_day((s.get("source_updated") or "")[:10], True) or "not given")
+        for s in LIVE["latest"].get("sources", []))
+    data = page_head("Open data, free to use",
+        "The records behind the map and the numbers. One row per event, case or published total, each with its source, "
+        "date and link. Updated each time the pipeline runs.", "Live data") + f"""
+<section class="section tight"><div class="wrap">
+<p class="lede-row"><span>Data read {_fmt_stamp(LIVE["latest"]["generated_at"])}</span><a href="map.html">See the map</a><a href="analytics.html">See the numbers</a></p>
+<table class="data-table"><caption class="vh">Files to download</caption>
+<thead><tr><th scope="col">Dataset</th><th scope="col">What it holds</th><th scope="col">Download</th></tr></thead>
+<tbody>{rows_html}</tbody></table>
+<div class="narrow">
+<h2>Licence</h2>
+<p>Free to reuse with attribution to OutbreakLens and to the original providers. Each provider&rsquo;s own terms also apply, and some limit commercial use. They are listed under Sources below.</p>
+<p class="note">Suggested credit: &ldquo;OutbreakLens open data, from WOAH WAHIS, EU ADIS, FAO EMPRES-i, GOV.UK, DAFM and Ruokavirasto, read {_fmt_day(LIVE["latest"]["generated_at"][:10])}.&rdquo;</p>
+<h2>How it is made</h2>
+<ul>
+<li>Each source is read as published. Nothing is estimated or filled in.</li>
+<li>When two sources describe the same event, both rows are kept and linked in the <code>same_as</code> column, so every figure stays traceable.</li>
+<li>Places are given at country, region or county level. Points are the centre of that area and never show a farm or other premises.</li>
+<li>Dates use YYYY-MM-DD. Countries use ISO 3166 three-letter codes.</li>
+</ul>
+</div>
+<details class="dict"><summary>Columns in the CSV files ({len(_dict)})</summary>
+<table class="data-table"><caption class="vh">Data dictionary</caption>
+<thead><tr><th scope="col">Column</th><th scope="col">Type</th><th scope="col">Meaning</th></tr></thead>
+<tbody>{dict_rows}</tbody></table></details>
+<h2>Sources in this run</h2>
+<table class="data-table"><caption class="vh">What each source returned</caption>
+<thead><tr><th scope="col">Source</th><th scope="col">This run</th><th scope="col">Rows</th><th scope="col">Source updated</th></tr></thead>
+<tbody>{status_rows}</tbody></table>
+<p class="note">A saved copy means the source could not be read in this run, so the last good copy was used. Its date is shown.</p>
+{_sources_block(LIVE["latest"])}
+</div></section>"""
+elif PRELAUNCH:
     data = page_head("Clean data, free to use",
         "Every report will come with a tidy, de-duplicated dataset: one row per reported event, standard columns, "
         "ready for your own analysis. The first dataset is published with the first report.") + f"""
@@ -1120,7 +1987,9 @@ else:
 </tbody></table>
 {licence}
 </div></section>"""
-write("data.html", page("Data", "data.html", data, "Clean, free-to-use animal-disease event data behind every OutbreakLens report."))
+write("data.html", page("Data", "data.html", data,
+      "Open animal-disease data from official sources: one row per event, case or published total, with its source, date and link."
+      if LIVE else "Clean, free-to-use animal-disease event data behind every OutbreakLens report."))
 
 # ---------- SOURCES ----------
 SRC=[("WOAH WAHIS","Global official disease notifications and dashboards.","https://wahis.woah.org/"),
@@ -1129,6 +1998,8 @@ SRC=[("WOAH WAHIS","Global official disease notifications and dashboards.","http
 ("EFSA","Avian influenza and ASF surveillance reports and datasets.","https://www.efsa.europa.eu/en/topics/topic/avian-influenza"),
 ("SHIC","Global swine disease monitoring reports.","https://www.swinehealth.org/"),
 ("Defra / APHA","UK outbreak assessments and notifiable-disease updates.","https://www.gov.uk/government/collections/animal-diseases-international-and-uk-monitoring"),
+("DAFM, Ireland","Bluetongue herd cases by county in Ireland.","https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/publications/bluetongue-virus/"),
+("Ruokavirasto, Finland","African swine fever cases in wild boar in Finland.","https://www.ruokavirasto.fi/en/animals/animal-health-and-diseases/animal-diseases/pigs/african-swine-fever-asf/"),
 ("ECDC / WHO / OFFLU","Zoonotic and influenza-at-the-interface context.","https://www.offlu.org/")]
 def _slug(s): return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
 def _domain(u): return re.sub(r"^https?://(www\.)?", "", u).split("/")[0]

@@ -1,0 +1,92 @@
+{
+ "updated": "2026-10-21T12:04:01+01:00",
+ "fetched_at": "2026-10-22T20:30:39Z",
+ "cases": [
+  {
+   "event_id": "govuk-ai-aiv2026-21",
+   "serotype_or_strain": "H5N1",
+   "place_as_published": "near Belford, North Northumberland, Northumberland",
+   "admin1": "England",
+   "admin2": "Northumberland",
+   "date_confirmed": "2026-10-19"
+  },
+  {
+   "event_id": "govuk-ai-aiv2026-20",
+   "serotype_or_strain": "H5N5",
+   "place_as_published": "Ness, Isle of Lewis, Scotland",
+   "admin1": "Scotland",
+   "admin2": "Na h-Eileanan Siar",
+   "date_confirmed": "2026-10-02"
+  }
+ ],
+ "headlines": [
+  {
+   "id": "govuk-ai-season",
+   "label": "Bird flu cases confirmed in the UK this season",
+   "value": 2,
+   "unit": "cases",
+   "detail": "England: HPAI H5N5 0, HPAI H5N1 1; Scotland: HPAI H5N5 1, HPAI H5N1 0; Wales: HPAI H5N5 0, HPAI H5N1 0; Northern Ireland: HPAI H5N5 0, HPAI H5N1 0",
+   "by_strain": {
+    "HPAI H5N5 cases": 1,
+    "HPAI H5N1 cases": 1
+   },
+   "season": "2026 to 2027",
+   "latest_case": "2026-10-19",
+   "previous_seasons": {
+    "2025 to 2026": {
+     "HPAI": 100,
+     "LPAI": 1
+    },
+    "2024 to 2025": {
+     "HPAI": 82,
+     "LPAI": 1
+    },
+    "2023 to 2024": {
+     "HPAI": 6,
+     "LPAI": 0
+    },
+    "2022 to 2023": {
+     "HPAI": 207,
+     "LPAI": 1
+    },
+    "2021 to 2022": {
+     "HPAI": 158,
+     "LPAI": 0
+    }
+   },
+   "as_of": "2026-10-21",
+   "source": "GOV.UK (Defra and APHA)",
+   "source_url": "https://www.gov.uk/guidance/bird-flu-avian-influenza-latest-situation-in-england",
+   "fetched_at": "2026-10-22T20:30:39Z"
+  },
+  {
+   "id": "govuk-ai-risk",
+   "label": "Bird flu risk levels in Great Britain",
+   "value": "medium",
+   "unit": "risk to wild birds",
+   "wild_birds": "medium",
+   "poultry_poor_biosecurity": "low (high uncertainty)",
+   "poultry_stringent_biosecurity": "very low (high uncertainty)",
+   "poultry_poor_level": "low",
+   "poultry_poor_uncertainty": "high",
+   "poultry_stringent_level": "very low",
+   "poultry_stringent_uncertainty": "high",
+   "aipz_or_housing": "The page does not say that an Avian Influenza Prevention Zone (AIPZ) or a housing order is in force in England. Its latest news on them: ‘Avian Influenza Prevention Zone lifts as risk reduces’ (4 June 2026) and ‘Avian Influenza housing measures lifted’ (2 April 2026).",
+   "aipz_in_force": false,
+   "aipz_news": [
+    {
+     "title": "Avian Influenza Prevention Zone lifts as risk reduces",
+     "date": "2026-06-04"
+    },
+    {
+     "title": "Avian Influenza housing measures lifted",
+     "date": "2026-04-02"
+    }
+   ],
+   "as_of": "2026-10-21",
+   "source": "GOV.UK (Defra and APHA)",
+   "source_url": "https://www.gov.uk/guidance/bird-flu-avian-influenza-latest-situation-in-england",
+   "fetched_at": "2026-10-22T20:30:39Z"
+  }
+ ]
+}

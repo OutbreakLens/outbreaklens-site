@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="OutbreakLens">
+<title>OutbreakLens</title>
+<circle cx="48" cy="48" r="34.4" fill="#FAF7F1"/>
+<path d="M82.3 29.44A39 39 0 1 1 46.92 9.01" fill="none" stroke="#1F3864" stroke-width="10" stroke-linecap="round"/>
+<circle cx="67.5" cy="14.23" r="10.5" fill="#C0532B"/>
+<g fill="#1F3864" transform="translate(15.31 16.04) scale(0.6196)"><path fill-rule="evenodd" d="M13.2 23A4.5 4.5 0 0 1 20.5 20.5C30 33 44 43 58 40L64.15 28.74A10 10 0 1 1 83.4 30.42C87 38 84 46 80 52A30 30 0 0 1 20 52ZM74.1 25A2.4 2.4 0 1 0 78.9 25A2.4 2.4 0 1 0 74.1 25Z"/><circle cx="68.5" cy="17.5" r="4.4"/><circle cx="74.5" cy="15" r="4.8"/><circle cx="80.6" cy="17.8" r="4.2"/><path d="M82.6 23.6L93 28.4L83.2 33Z"/><rect x="42" y="76" width="6" height="18" rx="3"/><rect x="55" y="76" width="6" height="18" rx="3"/></g>
+</svg>

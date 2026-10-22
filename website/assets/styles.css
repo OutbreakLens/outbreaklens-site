@@ -73,6 +73,7 @@ text-align:center;text-decoration:none;transition:background-color .15s,border-c
 .btn-outline{border-color:var(--navy);color:var(--navy);background:transparent}
 .btn-outline:hover{background:var(--navy);color:#fff}
 .btn-sm{min-height:44px;padding:10px 16px;font-size:.9375rem}
+@media(max-width:399px){.btn-sm{padding:10px 14px}}
 .actions{display:flex;flex-direction:column;gap:12px}
 .actions-row{display:flex;flex-wrap:wrap;gap:10px}
 @media(min-width:480px){.actions{flex-direction:row;flex-wrap:wrap}}
@@ -90,7 +91,7 @@ transform-origin:center;opacity:0;animation:sig 3.6s cubic-bezier(.2,.6,.3,1) in
 padding:24px 20px 28px;box-shadow:0 22px 44px -18px rgba(6,14,30,.6)}
 .kicker{display:flex;align-items:flex-start;gap:10px;margin:0 0 16px;color:var(--accent-soft);font-size:.8125rem;font-weight:600;
 letter-spacing:.14em;text-transform:uppercase;line-height:1.4}
-.kicker svg{width:16px;height:16px;flex:none;margin-top:1px}
+.kicker svg{width:20px;height:20px;flex:none;margin-top:-1px}
 .hero h1{color:#fff;font-size:clamp(2rem,1.3rem + 3vw,3.25rem);font-weight:300;line-height:1.14;letter-spacing:-.015em;margin:0 0 18px}
 .hero .lead{color:var(--on-dark2);font-size:1.0625rem;line-height:1.6;margin:0 0 26px;max-width:32em}
 @media(min-width:768px){
@@ -194,10 +195,9 @@ border-top:1px solid var(--line);border-left:1px solid var(--line)}
 .checklist li::before{content:"";position:absolute;left:3px;top:20px;width:14px;height:8px;
 border-left:2.5px solid var(--green);border-bottom:2.5px solid var(--green);transform:rotate(-45deg)}
 .promise{list-style:none;margin:0 0 24px;padding:0}
-.promise li{position:relative;padding:14px 0 14px 34px;border-top:1px solid var(--line)}
+.promise li{position:relative;padding:14px 0 14px 36px;border-top:1px solid var(--line)}
 .promise li:first-child{border-top:0}
-.promise li::before{content:"";position:absolute;left:0;top:17px;width:20px;height:20px;border-radius:50%;border:4px solid var(--accent)}
-.promise li::after{content:"";position:absolute;left:8px;top:25px;width:4px;height:4px;border-radius:50%;background:var(--navy)}
+.promise-mark{position:absolute;left:0;top:16px;width:24px;height:24px}
 
 /* prose and about */
 .prose{max-width:42rem}
@@ -229,6 +229,53 @@ border-top:4px solid var(--accent);border-radius:var(--radius);padding:28px 20px
 .follow{margin-top:48px}
 .follow h2{font-size:1.25rem;margin:0 0 14px}
 @media(min-width:768px){.signup{margin-top:-76px;padding:36px 40px 32px}}
+.signup .support{margin-top:10px}
+.latest{margin-top:40px}
+.latest h2{font-size:1.25rem;font-weight:400;margin:0 0 6px}
+.latest p{margin:0}
+
+/* shorts: cards on the home and Watch pages */
+.status + .band-white,.band-white + .band-white{border-top:0}
+.short-card.no-cover{grid-template-columns:minmax(0,1fr)}
+.short-cards{display:grid;gap:16px}
+@media(min-width:1024px){.short-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}}
+.short-card{display:grid;grid-template-columns:112px minmax(0,1fr);align-items:stretch;background:var(--card);
+border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;color:var(--ink);text-decoration:none}
+.short-card:hover{border-color:var(--navy2);color:var(--ink)}
+/* the whole 9:16 cover always shows: no side crop, and any spare height below it is navy like the cover's edge */
+.short-card img{display:block;width:100%;height:100%;aspect-ratio:9/16;object-fit:contain;object-position:top center;
+background:var(--navy-ink)}
+@media(max-width:639px){.short-card p{display:none}}
+.short-text{display:flex;flex-direction:column;gap:8px;padding:16px 16px 18px;min-width:0}
+.short-card h3{font-size:1.1875rem;margin:0;color:var(--navy)}
+.short-card p{margin:0;color:var(--ink2);font-size:.9375rem;line-height:1.55}
+.short-card .meta{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;font-size:.8125rem;color:var(--muted)}
+.short-card .go{margin-top:auto;padding-top:4px;font-weight:600;color:var(--navy);text-decoration:underline;text-underline-offset:.2em}
+.short-card:hover .go{color:var(--accent-dark)}
+@media(min-width:640px){.short-card{grid-template-columns:160px minmax(0,1fr)}
+.short-text{padding:22px 24px 24px;gap:10px}.short-card h3{font-size:1.3125rem}}
+
+/* shorts: one page per short */
+.short-layout{display:grid;gap:36px}
+.short-frame{position:relative;width:100%;max-width:420px;aspect-ratio:9/16;background:var(--navy-ink);
+border-radius:var(--radius);overflow:hidden;box-shadow:0 24px 48px -28px rgba(20,30,50,.5)}
+.short-frame iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+.short-media .note{margin:10px 0 0;max-width:420px}
+@media(min-width:960px){.short-layout{grid-template-columns:360px minmax(0,1fr);gap:56px;align-items:start}
+.short-frame{max-width:none}}
+@media(min-width:960px) and (min-height:780px){.short-media{position:sticky;top:96px}}
+.prose .keynums{list-style:none;margin:0 0 12px;padding:0;border-top:1px solid var(--line)}
+.prose .keynums li{display:grid;grid-template-columns:7.25rem minmax(0,1fr);gap:4px 16px;align-items:baseline;
+margin:0;padding:11px 0 12px;border-bottom:1px solid var(--line)}
+.keynums b{font-weight:300;font-size:1.375rem;line-height:1.25;color:var(--navy)}
+.keynums span{color:var(--ink2)}
+@media(min-width:640px){.prose .keynums li{grid-template-columns:9rem minmax(0,1fr)}}
+.prose .src-list{padding-left:1.4em}
+.src-list li{padding-left:.2em}
+.src-list span{color:var(--muted);font-weight:400}
+.disclaimer-box{margin:28px 0 8px;padding:16px 20px;background:var(--card);border:1px solid var(--line);
+border-left:4px solid var(--navy);border-radius:6px;font-size:.9375rem;line-height:1.6;font-weight:400;color:var(--ink2)}
+.prose .actions-row{margin:0 0 8px}
 
 /* weekly and data */
 .report-card{display:grid;gap:8px;max-width:760px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);

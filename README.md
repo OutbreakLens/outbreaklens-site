@@ -5,3 +5,7 @@ Source for outbreaklens.com: the static site generator (`build_site.py`), brand 
 Pushes to `main` deploy `website/` to the Cloudflare Pages project `outbreaklens` through the GitHub Actions workflow in `.github/workflows/deploy.yml`, once the `CLOUDFLARE_API_TOKEN` secret is set in the repository settings.
 
 OutbreakLens is an educational summary of public data, made in a personal capacity. It is not veterinary, trade or official advice, and it is not affiliated with or endorsed by any government body.
+
+## Building the site
+
+`python3 -I build_site.py --prelaunch` regenerates `website/` from the templates in the script, `hero_dots.json` and `brand/final/`. Commit the result and push: the workflow deploys it.

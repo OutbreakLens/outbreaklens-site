@@ -11,7 +11,8 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      # Pinned to commit SHAs (v4.4.0 and v3.9.0) so a moved tag cannot change what runs here.
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       - name: Check for the Cloudflare token
         id: token
@@ -29,7 +30,7 @@ jobs:
       # preview at https://<branch>.outbreaklens.pages.dev and leaves production alone.
       - name: Deploy website/ to the Pages project outbreaklens
         if: steps.token.outputs.present == 'true'
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@9681c2997648301493e78cacbfb790a9f19c833f # v3.9.0
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: 9225fa26913cdf58e48597a533972035

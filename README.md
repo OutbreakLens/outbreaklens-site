@@ -16,3 +16,5 @@ OutbreakLens is an educational summary of public data, made in a personal capaci
 
 The map uses MapLibre GL JS (from cdnjs, pinned with SRI) and OpenFreeMap's Positron style, which is built on OpenStreetMap data. It needs no key or registration. Keep the credit to OpenFreeMap, OpenMapTiles and OpenStreetMap contributors visible: MapLibre shows it on the map and the Sources block repeats it. Map, Numbers and Downloads sit under Data in the navigation and share a sub-navigation. The country tables on the Numbers page come from `pipeline/data/tables.json`.
 
+The home page leads with the same map and "Reports by country" table as `map.html`: one shared block in `build_site.py`, so the two cannot drift apart. Below them sit the latest episode and newsletter issue, a link to the shorts and one line on sources. Episodes are listed in `EPISODES` in `build_site.py`. The newest also fills the Weekly page, with its chapters. Without `pipeline/data` the build reuses the files already in `website/assets/data`.
+

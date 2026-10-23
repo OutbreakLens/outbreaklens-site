@@ -9,8 +9,9 @@ site refreshes itself each week.
     python build_site.py              # uses pipeline/outputs next to this script if present
     python build_site.py --prelaunch  # holding site with no report data
 
-The home-page hero is a dot-matrix world map written as inline SVG. Land comes
-from Natural Earth (public domain). The computed dots are cached in
+With live data (pipeline/data) the home page leads with the live map and its
+table, the same block as map.html. Without it, the home-page hero is a
+dot-matrix world map written as inline SVG. Land comes from Natural Earth (public domain). The computed dots are cached in
 hero_dots.json next to this script, so the network is needed only once. Delete
 that file to recompute it. With no cache and no network the hero falls back to
 an abstract ring graphic.
@@ -35,8 +36,9 @@ X_URL = "https://x.com/OutbreakWeekly"   # listed in the footer with the other p
 SITE_URL = "https://outbreaklens.com"    # live address, used for absolute links (share image, canonical, sitemap)
 KOFI_URL = "https://ko-fi.com/outbreaklens"
 CF_ANALYTICS_TOKEN = ""   # Cloudflare Web Analytics site token. Empty means no beacon is added.
-NEWSLETTER_LATEST = ("https://outbreaklens.beehiiv.com/p/bird-flu-is-back-and-bluetongue-passes-3400-cases",
-                     "Issue 1, from Friday 23 October 2026")   # beehiiv publishes it on Friday at 07:00
+# latest newsletter issue: web address, label and title (the web version went live on 23 October 2026)
+NEWSLETTER_LATEST = ("https://outbreaklens.beehiiv.com/p/bird-flu-is-back-and-bluetongue-passes-3-400-cases",
+                     "Issue 1, Friday 23 October 2026", "Bird flu is back, and bluetongue passes 3,400 cases")
 DISCLAIMER = ("OutbreakLens is an educational summary of public data, made in a personal capacity. "
               "It is not veterinary, trade or official advice, and it is not affiliated with or endorsed by "
               "any government body. Always check the primary source.")
@@ -171,6 +173,28 @@ SHORTS = [
         "sources_note": "The map in the video uses Natural Earth data (public domain).",
     },
 ]
+
+# ---------- OutbreakWeekly episodes: one entry per episode, newest first ----------
+# The newest is the latest episode on the Weekly page, with its chapters, and in the "This week" band on the home
+# page. Its thumbnail comes from content/episodes/<slug>/thumb.png next to this script, resized once to
+# thumb-640.jpg beside it. Without that folder the copy already published in website/assets/episodes is kept.
+EPISODES = [
+    {
+        "number": 1, "slug": "ep01", "youtube_id": "yQPZnu7jQN8",
+        "title": "OutbreakWeekly: bird flu is back, bluetongue passes 3,400 cases, and the watch list (22 Oct 2026)",
+        "as_at": "22 October 2026", "as_at_short": "22 Oct 2026", "length": "About 6 minutes",
+        "summary": ("Bird flu is back in Great Britain with two cases and two viruses. Bluetongue has reached 3,441 "
+                    "cases, with the whole of England, Wales and Scotland in a restricted zone, and 48 herds in Ireland. "
+                    "The watch list: foot-and-mouth in Cyprus and Lesvos, sheep and goat pox in south-east Europe, and "
+                    "African swine fever in Finland."),
+        "chapters": [("0:00", "Title"), ("0:16", "Headline numbers"), ("0:41", "Bird flu, Great Britain"),
+                     ("1:12", "Risk and rules"), ("1:43", "Bird flu, Europe"), ("2:07", "Bluetongue, the numbers"),
+                     ("2:38", "Zones and moves"), ("3:05", "Reading the numbers"), ("3:31", "Ireland"),
+                     ("3:49", "The watch list"), ("4:35", "What it means for keepers"), ("5:06", "Sources")],
+        "newsletter": NEWSLETTER_LATEST,
+    },
+]
+EPISODES_DIR = os.path.join(ROOT, "content", "episodes")
 
 # ---------- hero map: dot-matrix world from Natural Earth, cached ----------
 HERO_CACHE = os.path.join(ROOT, "hero_dots.json")
@@ -399,17 +423,17 @@ CSS = """
 --accent:#C0532B;--accent-dark:#A9461F;--accent-soft:#F2B8A0;
 --paper:#FAF7F1;--card:#fff;--ink:#1c1b19;--ink2:#3b3934;--muted:#6b7280;--line:#e7e2d8;--green:#2E7D32;
 --on-dark:#FAF7F1;--on-dark2:#C9D4E8;--on-dark3:#9fb0cc;
---font:"Open Sans",system-ui,Arial,sans-serif;
+--font:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+--font-head:"Montserrat","Inter",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
 --gutter:16px;--wrap:1180px;--radius:10px}
 @media(min-width:768px){:root{--gutter:24px}}
 @media(min-width:1024px){:root{--gutter:32px}}
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-weight:300;font-size:17px;line-height:1.65;
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);font-weight:400;font-size:17px;line-height:1.65;
 overflow-wrap:break-word;-webkit-font-smoothing:antialiased}
 svg,iframe,img{max-width:100%}
-h1,h2,h3{font-family:var(--font);font-weight:300;color:var(--navy);line-height:1.2;letter-spacing:-.01em;margin:0 0 .5em;text-wrap:balance}
-h3,.status h2,.card h2,.report-card h2,.promise-box h2,.signup h2,.follow h2{font-weight:400}
+h1,h2,h3{font-family:var(--font-head);font-weight:700;color:var(--navy);line-height:1.2;letter-spacing:-.015em;margin:0 0 .5em;text-wrap:balance}
 strong,b{font-weight:600}
 .note,figcaption,.stat span,.source-row span,.domain,.meta,.crumbs,.site-footer,.data-table td{font-weight:400}
 p{margin:0 0 1em}
@@ -430,7 +454,7 @@ main:focus{outline:none}
 .site-header{position:sticky;top:0;z-index:50;background:var(--navy);border-bottom:1px solid rgba(250,247,241,.1)}
 .bar{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:60px}
 .brand{display:inline-flex;align-items:center;gap:10px;color:#fff;text-decoration:none;
-font-weight:600;font-size:1.25rem;letter-spacing:-.015em;line-height:1}
+font-family:var(--font-head);font-weight:800;font-size:1.1875rem;letter-spacing:-.01em;line-height:1}
 .brand:hover{color:#fff}
 .brand-mark{width:32px;height:32px;flex:none}
 .brand-lens{color:var(--accent)}
@@ -498,7 +522,7 @@ padding:24px 20px 28px;box-shadow:0 22px 44px -18px rgba(6,14,30,.6)}
 .kicker{display:flex;align-items:flex-start;gap:10px;margin:0 0 16px;color:var(--accent-soft);font-size:.8125rem;font-weight:600;
 letter-spacing:.14em;text-transform:uppercase;line-height:1.4}
 .kicker svg{width:20px;height:20px;flex:none;margin-top:-1px}
-.hero h1{color:#fff;font-size:clamp(2rem,1.3rem + 3vw,3.25rem);font-weight:300;line-height:1.14;letter-spacing:-.015em;margin:0 0 18px}
+.hero h1{color:#fff;font-size:clamp(1.875rem,1.3rem + 2.4vw,2.75rem);font-weight:800;line-height:1.14;letter-spacing:-.02em;margin:0 0 18px}
 .hero .lead{color:var(--on-dark2);font-size:1.0625rem;line-height:1.6;margin:0 0 26px;max-width:32em}
 @media(min-width:768px){
 .hero-svg{width:122%;margin-left:-14%}
@@ -520,7 +544,7 @@ letter-spacing:.14em;text-transform:uppercase;line-height:1.4}
 @media(min-width:1100px){.section{padding:96px 0}}
 .band-white{background:var(--card);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .section-head{max-width:42rem;margin:0 0 32px}
-.section-head h2{font-size:clamp(1.75rem,1.35rem + 1.6vw,2.375rem);margin:0 0 10px}
+.section-head h2{font-size:clamp(1.5rem,1.2rem + 1.2vw,2rem);margin:0 0 10px}
 .section-head p{margin:0;color:var(--ink2);font-size:1.0625rem}
 .head-row{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 32px;margin:0 0 32px}
 .head-row .section-head{margin:0}
@@ -530,7 +554,7 @@ letter-spacing:.14em;text-transform:uppercase;line-height:1.4}
 .status{background:var(--card);border-bottom:1px solid var(--line);padding:28px 0}
 .status-inner{display:grid;gap:16px}
 .status-mark{width:40px;height:40px}
-.status h2{font-size:1.375rem;margin:0 0 4px}
+.status h2{font-size:1.25rem;margin:0 0 4px}
 .status p{margin:0;color:var(--ink2);max-width:40em}
 @media(min-width:960px){.status{padding:32px 0}.status-inner{grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:28px}}
 
@@ -540,7 +564,7 @@ letter-spacing:.14em;text-transform:uppercase;line-height:1.4}
 @media(min-width:1100px){.pillars{gap:48px}}
 .pillar{border-top:1px solid var(--line);padding-top:24px}
 .icon{width:44px;height:44px;color:var(--navy);display:block;margin:0 0 16px}
-.pillar h3{font-size:1.375rem;margin:0 0 8px}
+.pillar h3{font-size:1.25rem;margin:0 0 8px}
 .pillar p{margin:0;color:var(--ink2)}
 
 /* who it is for */
@@ -549,7 +573,7 @@ letter-spacing:.14em;text-transform:uppercase;line-height:1.4}
 .audience{list-style:none;margin:0;padding:0;display:grid}
 @media(min-width:640px){.audience{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:32px}}
 .audience li{border-top:1px solid var(--line);padding:20px 0 22px}
-.audience h3{font-size:1.25rem;margin:0 0 6px}
+.audience h3{font-size:1.125rem;margin:0 0 6px}
 .audience p{margin:0;color:var(--ink2)}
 
 /* official sources row */
@@ -564,7 +588,7 @@ border-top:1px solid var(--line);border-left:1px solid var(--line)}
 /* call to action band */
 .cta-band{position:relative;overflow:hidden;background:var(--navy);color:var(--on-dark);padding:64px 0}
 .cta-band .wrap{position:relative}
-.cta-band h2{color:#fff;font-size:clamp(1.75rem,1.3rem + 1.9vw,2.625rem);max-width:15em;margin:0 0 12px}
+.cta-band h2{color:#fff;font-size:clamp(1.5rem,1.2rem + 1.4vw,2.25rem);max-width:15em;margin:0 0 12px}
 .cta-band p{color:var(--on-dark2);max-width:32em;margin:0 0 28px;font-size:1.0625rem}
 .rings{position:absolute;pointer-events:none;width:380px;height:380px;right:-300px;top:-40px;opacity:.6}
 @media(min-width:768px){.cta-band{padding:88px 0}.rings{width:520px;height:520px;right:-110px;top:50%;transform:translateY(-50%);opacity:1}}
@@ -572,7 +596,7 @@ border-top:1px solid var(--line);border-left:1px solid var(--line)}
 /* inner page head */
 .page-head{position:relative;overflow:hidden;background:var(--navy);color:var(--on-dark);padding:44px 0 48px}
 .page-head .wrap{position:relative}
-.page-head h1{color:#fff;font-size:clamp(2rem,1.45rem + 2.4vw,3.25rem);line-height:1.08;letter-spacing:-.018em;max-width:17em;margin:0 0 14px}
+.page-head h1{color:#fff;font-size:clamp(1.75rem,1.3rem + 2vw,2.75rem);font-weight:800;line-height:1.12;letter-spacing:-.02em;max-width:17em;margin:0 0 14px}
 .page-head .lead{color:var(--on-dark2);font-size:clamp(1.0625rem,1rem + .35vw,1.25rem);max-width:38em;margin:0}
 .page-head .lead a{color:#fff}
 .page-head .actions{margin-top:28px}
@@ -588,7 +612,7 @@ border-top:1px solid var(--line);border-left:1px solid var(--line)}
 @media(min-width:640px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(min-width:1024px){.cards{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}}
 .card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px}
-.card h2{font-size:1.375rem;margin:0 0 8px}
+.card h2{font-size:1.25rem;margin:0 0 8px}
 .card p{margin:0 0 16px;color:var(--ink2)}
 .card .domain{margin:auto 0 6px;font-size:.8125rem;color:var(--muted)}
 .card-link{display:inline-flex;align-items:center;gap:6px;font-weight:600;min-height:32px}
@@ -607,10 +631,10 @@ border-left:2.5px solid var(--green);border-bottom:2.5px solid var(--green);tran
 
 /* prose and about */
 .prose{max-width:42rem}
-.prose h1{font-size:clamp(1.875rem,1.4rem + 2vw,2.75rem)}
-.prose h2{font-size:1.5rem;margin:1.8em 0 .5em}
+.prose h1{font-size:clamp(1.75rem,1.3rem + 1.8vw,2.375rem)}
+.prose h2{font-size:1.375rem;margin:1.8em 0 .5em}
 .prose h2:first-child{margin-top:0}
-.prose h3{font-size:1.25rem;margin:1.5em 0 .4em}
+.prose h3{font-size:1.125rem;margin:1.5em 0 .4em}
 .prose ul{padding-left:1.25em;margin:0 0 1em}
 .prose li{margin:0 0 .4em}
 .prose blockquote{margin:24px 0;padding:14px 20px;border-left:4px solid var(--accent);background:var(--card);color:var(--ink2)}
@@ -621,7 +645,7 @@ border-left:2.5px solid var(--green);border-bottom:2.5px solid var(--green);tran
 .note{font-size:.875rem;color:var(--muted)}
 .about{display:grid;gap:40px}
 .promise-box{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--navy);border-radius:var(--radius);padding:28px 24px}
-.promise-box h2{font-size:1.5rem;margin:0 0 8px}
+.promise-box h2{font-size:1.375rem;margin:0 0 8px}
 @media(min-width:1024px){.about{grid-template-columns:minmax(0,1fr) 380px;gap:72px;align-items:start}
 .promise-box{position:sticky;top:96px}}
 
@@ -629,15 +653,15 @@ border-left:2.5px solid var(--green);border-bottom:2.5px solid var(--green);tran
 .section.pull{padding-top:0}
 .signup{position:relative;max-width:640px;margin-top:-56px;background:var(--card);border:1px solid var(--line);
 border-top:4px solid var(--accent);border-radius:var(--radius);padding:28px 20px 24px;box-shadow:0 24px 48px -28px rgba(20,30,50,.45)}
-.signup h2{font-size:1.5rem;margin:0 0 4px}
+.signup h2{font-size:1.375rem;margin:0 0 4px}
 .signup .embed{min-height:120px;margin:12px 0 8px}
 .signup .note{margin:0}
 .follow{margin-top:48px}
-.follow h2{font-size:1.25rem;margin:0 0 14px}
+.follow h2{font-size:1.125rem;margin:0 0 14px}
 @media(min-width:768px){.signup{margin-top:-76px;padding:36px 40px 32px}}
 .signup .support{margin-top:10px}
 .latest{margin-top:40px}
-.latest h2{font-size:1.25rem;font-weight:400;margin:0 0 6px}
+.latest h2{font-size:1.125rem;margin:0 0 6px}
 .latest p{margin:0}
 
 /* shorts: cards on the home and Watch pages */
@@ -653,13 +677,13 @@ border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;color:v
 background:var(--navy-ink)}
 @media(max-width:639px){.short-card p{display:none}}
 .short-text{display:flex;flex-direction:column;gap:8px;padding:16px 16px 18px;min-width:0}
-.short-card h3{font-size:1.1875rem;margin:0;color:var(--navy)}
+.short-card h3{font-size:1.125rem;margin:0;color:var(--navy)}
 .short-card p{margin:0;color:var(--ink2);font-size:.9375rem;line-height:1.55}
 .short-card .meta{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;font-size:.8125rem;color:var(--muted)}
 .short-card .go{margin-top:auto;padding-top:4px;font-weight:600;color:var(--navy);text-decoration:underline;text-underline-offset:.2em}
 .short-card:hover .go{color:var(--accent-dark)}
 @media(min-width:640px){.short-card{grid-template-columns:160px minmax(0,1fr)}
-.short-text{padding:22px 24px 24px;gap:10px}.short-card h3{font-size:1.3125rem}}
+.short-text{padding:22px 24px 24px;gap:10px}.short-card h3{font-size:1.1875rem}}
 
 /* shorts: one page per short */
 .short-layout{display:grid;gap:36px}
@@ -673,7 +697,7 @@ border-radius:var(--radius);overflow:hidden;box-shadow:0 24px 48px -28px rgba(20
 .prose .keynums{list-style:none;margin:0 0 12px;padding:0;border-top:1px solid var(--line)}
 .prose .keynums li{display:grid;grid-template-columns:7.25rem minmax(0,1fr);gap:4px 16px;align-items:baseline;
 margin:0;padding:11px 0 12px;border-bottom:1px solid var(--line)}
-.keynums b{font-weight:300;font-size:1.375rem;line-height:1.25;color:var(--navy)}
+.keynums b{font-family:var(--font-head);font-weight:700;font-size:1.25rem;line-height:1.25;color:var(--navy)}
 .keynums span{color:var(--ink2)}
 @media(min-width:640px){.prose .keynums li{grid-template-columns:9rem minmax(0,1fr)}}
 .prose .src-list{padding-left:1.4em}
@@ -687,7 +711,7 @@ border-left:4px solid var(--navy);border-radius:6px;font-size:.9375rem;line-heig
 .report-card{display:grid;gap:8px;max-width:760px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);
 border-radius:var(--radius);padding:24px;color:var(--ink);text-decoration:none}
 .report-card:hover{border-color:var(--navy2);border-left-color:var(--accent);color:var(--ink)}
-.report-card h2{font-size:1.5rem;margin:0}
+.report-card h2{font-size:1.375rem;margin:0}
 .report-card p{margin:0;color:var(--ink2)}
 .report-card .meta{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:.875rem;color:var(--muted)}
 .report-card .go{font-weight:600;color:var(--navy);text-decoration:underline;text-underline-offset:.2em}
@@ -710,7 +734,7 @@ border-radius:var(--radius);overflow:hidden;margin:0 0 20px}
 border-radius:var(--radius);overflow:hidden;margin:0 0 56px}
 @media(min-width:900px){.stats{grid-template-columns:repeat(4,minmax(0,1fr))}}
 .stat{background:var(--paper);padding:20px 18px}
-.stat b{display:block;font-weight:300;font-size:clamp(2rem,1.5rem + 1.8vw,2.875rem);color:var(--navy);line-height:1.1;margin:0 0 6px}
+.stat b{display:block;font-family:var(--font-head);font-weight:700;font-size:clamp(1.75rem,1.4rem + 1.4vw,2.5rem);color:var(--navy);line-height:1.1;margin:0 0 6px}
 .stat span{display:block;font-size:.875rem;color:var(--muted);line-height:1.4}
 .mapfig{margin:0}
 .mapframe{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--card)}
@@ -726,7 +750,7 @@ border-radius:var(--radius);overflow:hidden;margin:0 0 56px}
 .site-footer a{color:#fff;text-decoration-color:rgba(250,247,241,.45)}
 .site-footer a:hover{color:var(--accent-soft)}
 .site-footer .brand{margin:0 0 16px;text-decoration:none}
-.site-footer h2{font-size:.9375rem;font-weight:600;letter-spacing:0;color:#fff;margin:0 0 12px}
+.site-footer h2{font-size:.9375rem;font-weight:700;letter-spacing:0;color:#fff;margin:0 0 12px}
 .foot-grid{display:grid;gap:32px}
 @media(min-width:768px){.foot-grid{grid-template-columns:minmax(0,2fr) minmax(0,1fr) minmax(0,1fr);gap:40px}}
 .foot-brand p{max-width:28em}
@@ -797,7 +821,7 @@ font-size:.875rem;line-height:1.5;font-weight:400;color:var(--ink)}
 .pop .pop-place{margin:0;color:var(--ink2)}
 .pop .pop-pop{margin:0 0 8px;color:var(--ink2)}
 .pop .pop-num{margin:0}
-.pop .pop-n{display:block;font-size:1.5rem;font-weight:300;line-height:1.1;color:var(--navy);margin:0 0 2px}
+.pop .pop-n{display:block;font-family:var(--font-head);font-size:1.375rem;font-weight:700;line-height:1.1;color:var(--navy);margin:0 0 2px}
 .pop .pop-meta{margin:8px 0 0;font-size:.8125rem;line-height:1.45;color:var(--muted)}
 .pop .pop-links{margin:10px 0 0;padding:8px 0 0;border-top:1px solid var(--line);font-size:.8125rem}
 .pop a{color:var(--navy)}
@@ -822,7 +846,7 @@ color:#fff;font:600 10px/1 var(--font);box-shadow:0 0 0 2px #fff}
 .below-map p{margin:0 0 6px}
 .updated{font-size:.875rem;font-weight:400;color:var(--ink2)}
 .src-block{max-width:52rem;margin:40px 0 0;padding-top:24px;border-top:1px solid var(--line)}
-.src-block h2{font-size:1.375rem;margin:0 0 12px}
+.src-block h2{font-size:1.25rem;margin:0 0 12px}
 .src-items{list-style:none;margin:0 0 14px;padding:0;font-size:.9375rem;font-weight:400}
 .src-items li{padding:10px 0;border-bottom:1px solid var(--line)}
 .src-items li:first-child{border-top:1px solid var(--line)}
@@ -833,7 +857,7 @@ color:#fff;font:600 10px/1 var(--font);box-shadow:0 0 0 2px #fff}
 @media(min-width:640px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(min-width:1024px){.tiles{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .tile{background:var(--card);padding:20px 20px 18px;display:flex;flex-direction:column;gap:6px;min-width:0}
-.tile b{display:block;font-weight:300;font-size:clamp(2.25rem,1.9rem + 1.4vw,3rem);line-height:1.05;color:var(--navy)}
+.tile b{display:block;font-family:var(--font-head);font-weight:700;font-size:clamp(2rem,1.7rem + 1.2vw,2.625rem);line-height:1.05;color:var(--navy)}
 .tile .t-label{color:var(--ink);font-weight:400;line-height:1.45}
 .tile .t-src{margin-top:auto;padding-top:6px;font-size:.8125rem;color:var(--muted);font-weight:400;line-height:1.45}
 .facts{margin:0;border-top:1px solid var(--line)}
@@ -844,7 +868,7 @@ color:#fff;font:600 10px/1 var(--font);box-shadow:0 0 0 2px #fff}
 .chart-card{position:relative;display:flex;flex-direction:column;min-width:0;background:var(--card);border:1px solid var(--line);
 border-radius:var(--radius);padding:20px 18px 16px}
 .chart-card[hidden]{display:none}
-.chart-card h3{display:flex;align-items:center;gap:10px;font-size:1.1875rem;margin:0 0 4px}
+.chart-card h3{display:flex;align-items:center;gap:10px;font-size:1.0625rem;margin:0 0 4px}
 .chart-sub{margin:0 0 12px;font-size:.875rem;line-height:1.45;color:var(--ink2);font-weight:400}
 .chart{display:block;width:100%;max-width:520px;height:auto;overflow:visible}
 .chart:focus-visible{outline:3px solid var(--accent);outline-offset:4px;border-radius:4px}
@@ -878,11 +902,10 @@ padding:6px 10px;border-radius:6px;white-space:nowrap;transform:translate(-50%,c
 .dl-cats{display:flex;flex-wrap:wrap;gap:4px 14px}
 .tbl-block{margin:28px 0 0;min-width:0;max-width:60rem}
 #tbl-csv-block{margin:44px 0 48px}
-.tbl-title{margin:0 0 10px;font-size:1.0625rem;font-weight:600;line-height:1.35;letter-spacing:0;color:var(--navy)}
+.tbl-title{margin:0 0 10px;font-family:var(--font-head);font-size:1rem;font-weight:700;line-height:1.35;letter-spacing:-.005em;color:var(--navy)}
 .tbl-wrap{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .tbl-wrap:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
-.tbl{width:100%;border-collapse:collapse;border-spacing:0;font-size:.875rem;font-weight:400;line-height:1.4;color:var(--ink);
-font-variant-numeric:tabular-nums}
+.tbl{width:100%;border-collapse:collapse;border-spacing:0;font-size:.875rem;font-weight:400;line-height:1.4;color:var(--ink)}
 .tbl th,.tbl td{padding:11px 16px;border:0;border-bottom:1px solid var(--line);text-align:left;vertical-align:baseline;white-space:nowrap}
 .tbl thead th{background:#eeebe4;border-bottom:0;color:var(--ink2);font-size:.8125rem;font-weight:600;vertical-align:bottom}
 .tbl.wrap-head thead th,.tbl thead .grp-row th{white-space:normal}
@@ -890,7 +913,7 @@ font-variant-numeric:tabular-nums}
 .tbl thead .grp-row th[colspan]{border-bottom:1px solid #d9d3c7}
 .tbl tbody th{font-weight:400}
 .tbl tbody tr:nth-child(even) > *{background:rgba(31,56,100,.035)}
-.tbl .num{text-align:right}
+.tbl .num{text-align:right;font-variant-numeric:tabular-nums}
 .tbl .grp{padding-left:30px}
 .tbl tfoot th,.tbl tfoot td{border-bottom:0;border-top:1px solid #cfc8bb;font-weight:600}
 .tbl .dash{color:var(--muted)}
@@ -922,6 +945,63 @@ font:inherit;font-size:.875rem;font-weight:600;color:var(--navy);text-decoration
 .status-live{color:var(--green);font-weight:600}
 .status-fallback{color:#8a5a00;font-weight:600}
 .status-failed{color:#b42318;font-weight:600}
+
+/* home, v7: a short hero, the live map, this week and one line on sources */
+.page-head.home-hero{padding:22px 0 24px}
+.home-hero h1{font-size:clamp(1.5rem,1.15rem + 1.5vw,2.25rem);max-width:none;margin:0 0 8px}
+.home-hero .lead{font-size:1rem;line-height:1.55;max-width:none}
+.hero-row{display:flex;flex-wrap:wrap;align-items:center;gap:14px 28px;margin:16px 0 0}
+.hero-meta{display:flex;flex-wrap:wrap;gap:2px 16px;margin:0;font-size:.875rem;line-height:1.5;color:var(--on-dark2)}
+.hero-meta a{color:#fff;text-decoration-color:rgba(250,247,241,.5)}
+.hero-meta a:hover{color:var(--accent-soft)}
+@media(min-width:768px){.page-head.home-hero{padding:30px 0 32px}.home-hero .lead{font-size:1.0625rem}}
+.section.tight.home-map{padding:20px 0 40px}
+@media(min-width:768px){.section.tight.home-map{padding:28px 0 56px}}
+.week-band{padding:36px 0 32px}
+@media(min-width:768px){.week-band{padding:44px 0 40px}}
+.week-band .head-row{align-items:baseline;margin:0 0 18px}
+.week-band h2{font-size:clamp(1.375rem,1.2rem + .8vw,1.75rem);margin:0}
+.week-cards{display:grid;gap:14px}
+@media(min-width:960px){.week-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}}
+.week-card{display:grid;grid-template-columns:120px minmax(0,1fr);gap:14px;align-items:start;padding:12px;background:var(--card);
+border:1px solid var(--line);border-radius:var(--radius);color:var(--ink);text-decoration:none}
+.week-card:hover{border-color:var(--navy2);color:var(--ink)}
+.week-media{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:6px;background:var(--navy-ink)}
+.nl-media{display:flex;align-items:center;justify-content:center;
+background:var(--navy) radial-gradient(80% 120% at 70% 20%,#27467d 0,rgba(31,56,100,0) 70%)}
+.nl-media .brand-mark{width:44%;height:auto;max-width:72px}
+.week-text{display:flex;flex-direction:column;gap:6px;min-width:0}
+.week-card .meta{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;font-size:.8125rem;line-height:1.4;color:var(--muted)}
+.week-card h3{font-size:1rem;line-height:1.3;margin:0;color:var(--navy)}
+.week-card .go{font-size:.9375rem;font-weight:600;color:var(--navy);text-decoration:underline;text-underline-offset:.2em}
+.week-card:hover .go{color:var(--accent-dark)}
+@media(min-width:640px){.week-card{grid-template-columns:208px minmax(0,1fr);gap:20px;padding:14px}.week-card h3{font-size:1.0625rem}}
+.week-more{margin:18px 0 0;font-weight:600}
+.src-line{padding:22px 0}
+.src-line p{margin:0;font-size:.9375rem;color:var(--ink2)}
+
+/* weekly: the latest episode, with the video, the chapters and the newsletter */
+.episode{display:grid;gap:24px;grid-template-areas:"media" "body" "chapters"}
+.episode-media{grid-area:media;min-width:0}.episode-body{grid-area:body;min-width:0}.episode-chapters{grid-area:chapters;min-width:0}
+@media(min-width:1024px){.episode{grid-template-columns:minmax(0,7fr) minmax(0,5fr);grid-template-areas:"media body" "chapters body";
+column-gap:48px;row-gap:28px;align-items:start}}
+.episode-frame{position:relative;width:100%;aspect-ratio:16/9;background:var(--navy-ink);border-radius:var(--radius);overflow:hidden;
+box-shadow:0 24px 48px -28px rgba(20,30,50,.5)}
+.episode-frame iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+.episode-media .note{margin:10px 0 0}
+.episode-body .meta{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;margin:0 0 10px;font-size:.875rem;color:var(--muted)}
+.episode-body h2{font-size:clamp(1.25rem,1.1rem + .7vw,1.625rem);line-height:1.25;margin:0 0 12px}
+.episode-body p{color:var(--ink2)}
+.episode-body .actions-row{margin:20px 0 14px}
+.chapters-title{font-size:1.0625rem;margin:0 0 8px}
+.chapters{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+@media(min-width:640px){.chapters{columns:2;column-gap:32px}}
+.chapters li{break-inside:avoid;border-bottom:1px solid var(--line)}
+.chapters a{display:flex;gap:14px;padding:8px 0;color:var(--ink);text-decoration:none;font-size:.9375rem}
+.chapters a:hover{color:var(--accent-dark)}
+.chapters a:hover span:nth-child(2){text-decoration:underline}
+.chapters .t{flex:none;min-width:2.75rem;font-weight:600;color:var(--navy);font-variant-numeric:tabular-nums}
+.earlier{margin-top:48px}
 
 @media(prefers-reduced-motion:reduce){*{transition:none!important}
 .sig-pulse{animation:none;opacity:.55;transform:scale(2.2)}}
@@ -1006,7 +1086,7 @@ def page(title, active, body, desc="Accessible weekly animal-disease intelligenc
 <meta property="og:title" content="{full_title}"><meta property="og:description" content="{desc}">{og_url}
 {SHARE_META}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css?v={CSS_VER}">{head}
 {ICON_LINKS}
 {ld_json(ld)}
@@ -1170,6 +1250,82 @@ def short_card(s):
             % ("" if img else " no-cover", s["page"], img, s["topic"], s["seconds"], s["as_at_short"],
                escape(s["title"]), escape(s["summary"])))
 
+
+# ---------- episodes: thumbnails, the "This week" band and the latest episode ----------
+os.makedirs(os.path.join(ASSETS, "episodes"), exist_ok=True)
+
+
+def episode_thumb(slug):
+    """Web-size thumbnail (640 x 360 JPEG), made once from content/episodes/<slug>/thumb.png and cached beside it as
+    thumb-640.jpg. Returns the published thumbnail's site path, or "" when there is none."""
+    folder = os.path.join(EPISODES_DIR, slug)
+    web, src = os.path.join(folder, "thumb-640.jpg"), os.path.join(folder, "thumb.png")
+    if not os.path.exists(web) and os.path.exists(src):
+        try:
+            from PIL import Image
+            with Image.open(src) as im:
+                small = im.convert("RGB").resize((640, round(im.height * 640 / im.width)), Image.LANCZOS)
+            small.save(web, "JPEG", quality=82, optimize=True, progressive=True)
+            print("thumbnail: made %s (%d KB)" % (web, os.path.getsize(web) // 1024))
+        except Exception as e:   # Pillow missing or the file unreadable: keep the published thumbnail
+            print("thumbnail: could not make", web, "-", e)
+    published = os.path.join(ASSETS, "episodes", slug + ".jpg")
+    if os.path.exists(web):
+        shutil.copy(web, published)
+    return "assets/episodes/%s.jpg" % slug if os.path.exists(published) else ""
+
+
+for e in EPISODES:
+    e["url"] = "https://youtu.be/" + e["youtube_id"]
+    # YouTube's standard thumbnail only when the site has none of its own
+    e["thumb"] = episode_thumb(e["slug"]) or "https://i.ytimg.com/vi/%s/hqdefault.jpg" % e["youtube_id"]
+
+
+def week_band():
+    """Home page: the latest episode and the latest newsletter issue, one card each, then a line to the shorts."""
+    cards = []
+    if EPISODES:
+        e = EPISODES[0]
+        cards.append('<a class="week-card" href="%s" target="_blank" rel="noopener"><img class="week-media" src="%s" '
+                     'width="640" height="360" alt="" loading="lazy" decoding="async"><div class="week-text"><span class="meta">'
+                     '<span class="tag">Episode %d</span>%s, figures as at %s</span><h3>%s</h3><span class="go">Watch on YouTube'
+                     '</span></div><span class="vh"> (opens in a new tab)</span></a>'
+                     % (e["url"], e["thumb"], e["number"], e["length"], e["as_at_short"], escape(e["title"])))
+    url, label, title = NEWSLETTER_LATEST
+    cards.append('<a class="week-card" href="%s" target="_blank" rel="noopener"><span class="week-media nl-media" aria-hidden="true">'
+                 '%s</span><div class="week-text"><span class="meta"><span class="tag">Newsletter</span>%s</span><h3>%s</h3>'
+                 '<span class="go">Read the issue</span></div><span class="vh"> (opens in a new tab)</span></a>'
+                 % (url, BRAND_MARK, escape(label), escape(title)))
+    return f"""
+<section class="week-band band-white" aria-labelledby="week-title"><div class="wrap">
+<div class="head-row"><h2 id="week-title">This week</h2><a class="more" href="weekly.html">All episodes</a></div>
+<div class="week-cards">{"".join(cards)}</div>
+<p class="week-more"><a href="watch.html">Watch the shorts</a></p>
+</div></section>"""
+
+
+def episode_block(e):
+    """The Weekly page's latest episode: the video (from YouTube in privacy-enhanced mode), what it covers, the
+    newsletter issue and the chapters. Each chapter opens the video on YouTube at that point."""
+    vid, title, n = e["youtube_id"], escape(e["title"]), e["number"]
+    nl_url = e["newsletter"][0]
+    chapters = "".join('<li><a href="%s?t=%d" target="_blank" rel="noopener"><span class="t">%s</span><span>%s</span>'
+                       '<span class="vh"> (opens in a new tab)</span></a></li>'
+                       % (e["url"], int(t.split(":")[0]) * 60 + int(t.split(":")[1]), t, escape(c)) for t, c in e["chapters"])
+    return f"""
+<article class="episode" aria-labelledby="ep{n}-title">
+<div class="episode-media"><div class="episode-frame"><iframe src="https://www.youtube-nocookie.com/embed/{vid}?rel=0" title="Video: {title}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+<p class="note">{e["length"]}. Plays from YouTube in privacy-enhanced mode.</p></div>
+<div class="episode-body">
+<p class="meta"><span class="tag">Latest</span>Episode {n}, figures as at {e["as_at"]}</p>
+<h2 id="ep{n}-title">{title}</h2>
+<p>{escape(e["summary"])}</p>
+<div class="actions-row">{ext(e["url"], "Watch on YouTube", "btn btn-primary btn-sm")}{ext(nl_url, "Read the newsletter", "btn btn-outline btn-sm")}</div>
+<p class="note">The video description on YouTube lists the source for every figure.</p>
+</div>
+<div class="episode-chapters"><h3 class="chapters-title">Chapters</h3><ol class="chapters">{chapters}</ol></div>
+</article>"""
+
 # ---------- HOME ----------
 hero = f"""
 <section class="hero on-dark" aria-labelledby="hero-title">
@@ -1182,7 +1338,9 @@ hero = f"""
 </div></div>
 </section>"""
 
-if PRELAUNCH:
+if PRELAUNCH and EPISODES:
+    now = week_band()
+elif PRELAUNCH:
     now = f"""
 <section class="status" aria-labelledby="status-title"><div class="wrap status-inner">
 {_mark("status-mark", on_dark=False)}
@@ -1252,11 +1410,31 @@ home = hero + now + latest_shorts + f"""
 {email_btn}
 </div></section>
 """
-write("index.html", page("Home", "index.html", home,
-      "Weekly animal-disease intelligence. Official surveillance data turned into clear maps, key numbers and a short, sourced briefing."))
+# The home page is written after the live data pages (see HOME, v7 below). With live data it leads with the map.
+# Without live data this v6 page is used.
+HOME_DESC = ("Weekly animal-disease intelligence. Official surveillance data turned into clear maps, key numbers and a "
+             "short, sourced briefing.")
 
 # ---------- WEEKLY ----------
-if PRELAUNCH:
+# The pipeline report card (full mode only): HPAI figures from pipeline/outputs
+report_card = "" if PRELAUNCH else f"""
+<section class="section"><div class="wrap">
+<a class="report-card" href="weekly-latest.html">
+<span class="meta">Week {week} <span class="tag">Latest</span><span class="tag">HPAI</span></span>
+<h2>HPAI situation report, week {week}</h2>
+<p>{ev} new events across {co} countries ({wow_s} week on week). Map, key numbers and a 60-second brief.</p>
+<span class="go">Read the report</span></a>
+<p class="note archive-note">Earlier reports appear here automatically as the pipeline runs each week.</p>
+</div></section>"""
+if EPISODES:
+    earlier = "".join('<li>%s<span>, Episode %d, figures as at %s</span></li>' % (ext(e["url"], escape(e["title"])), e["number"], e["as_at"])
+                      for e in EPISODES[1:])
+    weekly = page_head("Weekly reports", "A running archive of the weekly situation report. The newest is at the top.",
+                       "OutbreakWeekly") + f"""
+<section class="section"><div class="wrap">{episode_block(EPISODES[0])}
+{('<div class="prose earlier"><h2>Earlier episodes</h2><ul class="src-list">%s</ul></div>' % earlier) if earlier else ""}
+</div></section>""" + report_card
+elif PRELAUNCH:
     weekly = page_head("Weekly reports",
         "The first situation report is in production. Reports will appear here, newest first, with the map and the data behind each one.",
         "OutbreakWeekly") + f"""
@@ -1272,15 +1450,7 @@ if PRELAUNCH:
 </div></div></section>"""
 else:
     weekly = page_head("Weekly reports", "A running archive of the weekly situation report. The newest is at the top.",
-                       "OutbreakWeekly") + f"""
-<section class="section"><div class="wrap">
-<a class="report-card" href="weekly-latest.html">
-<span class="meta">Week {week} <span class="tag">Latest</span><span class="tag">HPAI</span></span>
-<h2>HPAI situation report, week {week}</h2>
-<p>{ev} new events across {co} countries ({wow_s} week on week). Map, key numbers and a 60-second brief.</p>
-<span class="go">Read the report</span></a>
-<p class="note archive-note">Earlier reports appear here automatically as the pipeline runs each week.</p>
-</div></section>"""
+                       "OutbreakWeekly") + report_card
 write("weekly.html", page("Weekly", "weekly.html", weekly, "The OutbreakWeekly situation report archive."))
 
 # ---------- WEEKLY LATEST (rendered report) ----------
@@ -1293,11 +1463,17 @@ latest=f"""
 <div class="actions"><a class="btn btn-outline" href="weekly.html">All reports</a><a class="btn btn-primary" href="data.html">Download the data</a></div></article>
 <div class="mapframe"><iframe src="assets/map-latest.html" title="Map of this week&#39;s reported events" loading="lazy"></iframe></div>
 </div></section>"""
-if PRELAUNCH:
+latest_title = f"Week {week}"
+if PRELAUNCH and EPISODES:   # no pipeline report yet: this page shows the latest episode, as on the Weekly page
+    latest_title = "Episode %d" % EPISODES[0]["number"]
+    latest = (f'\n<nav class="crumbs on-dark" aria-label="Breadcrumb"><div class="wrap"><a href="weekly.html">Weekly reports</a>'
+              f'<span aria-hidden="true"> / </span><span aria-current="page">{latest_title}</span></div></nav>'
+              f'\n<section class="section"><div class="wrap">{episode_block(EPISODES[0])}\n</div></section>')
+elif PRELAUNCH:
     latest = page_head("No report yet",
         'The first OutbreakWeekly report is coming soon. <a href="weekly.html">Back to weekly reports</a>.')
-# before launch this page is only a "No report yet" placeholder, so it stays out of search and the sitemap
-write("weekly-latest.html", page(f"Week {week}", "weekly.html", latest, path="weekly-latest.html", index=not PRELAUNCH))
+# before launch this page repeats the Weekly page (or is a placeholder), so it stays out of search and the sitemap
+write("weekly-latest.html", page(latest_title, "weekly.html", latest, path="weekly-latest.html", index=not PRELAUNCH))
 
 # Map behaviour: MapLibre GL with the OpenFreeMap Positron basemap, filters by disease and week range, a time
 # slider, clustered symbols (shape for the animals affected, colour for the disease), pop-ups and the table
@@ -1881,22 +2057,27 @@ def _size(path):
 
 def _load_live():
     need = ("events.csv", "latest.json", "aggregates.json", "map.geojson", "dictionary.csv")
+    out_dir = os.path.join(ASSETS, "data")
+    src_dir = LIVE_DIR
     if not all(os.path.exists(os.path.join(LIVE_DIR, f)) for f in need):
-        print("live data: none in %s, so the map, numbers and data pages use their placeholders" % LIVE_DIR)
-        return None
+        # No pipeline run beside this script: rebuild from the files already published, if they are all there.
+        if not all(os.path.exists(os.path.join(out_dir, f)) for f in need):
+            print("live data: none in %s, so the map, numbers and data pages use their placeholders" % LIVE_DIR)
+            return None
+        src_dir = out_dir
+        print("live data: none in %s, so the files already in %s are used" % (LIVE_DIR, out_dir))
     import csv as _csv
 
     def load(name):
-        path = os.path.join(LIVE_DIR, name)
+        path = os.path.join(src_dir, name)
         if not os.path.exists(path):
             return None
         with open(path, encoding="utf-8") as f:
             return json.load(f)
     latest, agg, mapdata, tables = load("latest.json"), load("aggregates.json"), load("map.geojson"), load("tables.json")
-    with open(os.path.join(LIVE_DIR, "dictionary.csv"), encoding="utf-8", newline="") as f:
+    with open(os.path.join(src_dir, "dictionary.csv"), encoding="utf-8", newline="") as f:
         dictionary = list(_csv.DictReader(f))
     files = {}
-    out_dir = os.path.join(ASSETS, "data")
     os.makedirs(out_dir, exist_ok=True)
     for old in ("basemap.geojson",):   # left over from the old Natural Earth basemap
         if os.path.exists(os.path.join(out_dir, old)):
@@ -1904,10 +2085,11 @@ def _load_live():
     cats = list(agg["categories"].keys())
     for name in (["events.csv"] + ["%s.csv" % c for c in cats] +
                  ["dictionary.csv", "aggregates.json", "latest.json", "map.geojson", "tables.json"]):
-        src = os.path.join(LIVE_DIR, name)
+        src = os.path.join(src_dir, name)
         if not os.path.exists(src):
             continue
-        shutil.copy(src, os.path.join(out_dir, name))
+        if src_dir != out_dir:
+            shutil.copy(src, os.path.join(out_dir, name))
         rows = cols = None
         sources = set()
         if name.endswith(".csv"):
@@ -1923,7 +2105,7 @@ def _load_live():
             cols = len(header)
         files[name] = {"rows": rows, "cols": cols, "size": _size(src), "sources": sorted(sources)}
     heads = {h["id"]: h for h in latest.get("headlines", [])}
-    print("live data: %d files copied to %s" % (len(files), out_dir))
+    print("live data: %d files %s %s" % (len(files), "copied to" if src_dir != out_dir else "read from", out_dir))
     return {"latest": latest, "agg": agg, "dictionary": dictionary, "files": files, "heads": heads, "cats": cats,
             "map": mapdata, "tables": tables}
 
@@ -1951,7 +2133,7 @@ def _ext(url, text):
     return ext(escape(url), text)
 
 
-def _sources_block(latest, extra=""):
+def _sources_block(latest, extra="", title="Sources"):
     """Every source with the date it was last updated, plus the WOAH disclaimer the WAHIS terms require."""
     status = {s["name"]: s for s in latest.get("sources", [])}
     names = {"WOAH WAHIS": "WOAH WAHIS", "EU ADIS": "EU ADIS", "FAO EMPRES-i": "FAO EMPRES-i",
@@ -1974,9 +2156,9 @@ def _sources_block(latest, extra=""):
             elif s.get("status") == "failed":
                 when = "not available in this run"
         items.append('<li><b>%s</b>%s<span>%s</span></li>' % (_ext(url, name), (", " + when) if when else "", terms))
-    return ('<div class="src-block"><h2>Sources</h2><ul class="src-items">%s</ul>'
+    return ('<div class="src-block"><h2>%s</h2><ul class="src-items">%s</ul>'
             '<p class="fine">%s</p><p class="fine">Records are placed using Natural Earth boundaries (public domain).%s</p></div>'
-            % ("".join(items), escape(WOAH_DISCLAIMER), extra))
+            % (title, "".join(items), escape(WOAH_DISCLAIMER), extra))
 
 
 def _nice_top(v):
@@ -2380,11 +2562,9 @@ if LIVE:
                  '<p class="tbl-links"><a href="data.html">Download the data</a></p></div>'
                  % (_cap("reports by country, " + _span), m_head, m_body, m_note))
     map_credit = (" The basemap is %s, under the Open Database Licence." % MAP_CREDIT)
-    map_body = subnav("map.html") + page_head("Map of official reports",
-        "Outbreaks and cases reported by WOAH, the EU, FAO and national governments in the last 12 weeks. "
-        "Every point sits at the centre of a country, region or county.", "Live data") + f"""
-<section class="section tight"><div class="wrap">
-<p class="lede-row"><span>Data read {_read}</span><a href="data.html">Download the data</a><a href="analytics.html">See the numbers</a></p>
+    # The map with its filters, key, notes and table, then its scripts. map.html and the home page both use
+    # these two pieces, so the two maps cannot drift apart.
+    map_widget = f"""
 <form class="filters" id="map-filters" onsubmit="return false">
 {_chips("map-cat", _cats)}
 <div class="time-row">
@@ -2405,13 +2585,19 @@ if LIVE:
 <p class="note">Where a national source publishes the figures (GOV.UK, DAFM in Ireland, Ruokavirasto in Finland), the map shows them and links the matching WOAH and EU records in the pop-up, so nothing is counted twice. Season totals appear in the week they were published. Counts change with the weeks you choose.</p>
 </div>
 {map_table}
-</div>
+</div>"""
+    map_scripts = f"""<script type="application/json" id="map-config">{cfg_json}</script>
+{TABLES_TAG}
+{MAPLIBRE_JS}<script defer src="assets/map.js?v={hashlib.sha256(MAP_JS.encode()).hexdigest()[:8]}"></script>"""
+    map_body = subnav("map.html") + page_head("Map of official reports",
+        "Outbreaks and cases reported by WOAH, the EU, FAO and national governments in the last 12 weeks. "
+        "Every point sits at the centre of a country, region or county.", "Live data") + f"""
+<section class="section tight"><div class="wrap">
+<p class="lede-row"><span>Data read {_read}</span><a href="data.html">Download the data</a><a href="analytics.html">See the numbers</a></p>{map_widget}
 {_sources_block(_latest, map_credit)}
 <div class="actions"><a class="btn btn-primary" href="data.html">Download the data</a><a class="btn btn-outline" href="analytics.html">See the numbers</a></div>
 </div></section>
-<script type="application/json" id="map-config">{cfg_json}</script>
-{TABLES_TAG}
-{MAPLIBRE_JS}<script defer src="assets/map.js?v={hashlib.sha256(MAP_JS.encode()).hexdigest()[:8]}"></script>"""
+{map_scripts}"""
     write("map.html", page("Map", "data.html", map_body,
           "A map of official animal-disease reports from WOAH, the EU, FAO and national governments, at country, region or county level.",
           path="map.html", head=MAP_HEAD))
@@ -2444,6 +2630,27 @@ if LIVE:
           "Headline animal-disease figures and 12 weeks of counts for each disease, each with its official source and date.",
           path="analytics.html"))
     write(os.path.join("assets", "numbers.js"), NUMBERS_JS)
+
+
+# ---------- HOME, v7 (23 Oct 2026) ----------
+# With live data the home page leads with the map: a short hero, then the map and its table exactly as on map.html
+# (the same markup and script), this week's episode and newsletter, a line to the shorts and one line on sources.
+# The shorts stay on the Watch page. Without live data the v6 home page above is used.
+if LIVE:
+    hero_extra = ('<div class="hero-row">%s<p class="hero-meta"><span>Data read %s</span>'
+                  '<a href="analytics.html">See the numbers</a><a href="data.html">Download the data</a></p></div>' % (email_btn, _read))
+    home = page_head("Making the world&#39;s <span class=\"nw\">animal-disease</span> data make sense.",
+                     "Each week we turn official surveillance data into clear maps, key numbers and a short, sourced briefing.",
+                     extra=hero_extra, cls="home-hero") + f"""
+<section class="section tight home-map" aria-labelledby="home-map-title"><div class="wrap">
+<h2 class="vh" id="home-map-title">Map of official reports</h2>{map_widget}
+</div></section>
+{week_band()}
+<div class="src-line"><div class="wrap"><p>Every figure comes from a named public source. <a href="sources.html">Sources and reuse terms</a>.</p></div></div>
+{map_scripts}"""
+    write("index.html", page("Home", "index.html", home, HOME_DESC, head=MAP_HEAD))
+else:
+    write("index.html", page("Home", "index.html", home, HOME_DESC))
 
 
 # ---------- DATA ----------
@@ -2577,10 +2784,14 @@ def _slug(s): return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
 def _domain(u): return re.sub(r"^https?://(www\.)?", "", u).split("/")[0]
 cards="".join('<article class="card" id="%s"><h2>%s</h2><p>%s</p><p class="domain">%s</p>%s</article>'
               % (_slug(n), n, d, _domain(u), ext(u, "Visit " + n, "card-link", ICON_EXT)) for n,d,u in SRC)
+# With live data the reuse terms for each source follow the cards. The home page links here for them.
+terms = ('<div id="terms">%s</div>' % _sources_block(LIVE["latest"], map_credit, "Reuse terms for the open data")) if LIVE else ""
 sources = page_head("Authoritative sources",
     "We interpret and signpost. We never replace the authorities below. For official figures, decisions and guidance, always go to the primary source.") + f"""
-<section class="section"><div class="wrap"><div class="cards">{cards}</div></div></section>"""
-write("sources.html", page("Sources", "sources.html", sources, "The official animal-health sources OutbreakLens uses and signposts."))
+<section class="section"><div class="wrap"><div class="cards">{cards}</div>{terms}</div></section>"""
+write("sources.html", page("Sources", "sources.html", sources,
+      "The official animal-health sources OutbreakLens uses and signposts, and the reuse terms for its open data."
+      if LIVE else "The official animal-health sources OutbreakLens uses and signposts."))
 
 # ---------- ABOUT ----------
 PROMISE_MARK = _mark("promise-mark", on_dark=False)
@@ -2695,7 +2906,8 @@ write("404.html", page("Not found", "index.html", page_head("Page not found",
 # ---------- search: sitemap.xml and robots.txt (written last, after every page) ----------
 write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n'
       '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-      + "".join("<url><loc>%s</loc><lastmod>%s</lastmod></url>\n" % (canonical(p), TODAY.isoformat()) for p in INDEXED)
+      + "".join("<url><loc>%s</loc><lastmod>%s</lastmod></url>\n" % (canonical(p), TODAY.isoformat())
+                for p in sorted(INDEXED, key=lambda p: p != "index.html"))   # the home page first
       + "</urlset>\n")
 write("robots.txt", "User-agent: *\nAllow: /\n\nSitemap: %s/sitemap.xml\n" % SITE_URL)
 

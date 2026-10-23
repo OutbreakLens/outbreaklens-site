@@ -2559,6 +2559,10 @@ if LIVE:
                  '<table class="tbl" id="map-table" data-top="10" data-noun="rows" aria-labelledby="map-table-title">'
                  '<thead>%s</thead><tbody>%s</tbody></table></div>'
                  '<p class="tbl-cap" id="map-table-note">%s</p>'
+                 # the WAHIS terms ask for WOAH to be named, with its disclaimer, wherever the data is shown
+                 '<p class="tbl-cap">Data: WOAH WAHIS, FAO EMPRES-i, EU ADIS, GOV.UK, DAFM and Ruokavirasto, reformatted by '
+                 'OutbreakLens. WOAH bears no responsibility for the integrity or accuracy of the data shown here. '
+                 '<a href="sources.html">Sources and reuse terms</a>.</p>'
                  '<p class="tbl-links"><a href="data.html">Download the data</a></p></div>'
                  % (_cap("reports by country, " + _span), m_head, m_body, m_note))
     map_credit = (" The basemap is %s, under the Open Database Licence." % MAP_CREDIT)

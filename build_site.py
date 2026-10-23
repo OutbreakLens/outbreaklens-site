@@ -2915,6 +2915,12 @@ write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n'
       + "</urlset>\n")
 write("robots.txt", "User-agent: *\nAllow: /\n\nSitemap: %s/sitemap.xml\n" % SITE_URL)
 
+# Bluesky handle @outbreaklens.com: Bluesky checks this file to verify the domain (account created 23 Oct 2026).
+BLUESKY_DID = "did:plc:mpvc7sixlzbiwtxe4ypwbpag"
+os.makedirs(os.path.join(SITE, ".well-known"), exist_ok=True)
+write(".well-known/atproto-did", BLUESKY_DID)
+write("_headers", "/.well-known/atproto-did\n  Content-Type: text/plain; charset=utf-8\n  Access-Control-Allow-Origin: *\n")
+
 print("built site ->", SITE)
 print("pages:", sorted(f for f in os.listdir(SITE) if f.endswith(".html")) + [s["page"] for s in SHORTS])
 print("sitemap:", len(INDEXED), "pages")

@@ -1,0 +1,345 @@
+{
+ "generated_at": "2026-10-22T22:59:37Z",
+ "window_start": "2026-08-03",
+ "headlines": [
+  {
+   "id": "wahis-recent",
+   "label": "WOAH events with a new report in the last 7 days",
+   "value": 105,
+   "unit": "events",
+   "detail": "8 were new immediate notifications",
+   "countries": 36,
+   "as_of": "2026-10-22",
+   "source": "WOAH WAHIS",
+   "source_url": "https://wahis.woah.org/",
+   "fetched_at": "2026-10-22T22:59:37Z"
+  },
+  {
+   "id": "govuk-bt-total",
+   "label": "Bluetongue cases (premises) confirmed in the UK this season",
+   "value": 3441,
+   "unit": "cases (premises)",
+   "detail": "England 2,895, Wales 492, Scotland 54, Northern Ireland 0",
+   "by_area": {
+    "England": 2895,
+    "Wales": 492,
+    "Scotland": 54,
+    "Northern Ireland": 0
+   },
+   "season": "2026 to 2027",
+   "counts_to": "2026-10-21",
+   "as_of": "2026-10-22",
+   "source": "GOV.UK (Defra and APHA)",
+   "source_url": "https://www.gov.uk/guidance/bluetongue-latest-situation",
+   "fetched_at": "2026-10-22T22:59:57Z",
+   "serotype": "BTV-3 or unspecified; no BTV-8 this season"
+  },
+  {
+   "id": "govuk-bt-investigation",
+   "label": "Potential bluetongue cases under investigation in Great Britain",
+   "value": 46,
+   "unit": "premises",
+   "as_of": "2026-10-22",
+   "source": "GOV.UK (Defra and APHA)",
+   "source_url": "https://www.gov.uk/guidance/bluetongue-latest-situation",
+   "fetched_at": "2026-10-22T22:59:57Z"
+  },
+  {
+   "id": "govuk-bt-risk",
+   "label": "Risk of bluetongue incursion",
+   "value": "medium",
+   "unit": "risk level",
+   "detail": "All routes medium. Airborne routes low.",
+   "zone": "Restricted zone across the whole of England, Scotland and Wales.",
+   "as_of": "2026-10-22",
+   "source": "GOV.UK (Defra and APHA)",
+   "source_url": "https://www.gov.uk/guidance/bluetongue-latest-situation",
+   "fetched_at": "2026-10-22T22:59:57Z"
+  },
+  {
+   "id": "govuk-ai-season",
+   "label": "HPAI (bird flu) cases confirmed in the UK this season",
+   "value": 2,
+   "unit": "cases",
+   "detail": "England: HPAI H5N5 0, HPAI H5N1 1; Scotland: HPAI H5N5 1, HPAI H5N1 0; Wales: HPAI H5N5 0, HPAI H5N1 0; Northern Ireland: HPAI H5N5 0, HPAI H5N1 0",
+   "by_strain": {
+    "HPAI H5N5 cases": 1,
+    "HPAI H5N1 cases": 1
+   },
+   "season": "2026 to 2027",
+   "latest_case": "2026-10-19",
+   "previous_seasons": {
+    "2025 to 2026": {
+     "HPAI": 100,
+     "LPAI": 1
+    },
+    "2024 to 2025": {
+     "HPAI": 82,
+     "LPAI": 1
+    },
+    "2023 to 2024": {
+     "HPAI": 6,
+     "LPAI": 0
+    },
+    "2022 to 2023": {
+     "HPAI": 207,
+     "LPAI": 1
+    },
+    "2021 to 2022": {
+     "HPAI": 158,
+     "LPAI": 0
+    }
+   },
+   "as_of": "2026-10-21",
+   "source": "GOV.UK (Defra and APHA)",
+   "source_url": "https://www.gov.uk/guidance/bird-flu-avian-influenza-latest-situation-in-england",
+   "fetched_at": "2026-10-22T22:59:58Z"
+  },
+  {
+   "id": "govuk-ai-risk",
+   "label": "HPAI (bird flu) risk levels in Great Britain",
+   "value": "medium",
+   "unit": "risk to wild birds",
+   "wild_birds": "medium",
+   "poultry_poor_biosecurity": "low (high uncertainty)",
+   "poultry_stringent_biosecurity": "very low (high uncertainty)",
+   "poultry_poor_level": "low",
+   "poultry_poor_uncertainty": "high",
+   "poultry_stringent_level": "very low",
+   "poultry_stringent_uncertainty": "high",
+   "aipz_or_housing": "The page does not say that an Avian Influenza Prevention Zone (AIPZ) or a housing order is in force in England. Its latest news on them: ‘Avian Influenza Prevention Zone lifts as risk reduces’ (4 June 2026) and ‘Avian Influenza housing measures lifted’ (2 April 2026).",
+   "aipz_in_force": false,
+   "aipz_news": [
+    {
+     "title": "Avian Influenza Prevention Zone lifts as risk reduces",
+     "date": "2026-06-04"
+    },
+    {
+     "title": "Avian Influenza housing measures lifted",
+     "date": "2026-04-02"
+    }
+   ],
+   "as_of": "2026-10-21",
+   "source": "GOV.UK (Defra and APHA)",
+   "source_url": "https://www.gov.uk/guidance/bird-flu-avian-influenza-latest-situation-in-england",
+   "fetched_at": "2026-10-22T22:59:58Z"
+  },
+  {
+   "id": "adis-week",
+   "label": "Outbreaks in the EU ADIS weekly report",
+   "value": 162,
+   "unit": "outbreaks",
+   "detail": "2026-10-15 to 2026-10-21, in the eight categories, 20 countries",
+   "by_category": {
+    "asf": 126,
+    "bluetongue": 5,
+    "bird-flu": 12,
+    "newcastle-disease": 2,
+    "other": 8,
+    "sheep-goat-pox": 9
+   },
+   "as_of": "2026-10-22",
+   "source": "EU ADIS",
+   "source_url": "https://webgate.ec.europa.eu/tracesnt/adis/public/notification/outbreaks-weekly-report",
+   "fetched_at": "2026-10-22T22:59:59Z"
+  },
+  {
+   "id": "ie-bt-herds",
+   "label": "Bluetongue herd cases in Ireland",
+   "value": 48,
+   "unit": "herds",
+   "detail": "45 cattle herds, 3 sheep flocks",
+   "serotype": "BTV-3",
+   "counts_to": "2026-10-21",
+   "counties": 14,
+   "as_of": "2026-10-21",
+   "source": "DAFM (gov.ie)",
+   "source_url": "https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/publications/bluetongue-virus/",
+   "fetched_at": "2026-10-22T23:00:07Z",
+   "status": "fallback"
+  },
+  {
+   "id": "fi-asf-wild-boar",
+   "label": "African swine fever in wild boar in Finland, 2026",
+   "value": 71,
+   "unit": "wild boar",
+   "detail": "70 cases. Latest confirmed 2026-10-21 in Miehikkälä.",
+   "cases": 70,
+   "latest_date": "2026-10-21",
+   "latest_municipality": "Miehikkälä",
+   "municipalities": [
+    "Lappeenranta",
+    "Miehikkälä",
+    "Pyhtää",
+    "Virolahti"
+   ],
+   "as_of": "2026-10-22",
+   "source": "Ruokavirasto (Finnish Food Authority)",
+   "source_url": "https://www.ruokavirasto.fi/en/animals/animal-health-and-diseases/animal-diseases/pigs/african-swine-fever-asf/asf-in-finland-2026/asf-cases-in-finland/",
+   "fetched_at": "2026-10-22T23:00:08Z"
+  }
+ ],
+ "categories": {
+  "bird-flu": {
+   "label": "HPAI (bird flu)",
+   "rows": 615,
+   "countries": 52,
+   "latest_date": "2026-10-22"
+  },
+  "bluetongue": {
+   "label": "Bluetongue",
+   "rows": 179,
+   "countries": 13,
+   "latest_date": "2026-10-21"
+  },
+  "asf": {
+   "label": "African swine fever",
+   "rows": 1289,
+   "countries": 30,
+   "latest_date": "2026-10-21"
+  },
+  "fmd": {
+   "label": "Foot-and-mouth disease",
+   "rows": 222,
+   "countries": 18,
+   "latest_date": "2026-10-22"
+  },
+  "sheep-goat-pox": {
+   "label": "Sheep and goat pox",
+   "rows": 198,
+   "countries": 11,
+   "latest_date": "2026-10-21"
+  },
+  "lsd": {
+   "label": "Lumpy skin disease",
+   "rows": 95,
+   "countries": 7,
+   "latest_date": "2026-10-21"
+  },
+  "newcastle-disease": {
+   "label": "Newcastle disease",
+   "rows": 43,
+   "countries": 8,
+   "latest_date": "2026-10-19"
+  },
+  "other": {
+   "label": "Other exotic diseases",
+   "rows": 149,
+   "countries": 17,
+   "latest_date": "2026-10-22"
+  }
+ },
+ "sources": [
+  {
+   "key": "wahis",
+   "name": "WOAH WAHIS",
+   "url": "https://wahis.woah.org/",
+   "status": "live",
+   "rows": 317,
+   "fetched_at": "2026-10-22T22:59:37Z",
+   "source_updated": "2026-10-22T14:38:15.933+00:00",
+   "http": 200,
+   "error": "",
+   "notes": [
+    "425 events in the list since 2026-08-03, 317 in the eight categories",
+    "report detail: 317 from cache, 0 fetched, 0 skipped (fetch budget), 0 failed"
+   ],
+   "licence": "WAHIS Terms of Use and Conditions: viewing, downloading, storing, reproducing, adapting and translating the data are permitted with acknowledgement of WOAH as the source and the WOAH disclaimer.",
+   "attribution": "Source: World Organisation for Animal Health (WOAH), WAHIS. The World Organisation for Animal Health (WOAH) bears no responsibility for the integrity or accuracy of the data contained herein, in particular due, but not limited to, any deletion, manipulation, or reformatting of data that may have occurred beyond its control."
+  },
+  {
+   "key": "govuk_bluetongue",
+   "name": "GOV.UK (Defra and APHA)",
+   "url": "https://www.gov.uk/guidance/bluetongue-latest-situation",
+   "status": "live",
+   "rows": 68,
+   "fetched_at": "2026-10-22T22:59:57Z",
+   "source_updated": "2026-10-22T17:44:50+01:00",
+   "http": 200,
+   "error": "",
+   "notes": [
+    "76 daily notes parsed since 2026-08-03, adding up to 3193 new cases"
+   ],
+   "licence": "Open Government Licence v3.0",
+   "attribution": "Contains public sector information licensed under the Open Government Licence v3.0. Source: GOV.UK, Bluetongue: latest situation."
+  },
+  {
+   "key": "govuk_birdflu",
+   "name": "GOV.UK (Defra and APHA)",
+   "url": "https://www.gov.uk/guidance/bird-flu-avian-influenza-latest-situation-in-england",
+   "status": "live",
+   "rows": 2,
+   "fetched_at": "2026-10-22T22:59:58Z",
+   "source_updated": "2026-10-21T12:04:01+01:00",
+   "http": 200,
+   "error": "",
+   "notes": [
+    "2 cases listed this season; AIPZ or housing order in force: False"
+   ],
+   "licence": "Open Government Licence v3.0",
+   "attribution": "Contains public sector information licensed under the Open Government Licence v3.0. Source: GOV.UK, Bird flu (avian influenza): latest situation in England."
+  },
+  {
+   "key": "adis",
+   "name": "EU ADIS",
+   "url": "https://webgate.ec.europa.eu/tracesnt/adis/public/notification/outbreaks-weekly-report",
+   "status": "live",
+   "rows": 33,
+   "fetched_at": "2026-10-22T22:59:59Z",
+   "source_updated": "2026-10-22",
+   "http": 200,
+   "error": "",
+   "notes": [
+    "week 2026-10-15 to 2026-10-21: 13 matrix rows, 41 summary rows, 33 rows in scope"
+   ],
+   "licence": "European Commission reuse policy (Decision 2011/833/EU): reuse is allowed with appropriate credit and an indication of changes. Commission content is licensed under CC BY 4.0.",
+   "attribution": "Source: European Commission, ADIS weekly outbreak report. © European Union."
+  },
+  {
+   "key": "empres_i",
+   "name": "FAO EMPRES-i",
+   "url": "https://europe-west1-fao-empresi.cloudfunctions.net/getLatestEventsByDate?start_date=2026-08-03&end_date=2026-10-22",
+   "status": "live",
+   "rows": 2286,
+   "fetched_at": "2026-10-22T23:00:01Z",
+   "source_updated": "2026-10-22",
+   "http": 200,
+   "error": "",
+   "notes": [
+    "2999 events returned, 2286 in the eight categories, 713 out of scope, 0 without a country match"
+   ],
+   "licence": "CC BY 4.0, as listed for the dataset 'EMPRES-i: Global Animal Disease Events Dashboard' in the FAO data catalogue. FAO's citation form: FAO. [year]. [dataset]. Accessed on [date]. [URL]. Licence: CC-BY-4.0.",
+   "attribution": "Source: FAO EMPRES-i, Global Animal Disease Events Dashboard (CC BY 4.0)."
+  },
+  {
+   "key": "ie_dafm",
+   "name": "DAFM (gov.ie)",
+   "url": "https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/publications/bluetongue-virus/",
+   "status": "fallback",
+   "rows": 14,
+   "fetched_at": "2026-10-22T23:00:07Z",
+   "source_updated": "2026-10-21",
+   "http": 403,
+   "error": "live page not readable from here (403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/publications/bl); used the WebFetch copy captured 2026-10-22",
+   "notes": [
+    "The page's background section also mentions BTV-3 positive cattle herds in Laois, which is not in the county table."
+   ],
+   "licence": "Irish public sector information, generally re-usable under the PSI Licence (CC BY 4.0). DAFM's own statement could not be read from the container: check it.",
+   "attribution": "Contains Irish Public Sector Information (DAFM, gov.ie)."
+  },
+  {
+   "key": "fi_ruokavirasto",
+   "name": "Ruokavirasto (Finnish Food Authority)",
+   "url": "https://www.ruokavirasto.fi/en/animals/animal-health-and-diseases/animal-diseases/pigs/african-swine-fever-asf/asf-in-finland-2026/asf-cases-in-finland/",
+   "status": "live",
+   "rows": 70,
+   "fetched_at": "2026-10-22T23:00:08Z",
+   "source_updated": "2026-10-22",
+   "http": 200,
+   "error": "",
+   "notes": [],
+   "licence": "Ruokavirasto: materials may be used and linked to with the source named. Use for commercial purposes must be agreed separately with the Finnish Food Authority.",
+   "attribution": "Source: Finnish Food Authority (Ruokavirasto)."
+  }
+ ]
+}

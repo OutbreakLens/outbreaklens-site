@@ -1,0 +1,6 @@
+# local only: caches hold raw responses, including WAHIS and EMPRES-i outbreak points, which are never published
+cache/
+# the ADIS PDFs stay on the machine that runs the pipeline; the parsed weekly JSON next to them is committed
+snapshots/adis/*.pdf
+__pycache__/
+shots/

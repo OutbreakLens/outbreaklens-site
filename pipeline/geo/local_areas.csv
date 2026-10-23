@@ -1,0 +1,175 @@
+iso3,name,admin1,units,lat,lon,method
+GBR,England,England,all 152 units in England,52.60,-1.46,centre of the union of 152 Natural Earth units
+GBR,Scotland,Scotland,all 32 units in Scotland,56.83,-4.17,centre of the union of 32 Natural Earth units
+GBR,Wales,Wales,all 22 units in Wales,52.34,-3.76,centre of the union of 22 Natural Earth units
+GBR,Northern Ireland,Northern Ireland,all 26 units in Northern Ireland,54.61,-6.69,centre of the union of 26 Natural Earth units
+GBR,Bedfordshire,England,Bedford|Central Bedfordshire|Luton,52.07,-0.44,centre of the union of 3 Natural Earth units
+GBR,Berkshire,England,Bracknell Forest|Reading|Royal Borough of Windsor and Maidenhead|Slough|West Berkshire|Wokingham,51.45,-1.07,centre of the union of 6 Natural Earth units
+GBR,Bristol,England,Bristol,51.46,-2.60,Natural Earth label point
+GBR,City of Bristol,England,Bristol,51.46,-2.60,Natural Earth label point
+GBR,Buckinghamshire,England,Buckinghamshire,51.77,-0.81,Natural Earth label point
+GBR,Cambridgeshire,England,Cambridgeshire|Peterborough,52.36,0.01,centre of the union of 2 Natural Earth units
+GBR,Cheshire,England,Cheshire East|Cheshire West and Chester,53.18,-2.51,centre of the union of 2 Natural Earth units
+GBR,Cheshire East,England,Cheshire East,53.24,-2.21,Natural Earth label point
+GBR,Cheshire West and Chester,England,Cheshire West and Chester,53.17,-2.77,Natural Earth label point
+GBR,Cornwall,England,Cornwall,50.44,-4.75,Natural Earth label point
+GBR,Isles of Scilly,England,Isles of Scilly,50.44,-4.75,Natural Earth label point
+GBR,Cumbria,England,Cumbria,54.64,-2.89,Natural Earth label point
+GBR,Cumberland,England,Cumbria,54.64,-2.89,Natural Earth label point
+GBR,Westmorland and Furness,England,Cumbria,54.64,-2.89,Natural Earth label point
+GBR,Derbyshire,England,Derbyshire|Derby,53.12,-1.60,centre of the union of 2 Natural Earth units
+GBR,Devon,England,Devon,50.80,-3.86,Natural Earth label point
+GBR,Plymouth,England,Plymouth,50.40,-4.11,Natural Earth label point
+GBR,Torbay,England,Torbay,50.45,-3.57,Natural Earth label point
+GBR,Dorset,England,Dorset|Bournemouth|Poole,50.81,-2.30,centre of the union of 3 Natural Earth units
+GBR,"Bournemouth, Christchurch and Poole",England,Bournemouth|Poole,50.74,-1.93,centre of the union of 2 Natural Earth units
+GBR,Durham,England,Durham,54.70,-1.80,Natural Earth label point
+GBR,County Durham,England,Durham,54.70,-1.80,Natural Earth label point
+GBR,Darlington,England,Darlington,54.52,-1.54,Natural Earth label point
+GBR,Hartlepool,England,Hartlepool,54.66,-1.28,Natural Earth label point
+GBR,East Riding of Yorkshire,England,East Riding of Yorkshire,53.90,-0.48,Natural Earth label point
+GBR,East Sussex,England,East Sussex|Brighton and Hove,50.94,0.26,centre of the union of 2 Natural Earth units
+GBR,Essex,England,Essex|Southend-on-Sea|Thurrock,51.79,0.55,centre of the union of 3 Natural Earth units
+GBR,Gloucestershire,England,Gloucestershire|South Gloucestershire,51.77,-2.17,centre of the union of 2 Natural Earth units
+GBR,South Gloucestershire,England,South Gloucestershire,51.52,-2.46,Natural Earth label point
+GBR,Greater London,England,Barking and Dagenham|Barnet|Bexley|Brent|Bromley|Camden|City|Croydon|Ealing|Enfield|Greenwich|Hackney|Hammersmith and Fulham|Haringey|Harrow|Havering|Hillingdon|Hounslow|Islington|Kensington and Chelsea|Kingston upon Thames|Lambeth|Lewisham|Merton|Newham|Redbridge|Richmond upon Thames|Southwark|Sutton|Tower Hamlets|Waltham Forest|Wandsworth|Westminster,51.50,-0.10,centre of the union of 33 Natural Earth units
+GBR,London,England,Barking and Dagenham|Barnet|Bexley|Brent|Bromley|Camden|City|Croydon|Ealing|Enfield|Greenwich|Hackney|Hammersmith and Fulham|Haringey|Harrow|Havering|Hillingdon|Hounslow|Islington|Kensington and Chelsea|Kingston upon Thames|Lambeth|Lewisham|Merton|Newham|Redbridge|Richmond upon Thames|Southwark|Sutton|Tower Hamlets|Waltham Forest|Wandsworth|Westminster,51.50,-0.10,centre of the union of 33 Natural Earth units
+GBR,Greater Manchester,England,Bolton|Bury|Manchester|Oldham|Rochdale|Salford|Stockport|Tameside|Trafford|Wigan,53.52,-2.28,centre of the union of 10 Natural Earth units
+GBR,Tameside,England,Tameside,53.46,-2.10,Natural Earth label point
+GBR,Hampshire,England,Hampshire|Portsmouth|Southampton,51.07,-1.28,centre of the union of 3 Natural Earth units
+GBR,Herefordshire,England,Herefordshire,52.08,-2.74,Natural Earth label point
+GBR,Hertfordshire,England,Hertfordshire,51.81,-0.27,Natural Earth label point
+GBR,Isle of Wight,England,Isle of Wight,50.68,-1.32,Natural Earth label point
+GBR,Kent,England,Kent|Medway,51.23,0.73,centre of the union of 2 Natural Earth units
+GBR,Lancashire,England,Lancashire|Blackburn with Darwen|Blackpool,53.84,-2.61,centre of the union of 3 Natural Earth units
+GBR,Leicestershire,England,Leicestershire|Leicester,52.65,-1.10,centre of the union of 2 Natural Earth units
+GBR,Lincolnshire,England,Lincolnshire|North Lincolnshire|North East Lincolnshire,53.18,-0.28,centre of the union of 3 Natural Earth units
+GBR,Merseyside,England,Liverpool|Knowsley|Sefton|Merseyside,53.47,-2.88,centre of the union of 4 Natural Earth units
+GBR,Norfolk,England,Norfolk,52.66,0.95,Natural Earth label point
+GBR,North Yorkshire,England,North Yorkshire|York,54.18,-1.40,centre of the union of 2 Natural Earth units
+GBR,Northamptonshire,England,Northamptonshire,52.31,-0.88,Natural Earth label point
+GBR,North Northamptonshire,England,Northamptonshire,52.31,-0.88,Natural Earth label point
+GBR,West Northamptonshire,England,Northamptonshire,52.31,-0.88,Natural Earth label point
+GBR,Northumberland,England,Northumberland,55.32,-2.07,Natural Earth label point
+GBR,Nottinghamshire,England,Nottinghamshire|Nottingham,53.11,-1.00,centre of the union of 2 Natural Earth units
+GBR,Oxfordshire,England,Oxfordshire,51.79,-1.29,Natural Earth label point
+GBR,Rutland,England,Rutland,52.66,-0.61,Natural Earth label point
+GBR,Shropshire,England,Shropshire|Telford and Wrekin,52.64,-2.70,centre of the union of 2 Natural Earth units
+GBR,Somerset,England,Somerset|Bath and North East Somerset|North Somerset,51.14,-2.89,centre of the union of 3 Natural Earth units
+GBR,North Somerset,England,North Somerset,51.41,-2.79,Natural Earth label point
+GBR,South Yorkshire,England,Barnsley|Doncaster|Rotherham|Sheffield,53.48,-1.32,centre of the union of 4 Natural Earth units
+GBR,Staffordshire,England,Staffordshire|Stoke-on-Trent,52.85,-2.03,centre of the union of 2 Natural Earth units
+GBR,Suffolk,England,Suffolk,52.16,1.06,Natural Earth label point
+GBR,Surrey,England,Surrey,51.26,-0.39,Natural Earth label point
+GBR,Tyne and Wear,England,Gateshead|Newcastle upon Tyne|North Tyneside|South Tyneside|Sunderland,54.95,-1.56,centre of the union of 5 Natural Earth units
+GBR,Warwickshire,England,Warwickshire,52.17,-1.55,Natural Earth label point
+GBR,West Midlands,England,Birmingham|Coventry|Dudley|Sandwell|Solihull|Walsall|Wolverhampton,52.48,-1.87,centre of the union of 7 Natural Earth units
+GBR,West Midlands (Solihull),England,Solihull,52.40,-1.71,Natural Earth label point
+GBR,Solihull,England,Solihull,52.40,-1.71,Natural Earth label point
+GBR,West Sussex,England,West Sussex,50.95,-0.46,Natural Earth label point
+GBR,West Yorkshire,England,Bradford|Calderdale|Kirklees|Leeds|Wakefield,53.74,-1.68,centre of the union of 5 Natural Earth units
+GBR,Wiltshire,England,Wiltshire|Swindon,51.32,-1.93,centre of the union of 2 Natural Earth units
+GBR,Worcestershire,England,Worcestershire,52.21,-2.20,Natural Earth label point
+GBR,Isle of Anglesey,Wales,Anglesey,53.30,-4.38,Natural Earth label point
+GBR,Anglesey,Wales,Anglesey,53.30,-4.38,Natural Earth label point
+GBR,Blaenau Gwent,Wales,Blaenau Gwent,51.77,-3.20,Natural Earth label point
+GBR,Bridgend,Wales,Bridgend,51.54,-3.61,Natural Earth label point
+GBR,Caerphilly,Wales,Caerphilly,51.64,-3.18,Natural Earth label point
+GBR,Cardiff,Wales,Cardiff,51.50,-3.18,Natural Earth label point
+GBR,Carmarthenshire,Wales,Carmarthenshire,51.86,-4.20,Natural Earth label point
+GBR,Ceredigion,Wales,Ceredigion,52.18,-4.18,Natural Earth label point
+GBR,Conwy,Wales,Conwy,53.13,-3.73,Natural Earth label point
+GBR,Denbighshire,Wales,Denbighshire,53.07,-3.34,Natural Earth label point
+GBR,Flintshire,Wales,Flintshire,53.18,-3.15,Natural Earth label point
+GBR,Gwynedd,Wales,Gwynedd,52.85,-3.92,Natural Earth label point
+GBR,Merthyr Tydfil,Wales,Merthyr Tydfil,51.75,-3.36,Natural Earth label point
+GBR,Monmouthshire,Wales,Monmouthshire,51.77,-2.90,Natural Earth label point
+GBR,Neath Port Talbot,Wales,Neath Port Talbot,51.65,-3.74,Natural Earth label point
+GBR,Newport,Wales,Newport,51.59,-2.95,Natural Earth label point
+GBR,Pembrokeshire,Wales,Pembrokeshire,51.66,-4.90,Natural Earth label point
+GBR,Powys,Wales,Powys,52.34,-3.44,Natural Earth label point
+GBR,Rhondda Cynon Taf,Wales,"Rhondda, Cynon, Taff",51.62,-3.41,Natural Earth label point
+GBR,Swansea,Wales,Swansea,51.62,-4.06,Natural Earth label point
+GBR,Torfaen,Wales,Torfaen,51.69,-3.04,Natural Earth label point
+GBR,Vale of Glamorgan,Wales,Vale of Glamorgan,51.45,-3.37,Natural Earth label point
+GBR,Wrexham,Wales,Wrexham,53.02,-3.05,Natural Earth label point
+GBR,Aberdeen City,Scotland,Aberdeen,57.17,-2.20,Natural Earth label point
+GBR,Aberdeenshire,Scotland,Aberdeenshire,57.24,-2.78,Natural Earth label point
+GBR,Angus,Scotland,Angus,56.75,-2.92,Natural Earth label point
+GBR,Argyll and Bute,Scotland,Argyll and Bute,56.23,-5.14,Natural Earth label point
+GBR,Clackmannanshire,Scotland,Clackmannanshire,56.14,-3.71,Natural Earth label point
+GBR,Dumfries and Galloway,Scotland,Dumfries and Galloway,55.10,-4.02,Natural Earth label point
+GBR,Dundee City,Scotland,Dundee,56.49,-2.95,Natural Earth label point
+GBR,East Ayrshire,Scotland,East Ayrshire,55.50,-4.29,Natural Earth label point
+GBR,East Dunbartonshire,Scotland,East Dunbartonshire,55.95,-4.20,Natural Earth label point
+GBR,East Lothian,Scotland,East Lothian,55.95,-2.71,Natural Earth label point
+GBR,East Renfrewshire,Scotland,East Renfrewshire,55.77,-4.37,Natural Earth label point
+GBR,City of Edinburgh,Scotland,Edinburgh,55.91,-3.26,Natural Earth label point
+GBR,Edinburgh,Scotland,Edinburgh,55.91,-3.26,Natural Earth label point
+GBR,Na h-Eileanan Siar,Scotland,Eilean Siar,58.11,-6.75,Natural Earth label point
+GBR,Western Isles,Scotland,Eilean Siar,58.11,-6.75,Natural Earth label point
+GBR,Isle of Lewis,Scotland,Eilean Siar,58.11,-6.75,Natural Earth label point
+GBR,Falkirk,Scotland,Falkirk,55.98,-3.76,Natural Earth label point
+GBR,Fife,Scotland,Fife,56.22,-3.16,Natural Earth label point
+GBR,Glasgow City,Scotland,Glasgow,55.84,-4.21,Natural Earth label point
+GBR,Highland,Scotland,Highland,57.41,-4.81,Natural Earth label point
+GBR,Inverclyde,Scotland,Inverclyde,55.90,-4.74,Natural Earth label point
+GBR,Midlothian,Scotland,Midlothian,55.82,-3.07,Natural Earth label point
+GBR,Moray,Scotland,Moray,57.46,-3.23,Natural Earth label point
+GBR,North Ayrshire,Scotland,North Ayshire,55.71,-4.71,Natural Earth label point
+GBR,North Lanarkshire,Scotland,North Lanarkshire,55.87,-3.94,Natural Earth label point
+GBR,Orkney,Scotland,Orkney,58.97,-3.16,Natural Earth label point
+GBR,Orkney Islands,Scotland,Orkney,58.97,-3.16,Natural Earth label point
+GBR,Perth and Kinross,Scotland,Perthshire and Kinross,56.57,-3.88,Natural Earth label point
+GBR,Renfrewshire,Scotland,Renfrewshire,55.84,-4.55,Natural Earth label point
+GBR,Scottish Borders,Scotland,Scottish Borders,55.49,-2.78,Natural Earth label point
+GBR,Shetland,Scotland,Shetland Islands,60.31,-1.24,Natural Earth label point
+GBR,Shetland Islands,Scotland,Shetland Islands,60.31,-1.24,Natural Earth label point
+GBR,South Ayrshire,Scotland,South Ayrshire,55.23,-4.74,Natural Earth label point
+GBR,South Lanarkshire,Scotland,South Lanarkshire,55.60,-3.83,Natural Earth label point
+GBR,Stirling,Scotland,Stirling,56.22,-4.29,Natural Earth label point
+GBR,West Dunbartonshire,Scotland,West Dunbartonshire,55.99,-4.48,Natural Earth label point
+GBR,West Lothian,Scotland,West Lothian,55.89,-3.61,Natural Earth label point
+IRL,Carlow,,Carlow,52.72,-6.79,Natural Earth label point
+IRL,Cavan,,Cavan,53.96,-7.27,Natural Earth label point
+IRL,Clare,,Clare,52.89,-9.11,Natural Earth label point
+IRL,Cork,,Cork,51.92,-8.83,centre of the union of 2 Natural Earth units
+IRL,Donegal,,Donegal,54.89,-8.03,Natural Earth label point
+IRL,Dublin,,Dublin|Fingal|South Dublin|Dún Laoghaire–Rathdown,53.39,-6.28,centre of the union of 4 Natural Earth units
+IRL,Galway,,Galway,53.36,-8.93,centre of the union of 2 Natural Earth units
+IRL,Kerry,,Kerry,52.12,-9.55,Natural Earth label point
+IRL,Kildare,,Kildare,53.14,-6.80,Natural Earth label point
+IRL,Kilkenny,,Kilkenny,52.58,-7.29,Natural Earth label point
+IRL,Laois,,Laoighis,53.01,-7.33,Natural Earth label point
+IRL,Leitrim,,Leitrim,54.05,-7.99,Natural Earth label point
+IRL,Limerick,,Limerick,52.49,-8.74,centre of the union of 2 Natural Earth units
+IRL,Longford,,Longford,53.72,-7.70,Natural Earth label point
+IRL,Louth,,Louth,53.93,-6.49,Natural Earth label point
+IRL,Mayo,,Mayo,53.90,-9.23,Natural Earth label point
+IRL,Meath,,Meath,53.63,-6.71,Natural Earth label point
+IRL,Monaghan,,Monaghan,54.21,-6.94,Natural Earth label point
+IRL,Offaly,,Offaly,53.26,-7.53,Natural Earth label point
+IRL,Roscommon,,Roscommon,53.77,-8.21,Natural Earth label point
+IRL,Sligo,,Sligo,54.13,-8.49,Natural Earth label point
+IRL,Tipperary,,North Tipperary|South Tipperary,52.64,-7.95,centre of the union of 2 Natural Earth units
+IRL,Waterford,,Waterford,52.17,-7.60,centre of the union of 2 Natural Earth units
+IRL,Westmeath,,Westmeath,53.53,-7.46,Natural Earth label point
+IRL,Wexford,,Wexford,52.44,-6.59,Natural Earth label point
+IRL,Wicklow,,Wicklow,52.99,-6.39,Natural Earth label point
+FIN,Virolahti,Kymenlaakso,Kymenlaakso,60.42,26.58,Natural Earth label point
+FIN,Miehikkälä,Kymenlaakso,Kymenlaakso,60.42,26.58,Natural Earth label point
+FIN,Hamina,Kymenlaakso,Kymenlaakso,60.42,26.58,Natural Earth label point
+FIN,Kotka,Kymenlaakso,Kymenlaakso,60.42,26.58,Natural Earth label point
+FIN,Pyhtää,Kymenlaakso,Kymenlaakso,60.42,26.58,Natural Earth label point
+FIN,Kouvola,Kymenlaakso,Kymenlaakso,60.42,26.58,Natural Earth label point
+FIN,Lappeenranta,South Karelia,South Karelia,61.21,28.56,Natural Earth label point
+FIN,Luumäki,South Karelia,South Karelia,61.21,28.56,Natural Earth label point
+FIN,Imatra,South Karelia,South Karelia,61.21,28.56,Natural Earth label point
+FIN,Lemi,South Karelia,South Karelia,61.21,28.56,Natural Earth label point
+FIN,Taipalsaari,South Karelia,South Karelia,61.21,28.56,Natural Earth label point
+FIN,Savitaipale,South Karelia,South Karelia,61.21,28.56,Natural Earth label point
+FIN,Ruokolahti,South Karelia,South Karelia,61.21,28.56,Natural Earth label point
+FIN,Rautjärvi,South Karelia,South Karelia,61.21,28.56,Natural Earth label point
+FIN,Parikkala,South Karelia,South Karelia,61.21,28.56,Natural Earth label point
+FIN,Loviisa,Uusimaa,Uusimaa,60.42,24.85,Natural Earth label point
+FIN,Porvoo,Uusimaa,Uusimaa,60.42,24.85,Natural Earth label point

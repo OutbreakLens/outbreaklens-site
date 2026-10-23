@@ -1,0 +1,29 @@
+column,type,description,example
+event_id,text,"Unique id: the source's own id where it has one, with a source prefix (wahis-7918, empres-i-UNFAO-..., adis-<week>-<country>-<disease>, govuk-ai-<case ref>, govuk-bt-<season>-<area>, ie-dafm-bt-..., fi-ruokavirasto-asf-...).",wahis-7918
+record_type,event | case | aggregate,event: a WOAH or FAO event; case: one confirmed case from a national page; aggregate: a published total for an area or week.,event
+source,text,Who published the figure.,WOAH WAHIS
+source_url,URL,"Where to check the figure. For WAHIS, the event's page.",https://wahis.woah.org/#/in-event/7918/dashboard
+source_updated,date-time,"When the source last updated the record or page, as the source gives it.",2026-10-20T15:02:50.583+00:00
+fetched_at,date-time (UTC),When OutbreakLens read the source.,2026-10-22T19:32:07Z
+category,slug,"Disease category, as a slug with the label the site uses: bird-flu = HPAI (bird flu); bluetongue = Bluetongue; asf = African swine fever; fmd = Foot-and-mouth disease; sheep-goat-pox = Sheep and goat pox, with peste des petits ruminants; lsd = Lumpy skin disease; newcastle-disease = Newcastle disease; other = Other exotic diseases.",bird-flu
+disease,text,"Disease as the source names it, shortened (WAHIS's '(Inf. with)' removed).",High pathogenicity avian influenza viruses (poultry)
+serotype_or_strain,text,"Serotype, subtype or strain where given.",H5N1
+country_iso3,ISO 3166-1 alpha-3,Country code. Kosovo uses XKX.,GBR
+country_name,text,Country name in GOV.UK style.,United Kingdom
+admin1,text,"First-level area: UK nation, Irish county, Finnish region, or the Natural Earth region elsewhere.",England
+admin2,text,"Second-level area where the record is placed there: UK county or council area, Finnish municipality.",Northumberland
+place_as_published,text,"The place exactly as the source publishes it, at settlement level at most. Blank where the source gives only points or premises detail.","near Belford, North Northumberland, Northumberland"
+place_level,country | admin1 | admin2 | settlement,The level of lat and lon.,admin2
+lat,decimal degrees,"Latitude of the centre of the area at place_level, 2 decimal places. Never a premises.",55.32
+lon,decimal degrees,"Longitude of the centre of the area at place_level, 2 decimal places. Never a premises.",-2.07
+species,text,"Species affected, joined with '; '.",Poultry
+population_type,domestic | wild | mixed,"Kept animals, wild animals or both. Blank when the source does not say.",domestic
+date_start,YYYY-MM-DD,"Event or outbreak start. For aggregates, the start of the period counted.",2026-10-15
+date_confirmed,YYYY-MM-DD,Date of confirmation where given.,2026-10-19
+date_reported,YYYY-MM-DD,"Latest report date. For aggregates, the date the counts run to.",2026-10-20
+outbreaks,whole number,"Outbreaks or affected premises, herds or epidemiological units. WAHIS: all outbreaks in the event's latest report. GOV.UK bluetongue: confirmed cases (premises). DAFM: herd cases.",1
+cases,whole number,"Animals affected, where given. WAHIS: cumulative cases in the latest report. Ruokavirasto: wild boar.",1166
+deaths,whole number,"Animal deaths, where given.",1156
+status,ongoing | resolved | unknown,Event status as the source gives it.,ongoing
+notes,text,"Context: report type, reason, how the place was set, caveats.",
+same_as,text,"Ids of rows from other sources that describe the same event, joined with '; ' (up to 20, then '+N more'). Rows are never merged.",govuk-ai-aiv2026-21

@@ -1,0 +1,158 @@
+{
+ "generated_at": "2026-10-22T22:59:37Z",
+ "window": [
+  "2026-08-03",
+  "2026-10-22"
+ ],
+ "sources": [
+  {
+   "key": "wahis",
+   "name": "WOAH WAHIS",
+   "url": "https://wahis.woah.org/",
+   "status": "live",
+   "rows": 317,
+   "fetched_at": "2026-10-22T22:59:37Z",
+   "source_updated": "2026-10-22T14:38:15.933+00:00",
+   "http": 200,
+   "error": "",
+   "notes": [
+    "425 events in the list since 2026-08-03, 317 in the eight categories",
+    "report detail: 317 from cache, 0 fetched, 0 skipped (fetch budget), 0 failed"
+   ],
+   "licence": "WAHIS Terms of Use and Conditions: viewing, downloading, storing, reproducing, adapting and translating the data are permitted with acknowledgement of WOAH as the source and the WOAH disclaimer.",
+   "attribution": "Source: World Organisation for Animal Health (WOAH), WAHIS. The World Organisation for Animal Health (WOAH) bears no responsibility for the integrity or accuracy of the data contained herein, in particular due, but not limited to, any deletion, manipulation, or reformatting of data that may have occurred beyond its control."
+  },
+  {
+   "key": "govuk_bluetongue",
+   "name": "GOV.UK (Defra and APHA)",
+   "url": "https://www.gov.uk/guidance/bluetongue-latest-situation",
+   "status": "live",
+   "rows": 68,
+   "fetched_at": "2026-10-22T22:59:57Z",
+   "source_updated": "2026-10-22T17:44:50+01:00",
+   "http": 200,
+   "error": "",
+   "notes": [
+    "76 daily notes parsed since 2026-08-03, adding up to 3193 new cases"
+   ],
+   "licence": "Open Government Licence v3.0",
+   "attribution": "Contains public sector information licensed under the Open Government Licence v3.0. Source: GOV.UK, Bluetongue: latest situation."
+  },
+  {
+   "key": "govuk_birdflu",
+   "name": "GOV.UK (Defra and APHA)",
+   "url": "https://www.gov.uk/guidance/bird-flu-avian-influenza-latest-situation-in-england",
+   "status": "live",
+   "rows": 2,
+   "fetched_at": "2026-10-22T22:59:58Z",
+   "source_updated": "2026-10-21T12:04:01+01:00",
+   "http": 200,
+   "error": "",
+   "notes": [
+    "2 cases listed this season; AIPZ or housing order in force: False"
+   ],
+   "licence": "Open Government Licence v3.0",
+   "attribution": "Contains public sector information licensed under the Open Government Licence v3.0. Source: GOV.UK, Bird flu (avian influenza): latest situation in England."
+  },
+  {
+   "key": "adis",
+   "name": "EU ADIS",
+   "url": "https://webgate.ec.europa.eu/tracesnt/adis/public/notification/outbreaks-weekly-report",
+   "status": "live",
+   "rows": 33,
+   "fetched_at": "2026-10-22T22:59:59Z",
+   "source_updated": "2026-10-22",
+   "http": 200,
+   "error": "",
+   "notes": [
+    "week 2026-10-15 to 2026-10-21: 13 matrix rows, 41 summary rows, 33 rows in scope"
+   ],
+   "licence": "European Commission reuse policy (Decision 2011/833/EU): reuse is allowed with appropriate credit and an indication of changes. Commission content is licensed under CC BY 4.0.",
+   "attribution": "Source: European Commission, ADIS weekly outbreak report. © European Union."
+  },
+  {
+   "key": "empres_i",
+   "name": "FAO EMPRES-i",
+   "url": "https://europe-west1-fao-empresi.cloudfunctions.net/getLatestEventsByDate?start_date=2026-08-03&end_date=2026-10-22",
+   "status": "live",
+   "rows": 2286,
+   "fetched_at": "2026-10-22T23:00:01Z",
+   "source_updated": "2026-10-22",
+   "http": 200,
+   "error": "",
+   "notes": [
+    "2999 events returned, 2286 in the eight categories, 713 out of scope, 0 without a country match"
+   ],
+   "licence": "CC BY 4.0, as listed for the dataset 'EMPRES-i: Global Animal Disease Events Dashboard' in the FAO data catalogue. FAO's citation form: FAO. [year]. [dataset]. Accessed on [date]. [URL]. Licence: CC-BY-4.0.",
+   "attribution": "Source: FAO EMPRES-i, Global Animal Disease Events Dashboard (CC BY 4.0)."
+  },
+  {
+   "key": "ie_dafm",
+   "name": "DAFM (gov.ie)",
+   "url": "https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/publications/bluetongue-virus/",
+   "status": "fallback",
+   "rows": 14,
+   "fetched_at": "2026-10-22T23:00:07Z",
+   "source_updated": "2026-10-21",
+   "http": 403,
+   "error": "live page not readable from here (403 Client Error: Forbidden for url: https://www.gov.ie/en/department-of-agriculture-food-and-the-marine/publications/bl); used the WebFetch copy captured 2026-10-22",
+   "notes": [
+    "The page's background section also mentions BTV-3 positive cattle herds in Laois, which is not in the county table."
+   ],
+   "licence": "Irish public sector information, generally re-usable under the PSI Licence (CC BY 4.0). DAFM's own statement could not be read from the container: check it.",
+   "attribution": "Contains Irish Public Sector Information (DAFM, gov.ie)."
+  },
+  {
+   "key": "fi_ruokavirasto",
+   "name": "Ruokavirasto (Finnish Food Authority)",
+   "url": "https://www.ruokavirasto.fi/en/animals/animal-health-and-diseases/animal-diseases/pigs/african-swine-fever-asf/asf-in-finland-2026/asf-cases-in-finland/",
+   "status": "live",
+   "rows": 70,
+   "fetched_at": "2026-10-22T23:00:08Z",
+   "source_updated": "2026-10-22",
+   "http": 200,
+   "error": "",
+   "notes": [],
+   "licence": "Ruokavirasto: materials may be used and linked to with the source named. Use for commercial purposes must be agreed separately with the Finnish Food Authority.",
+   "attribution": "Source: Finnish Food Authority (Ruokavirasto)."
+  }
+ ],
+ "rows_by_source": {
+  "WOAH WAHIS": 317,
+  "GOV.UK (Defra and APHA)": 70,
+  "EU ADIS": 33,
+  "FAO EMPRES-i": 2286,
+  "DAFM (gov.ie)": 14,
+  "Ruokavirasto (Finnish Food Authority)": 70
+ },
+ "rows_by_category": {
+  "bird-flu": 615,
+  "bluetongue": 179,
+  "asf": 1289,
+  "fmd": 222,
+  "sheep-goat-pox": 198,
+  "lsd": 95,
+  "newcastle-disease": 43,
+  "other": 149
+ },
+ "rows_total": 2790,
+ "duplicates_removed": 0,
+ "same_as_links": {
+  "R1 reference": 2,
+  "R2 point": 1844,
+  "R3 week": 46,
+  "R4 national": 220,
+  "R5 national": 19
+ },
+ "rows_held_for_review": 0,
+ "validation_issues": [],
+ "validation_issue_count": 0,
+ "map_features_by_source": {
+  "WOAH WAHIS": 403,
+  "FAO EMPRES-i": 86,
+  "EU ADIS": 9,
+  "GOV.UK": 66,
+  "DAFM": 14,
+  "Ruokavirasto": 2
+ }
+}

@@ -2,7 +2,7 @@ name: Deploy website to Cloudflare Pages
 
 on:
   push:
-    branches: [main]
+    branches: ['**']
   workflow_dispatch:
 
 jobs:
@@ -25,10 +25,12 @@ jobs:
             echo "CLOUDFLARE_API_TOKEN is not set in the repository secrets, so the deploy step is skipped."
           fi
 
+      # main deploys to production (outbreaklens.com). Any other branch deploys a
+      # preview at https://<branch>.outbreaklens.pages.dev and leaves production alone.
       - name: Deploy website/ to the Pages project outbreaklens
         if: steps.token.outputs.present == 'true'
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: 9225fa26913cdf58e48597a533972035
-          command: pages deploy website --project-name=outbreaklens --branch=main --commit-dirty=true
+          command: pages deploy website --project-name=outbreaklens --branch=${{ github.ref_name }} --commit-dirty=true

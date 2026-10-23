@@ -1,0 +1,342 @@
+{
+ "updated": "2026-10-22T17:44:50+01:00",
+ "fetched_at": "2026-10-22T22:59:57Z",
+ "season": "2026 to 2027",
+ "counts_to": "2026-10-21",
+ "uk_total": 3441,
+ "nations": {
+  "England": 2895,
+  "Wales": 492,
+  "Scotland": 54,
+  "Northern Ireland": 0
+ },
+ "areas": {
+  "England": [
+   [
+    "Berkshire",
+    2,
+    0
+   ],
+   [
+    "Bristol",
+    1,
+    0
+   ],
+   [
+    "Buckinghamshire",
+    1,
+    0
+   ],
+   [
+    "Cheshire",
+    55,
+    0
+   ],
+   [
+    "Cornwall",
+    369,
+    1
+   ],
+   [
+    "Cumbria",
+    81,
+    0
+   ],
+   [
+    "Derbyshire",
+    55,
+    0
+   ],
+   [
+    "Devon",
+    1290,
+    1
+   ],
+   [
+    "Dorset",
+    75,
+    0
+   ],
+   [
+    "Durham",
+    2,
+    0
+   ],
+   [
+    "East Riding of Yorkshire",
+    7,
+    0
+   ],
+   [
+    "Gloucestershire",
+    18,
+    0
+   ],
+   [
+    "Greater Manchester",
+    15,
+    0
+   ],
+   [
+    "Hampshire",
+    6,
+    0
+   ],
+   [
+    "Herefordshire",
+    25,
+    0
+   ],
+   [
+    "Isle of Wight",
+    4,
+    0
+   ],
+   [
+    "Kent",
+    1,
+    0
+   ],
+   [
+    "Lancashire",
+    232,
+    1
+   ],
+   [
+    "Leicestershire",
+    12,
+    0
+   ],
+   [
+    "Lincolnshire",
+    3,
+    0
+   ],
+   [
+    "Merseyside",
+    3,
+    0
+   ],
+   [
+    "Norfolk",
+    2,
+    0
+   ],
+   [
+    "North Yorkshire",
+    82,
+    0
+   ],
+   [
+    "Northamptonshire",
+    2,
+    0
+   ],
+   [
+    "Northumberland",
+    3,
+    0
+   ],
+   [
+    "Nottinghamshire",
+    3,
+    0
+   ],
+   [
+    "Oxfordshire",
+    3,
+    0
+   ],
+   [
+    "Rutland",
+    2,
+    0
+   ],
+   [
+    "Shropshire",
+    30,
+    0
+   ],
+   [
+    "Somerset",
+    350,
+    0
+   ],
+   [
+    "South Yorkshire",
+    3,
+    0
+   ],
+   [
+    "Staffordshire",
+    91,
+    1
+   ],
+   [
+    "Warwickshire",
+    4,
+    0
+   ],
+   [
+    "West Midlands (Solihull)",
+    1,
+    0
+   ],
+   [
+    "West Yorkshire",
+    27,
+    1
+   ],
+   [
+    "Wiltshire",
+    28,
+    0
+   ],
+   [
+    "Worcestershire",
+    7,
+    0
+   ]
+  ],
+  "Wales": [
+   [
+    "Bridgend (Peny bont ar Ogwr)",
+    14,
+    0
+   ],
+   [
+    "Caerphilly (Caerffili)",
+    7,
+    0
+   ],
+   [
+    "Cardiff (Caerdydd)",
+    2,
+    0
+   ],
+   [
+    "Carmarthenshire (Sir Gaerfyrddin)",
+    83,
+    0
+   ],
+   [
+    "Ceredigion (Sir Ceredigion)",
+    36,
+    0
+   ],
+   [
+    "Conwy (Conwy)",
+    21,
+    0
+   ],
+   [
+    "Denbighshire (Sir Ddinbych)",
+    14,
+    0
+   ],
+   [
+    "Flintshire (Sir y Fflint)",
+    7,
+    0
+   ],
+   [
+    "Gwynedd (Gwynedd)",
+    42,
+    0
+   ],
+   [
+    "Isle of Anglesey (Sir Ynys Mon)",
+    5,
+    0
+   ],
+   [
+    "Merthyr Tydfil (Merthyr Tydful)",
+    1,
+    0
+   ],
+   [
+    "Monmouthshire (Sir Fynwy)",
+    22,
+    0
+   ],
+   [
+    "Neath Port Talbot (Castell need Port Talbot)",
+    18,
+    0
+   ],
+   [
+    "Pembrokeshire (Sir Benfro)",
+    72,
+    0
+   ],
+   [
+    "Powys (Powys)",
+    82,
+    0
+   ],
+   [
+    "Rhondda Cynon Taf (Rhondda Cynon Taf)",
+    17,
+    0
+   ],
+   [
+    "Swansea (Abertawe)",
+    19,
+    0
+   ],
+   [
+    "Torfaen (Tor-faen)",
+    2,
+    0
+   ],
+   [
+    "Vale of Glamorgan (Bro Morgannwg)",
+    23,
+    0
+   ],
+   [
+    "Wrexham (Wrecsam)",
+    5,
+    0
+   ]
+  ],
+  "Scotland": [
+   [
+    "Aberdeenshire",
+    5,
+    0
+   ],
+   [
+    "Angus",
+    1,
+    0
+   ],
+   [
+    "Dumfries and Galloway",
+    44,
+    0
+   ],
+   [
+    "Moray",
+    1,
+    0
+   ],
+   [
+    "South Ayrshire",
+    1,
+    0
+   ],
+   [
+    "Scottish Borders",
+    1,
+    0
+   ],
+   [
+    "South Lanarkshire",
+    1,
+    0
+   ]
+  ]
+ },
+ "under_investigation": 46
+}

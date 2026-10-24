@@ -1057,7 +1057,7 @@ def page(title, active, body, desc="Accessible weekly animal-disease intelligenc
     explore = "".join('<li><a href="%s">%s</a></li>' % (h, t) for h, t in
                       [("weekly.html", "Weekly reports"), ("watch.html", "Short videos"), ("map.html", "Map"),
                        ("analytics.html", "Numbers"), ("data.html", "Open data"), ("sources.html", "Sources"),
-                       ("about.html", "About")])
+                       ("about.html", "About"), ("app.html", "Get the app")])
     # platform icons: official monochrome logos from the Simple Icons CDN, never redrawn here.
     # alt is empty because the platform name sits next to each icon as link text.
     follow = '<li><a class="plat" href="subscribe.html">%sNewsletter</a></li>' % ICON_MAIL + "".join(
@@ -1088,7 +1088,7 @@ def page(title, active, body, desc="Accessible weekly animal-disease intelligenc
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles.css?v={CSS_VER}">{head}
-{ICON_LINKS}
+{ICON_LINKS}{APP_HEAD}
 {ld_json(ld)}
 </head><body>
 <a class="skip" href="#main">Skip to main content</a>
@@ -1108,7 +1108,7 @@ def page(title, active, body, desc="Accessible weekly animal-disease intelligenc
 </div>
 <p class="disclaimer">{DISCLAIMER}</p>
 <p class="copyright">&copy; {YEAR} OutbreakLens</p>
-</div></footer>{beacon}</body></html>"""
+</div></footer>{beacon}{SW_REGISTER}</body></html>"""
     if path == "404.html":
         return _relink(html, "/")
     return _relink(html, "../" * path.count("/")) if "/" in path else html
@@ -1176,12 +1176,23 @@ def write(name, html):
 # favicons and share image: copied from brand/final next to this script when it is there
 BRAND_FILES = (("favicon.svg", "favicon.svg"), ("favicon.ico", "favicon.ico"), ("favicon-32.png", "favicon-32.png"),
                ("favicon-180.png", "favicon-180.png"), ("social-1200x630.png", "og.png"),
-               ("logo-1024-paper.png", "logo-1024.png"))
+               ("logo-1024-paper.png", "logo-1024.png"),
+               ("icon-192.png", "icon-192.png"), ("icon-512.png", "icon-512.png"))   # app icons (24 Oct 2026)
 copied = []
 for src, dst in BRAND_FILES:
     if os.path.exists(os.path.join(BRAND_DIR, src)):
         shutil.copy(os.path.join(BRAND_DIR, src), os.path.join(ASSETS, dst))
         copied.append(dst)
+for _size in (192, 512):   # app icons: made from the avatar if brand/final has no icon files yet
+    _name = "icon-%d.png" % _size
+    if _name not in copied and os.path.exists(os.path.join(BRAND_DIR, "avatar-800.png")):
+        try:
+            from PIL import Image
+            Image.open(os.path.join(BRAND_DIR, "avatar-800.png")).convert("RGB").resize(
+                (_size, _size), Image.LANCZOS).save(os.path.join(ASSETS, _name), optimize=True)
+            copied.append(_name)
+        except Exception as _e:
+            print("app icon %s not made: %s" % (_name, _e))
 print("brand files:", ", ".join(copied) if copied else "none in %s, using the generated favicon" % BRAND_DIR)
 if "favicon.svg" not in copied:   # fallback: the generated ring favicon
     write(os.path.join("assets", "favicon.svg"),
@@ -1196,6 +1207,14 @@ if "favicon.ico" in copied:
     ICON_LINKS += '<link rel="icon" href="assets/favicon.ico" sizes="any">'
 if "favicon-180.png" in copied:
     ICON_LINKS += '<link rel="apple-touch-icon" href="assets/favicon-180.png">'
+# installable web app (24 Oct 2026): the manifest, the home-screen tags for iPhone and Android, and the
+# service worker that keeps the last pages, map data and tiles for use without a signal (see sw.js below)
+APP_HEAD = ('<link rel="manifest" href="/manifest.webmanifest">'
+            '<meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">'
+            '<meta name="apple-mobile-web-app-title" content="OutbreakLens">'
+            '<meta name="apple-mobile-web-app-status-bar-style" content="default">')
+SW_REGISTER = ("<script>if('serviceWorker' in navigator){addEventListener('load',function(){"
+               "navigator.serviceWorker.register('/sw.js').catch(function(){});});}</script>")
 if "og.png" in copied:   # share scrapers need an absolute image address
     SHARE_META = ('<meta property="og:image" content="%s/assets/og.png"><meta property="og:image:width" content="1200">'
                   '<meta property="og:image:height" content="630"><meta property="og:image:alt" content="OutbreakLens. '
@@ -2901,6 +2920,188 @@ for s in SHORTS:
              "inLanguage": "en-GB", "publisher": {"@id": SITE_URL + "/#organization"}}
     write(s["page"], page(title, "watch.html", body, escape(s["meta"]), path=s["page"], ld=video))
 
+# ---------- installable web app (24 Oct 2026, Andrew: "is there scope to create an app right away?") ----------
+# Not an app-store app: the site itself installs to a home screen ("Add to Home Screen" on iPhone, "Install app"
+# on Android and desktop Chrome), opens on the live map and keeps what it last loaded for use without a signal.
+APP_DESC = ("Live map of official animal-disease reports, with a weekly summary. Public data in plain English. "
+            "Not veterinary, trade or official advice.")
+write("manifest.webmanifest", json.dumps({
+    "id": "/", "name": "OutbreakLens", "short_name": "OutbreakLens", "description": APP_DESC,
+    "start_url": "/map", "scope": "/", "display": "standalone", "orientation": "any",
+    "background_color": "#FAF7F1", "theme_color": "#1F3864", "lang": "en-GB", "dir": "ltr",
+    "categories": ["news", "education"],
+    "icons": [{"src": "/assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+              {"src": "/assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+              {"src": "/assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}],
+    "shortcuts": [{"name": "Live map", "url": "/map"}, {"name": "Weekly reports", "url": "/weekly"},
+                  {"name": "Numbers", "url": "/analytics"}],
+}, ensure_ascii=False, indent=1) + "\n")
+
+MAP_JS_URL = "/assets/map.js?v=" + hashlib.sha256(MAP_JS.encode()).hexdigest()[:8]
+SW_VERSION = hashlib.sha256((CSS + MAP_JS + NUMBERS_JS + TODAY.isoformat()).encode("utf-8")).hexdigest()[:8]
+SW_JS = r"""/* OutbreakLens service worker (built %(today)s). It makes the site installable and keeps the last pages,
+   map data and map tiles it loaded, so the app still opens without a signal. To switch it off, replace this
+   file with one that calls self.registration.unregister() and deploy. */
+const VERSION = 'ol-%(ver)s';
+const CORE = VERSION + '-core', PAGES = VERSION + '-pages', STATIC = VERSION + '-static';
+const DATA = 'ol-data', TILES = 'ol-tiles';
+const PRECACHE = %(precache)s;
+const OPTIONAL = %(optional)s;
+const TILE_HOSTS = ['tiles.openfreemap.org'];
+const STATIC_HOSTS = ['cdnjs.cloudflare.com', 'fonts.googleapis.com', 'fonts.gstatic.com'];
+const MAX_TILES = 600, MAX_PAGES = 40;
+
+self.addEventListener('install', (event) => {
+  event.waitUntil(caches.open(CORE)
+    .then((c) => c.addAll(PRECACHE).then(() => c.addAll(OPTIONAL).catch(() => null)))
+    .then(() => self.skipWaiting()));
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(caches.keys()
+    .then((keys) => Promise.all(keys
+      .filter((k) => k.startsWith('ol-') && !k.startsWith(VERSION) && k !== DATA && k !== TILES)
+      .map((k) => caches.delete(k))))
+    .then(() => self.clients.claim()));
+});
+
+function cacheable(res) { return res && res.ok && !res.redirected && (res.type === 'basic' || res.type === 'cors'); }
+
+// Cloudflare Pages serves /map for map.html and redirects /map.html to /map, so a page can sit in the cache
+// under either address. A redirected response can't answer a navigation, so it is rebuilt as a plain one.
+function clean(res) {
+  if (!res || !res.redirected) { return res; }
+  return res.blob().then((body) => new Response(body, { status: res.status, statusText: res.statusText, headers: res.headers }));
+}
+function otherAddress(url) {
+  const u = new URL(url);
+  if (u.pathname.endsWith('/index.html')) { u.pathname = u.pathname.slice(0, -10); }
+  else if (u.pathname.endsWith('.html')) { u.pathname = u.pathname.slice(0, -5); }
+  else if (!/\.[a-z0-9]+$/i.test(u.pathname) && !u.pathname.endsWith('/')) { u.pathname += '.html'; }
+  else { return null; }
+  u.search = '';
+  return u.href;
+}
+
+function keep(event, promise) { try { event.waitUntil(promise); } catch (e) { /* the event has ended */ } }
+
+async function trim(name, max) {
+  const cache = await caches.open(name);
+  const keys = await cache.keys();
+  for (let i = 0; i < keys.length - max; i++) { await cache.delete(keys[i]); }
+}
+
+// Network first: fresh when online, the last copy when not. With a timeout, a slow network falls back to the
+// last copy if there is one, otherwise it keeps waiting. Pages with nothing cached get the offline page.
+async function networkFirst(event, req, name, timeoutMs, fallbackUrl) {
+  const cache = await caches.open(name);
+  const network = fetch(req).then((res) => {
+    if (cacheable(res)) {
+      const copy = res.clone();
+      keep(event, cache.put(req, copy).then(() => (name === PAGES ? trim(PAGES, MAX_PAGES) : null)));
+    }
+    return res;
+  });
+  network.catch(() => null);
+  const lastCopy = async () => {
+    const nav = req.mode === 'navigate';
+    let hit = await caches.match(req, { ignoreSearch: nav });
+    if (!hit && nav) { const alt = otherAddress(req.url); if (alt) { hit = await caches.match(alt, { ignoreSearch: true }); } }
+    return clean(hit);
+  };
+  const offline = async (err) => {
+    if (fallbackUrl) { const page = await caches.match(fallbackUrl); if (page) { return clean(page); } }
+    throw err;
+  };
+  if (timeoutMs) {
+    const timer = new Promise((resolve) => setTimeout(resolve, timeoutMs, 'timeout'));
+    const first = await Promise.race([network.catch(() => 'error'), timer]);
+    if (first !== 'timeout' && first !== 'error') { return first; }
+    const hit = await lastCopy();
+    if (hit) { return hit; }
+  }
+  try { return await network; } catch (err) {
+    const hit = await lastCopy();
+    if (hit) { return hit; }
+    return offline(err);
+  }
+}
+
+// Stale while revalidate: answer from the cache at once and refresh it in the background.
+async function staleWhileRevalidate(event, req, name, max) {
+  const cache = await caches.open(name);
+  const hit = await cache.match(req);
+  const network = fetch(req).then((res) => {
+    if (cacheable(res)) {
+      const copy = res.clone();
+      keep(event, cache.put(req, copy).then(() => (max ? trim(name, max) : null)));
+    }
+    return res;
+  }).catch(() => null);
+  if (hit) { keep(event, network); return hit; }
+  const res = await network;
+  return res || Response.error();
+}
+
+self.addEventListener('fetch', (event) => {
+  const req = event.request;
+  if (req.method !== 'GET' || req.headers.has('range')) { return; }
+  const url = new URL(req.url);
+  if (url.origin === self.location.origin) {
+    if (url.pathname === '/sw.js') { return; }
+    if (req.mode === 'navigate') {
+      if (/\.(csv|zip|pdf|xlsx?)$/i.test(url.pathname)) { return; }
+      event.respondWith(networkFirst(event, req, PAGES, 4000, '/offline'));
+      return;
+    }
+    if (/^\/assets\/data\/.+\.(json|geojson)$/.test(url.pathname)) {
+      event.respondWith(networkFirst(event, req, DATA, 0, null));
+      return;
+    }
+    if (/\.(css|js|png|svg|ico|jpe?g|webp|woff2?)$/i.test(url.pathname) || url.pathname === '/manifest.webmanifest') {
+      event.respondWith(staleWhileRevalidate(event, req, STATIC, 0));
+    }
+    return;
+  }
+  if (TILE_HOSTS.includes(url.hostname)) { event.respondWith(staleWhileRevalidate(event, req, TILES, MAX_TILES)); return; }
+  if (STATIC_HOSTS.includes(url.hostname)) { event.respondWith(staleWhileRevalidate(event, req, STATIC, 0)); }
+});
+""" % {"today": TODAY.isoformat(), "ver": SW_VERSION,
+       "precache": json.dumps(["/offline", "/assets/styles.css?v=" + CSS_VER, "/assets/favicon.svg",
+                               "/assets/icon-192.png"]),
+       "optional": json.dumps(["/map", MAP_JS_URL, "/assets/data/map.geojson"])}
+write("sw.js", SW_JS)
+
+write("offline.html", page("Offline", "map.html", page_head("You&#39;re offline",
+    "Pages you have opened before still work, including the map with the last data it loaded. "
+    "Reconnect for the latest figures.") + """
+<section class="section"><div class="wrap"><div class="actions">
+<a class="btn btn-primary" href="map.html">Open the map</a><a class="btn btn-outline" href="weekly.html">Weekly reports</a>
+</div></div></section>""", "OutbreakLens works offline with the last data it loaded.", path="offline.html", index=False))
+
+APP_INSTALL_JS = ("<script>(function(){var p=null,r=document.getElementById('install-row'),"
+                  "b=document.getElementById('install-btn');if(!r||!b)return;"
+                  "addEventListener('beforeinstallprompt',function(e){e.preventDefault();p=e;r.style.display='block';});"
+                  "b.addEventListener('click',function(){if(!p)return;p.prompt();p.userChoice.then(function(){p=null;"
+                  "r.style.display='none';});});addEventListener('appinstalled',function(){r.style.display='none';});"
+                  "})();</script>")
+app_body = page_head("Get the OutbreakLens app",
+    "The live map on your home screen. It opens straight on the map, keeps the last data you loaded for when "
+    "there is no signal, and it is free.", "No app store, no account") + f"""
+<section class="section"><div class="wrap"><div class="prose">
+<p id="install-row" style="display:none"><button type="button" class="btn btn-primary" id="install-btn">Install OutbreakLens</button></p>
+<h2>iPhone and iPad</h2>
+<ol><li>Open outbreaklens.com in Safari.</li><li>Tap the Share button.</li><li>Tap &ldquo;Add to Home Screen&rdquo;, then &ldquo;Add&rdquo;.</li></ol>
+<h2>Android</h2>
+<ol><li>Open outbreaklens.com in Chrome.</li><li>Tap the menu (three dots).</li><li>Tap &ldquo;Install app&rdquo; or &ldquo;Add to Home screen&rdquo;.</li></ol>
+<h2>Computer</h2>
+<p>In Chrome or Edge, click the install icon at the right of the address bar.</p>
+<p class="note">The app is this website, so it updates itself. Every figure links to its official source. {escape(DISCLAIMER)}</p>
+<div class="actions"><a class="btn btn-outline" href="map.html">Open the map</a>{email_btn}</div>
+</div></div></section>{APP_INSTALL_JS}"""
+write("app.html", page("Get the app", "app.html", app_body,
+      "Install OutbreakLens on your phone: the live animal-disease map on your home screen, free, no app store."))
+
 # Cloudflare niceties
 write("_redirects", "/  /index.html  200\n")
 write("404.html", page("Not found", "index.html", page_head("Page not found",
@@ -2919,7 +3120,10 @@ write("robots.txt", "User-agent: *\nAllow: /\n\nSitemap: %s/sitemap.xml\n" % SIT
 BLUESKY_DID = "did:plc:mpvc7sixlzbiwtxe4ypwbpag"
 os.makedirs(os.path.join(SITE, ".well-known"), exist_ok=True)
 write(".well-known/atproto-did", BLUESKY_DID)
-write("_headers", "/.well-known/atproto-did\n  Content-Type: text/plain; charset=utf-8\n  Access-Control-Allow-Origin: *\n")
+write("_headers", "/.well-known/atproto-did\n  Content-Type: text/plain; charset=utf-8\n  Access-Control-Allow-Origin: *\n"
+      # the app's service worker must never be cached by the browser, or updates stall (24 Oct 2026)
+      "/sw.js\n  Cache-Control: no-cache\n  Content-Type: text/javascript; charset=utf-8\n"
+      "/manifest.webmanifest\n  Content-Type: application/manifest+json; charset=utf-8\n  Cache-Control: max-age=3600\n")
 
 print("built site ->", SITE)
 print("pages:", sorted(f for f in os.listdir(SITE) if f.endswith(".html")) + [s["page"] for s in SHORTS])

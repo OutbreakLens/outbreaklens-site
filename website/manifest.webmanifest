@@ -1,0 +1,52 @@
+{
+ "id": "/",
+ "name": "OutbreakLens",
+ "short_name": "OutbreakLens",
+ "description": "Live map of official animal-disease reports, with a weekly summary. Public data in plain English. Not veterinary, trade or official advice.",
+ "start_url": "/map",
+ "scope": "/",
+ "display": "standalone",
+ "orientation": "any",
+ "background_color": "#FAF7F1",
+ "theme_color": "#1F3864",
+ "lang": "en-GB",
+ "dir": "ltr",
+ "categories": [
+  "news",
+  "education"
+ ],
+ "icons": [
+  {
+   "src": "/assets/icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "/assets/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "/assets/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ],
+ "shortcuts": [
+  {
+   "name": "Live map",
+   "url": "/map"
+  },
+  {
+   "name": "Weekly reports",
+   "url": "/weekly"
+  },
+  {
+   "name": "Numbers",
+   "url": "/analytics"
+  }
+ ]
+}
